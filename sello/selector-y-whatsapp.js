@@ -1,5 +1,5 @@
 !function(){var d=document,f=d.querySelector('#single-product .js-product-form'),q=f&&f.querySelector('input[name=quantity]'),pd=d.getElementById('price_display');
-if(q&&!d.getElementById('dn-wa')){[].forEach.call(d.querySelectorAll('.utilities-container a[href*="wa.me"]'),function(a){var n=(d.querySelector('#single-product h1')||{}).textContent||'';n=n.split(' - ')[0].trim();if(n){a.id='dn-wa';a.href=a.href.split('?')[0]+'?text='+encodeURIComponent('Hola! Tengo una consulta sobre el '+n+' '+location.origin+location.pathname)}})}
+if(q&&!d.getElementById('dn-wa')){[].forEach.call(d.querySelectorAll('.utilities-container a[href*="wa.me"]'),function(a){var n=(d.querySelector('#single-product h1')||{}).textContent||'';n=n.split(' - ')[0].trim();if(n){a.id='dn-wa';a.href=a.href.split('?')[0]+'?text='+encodeURIComponent('Hola! Tengo una consulta sobre: '+n+' '+location.origin+location.pathname)}})}
 if(!q||!pd||!d.querySelector('.dn-lp')||d.getElementById('dn-sel'))return;
 var v={};try{v=JSON.parse(d.querySelector('[data-variants]').getAttribute('data-variants'))[0]}catch(e){}
 if(v.stock!=null&&v.stock<2)return;
