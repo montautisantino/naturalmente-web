@@ -6,7 +6,7 @@ var bs=d.createElement('style');bs.textContent='a#dn-bkt{display:inline-flex;ali
 if(/\btemplate-product\b/.test(c)&&!d.getElementById('dn-bkt')){var sp=d.getElementById('single-product');if(sp){var bt=d.createElement('a');bt.id='dn-bkt';bt.href='/productos/';bt.innerHTML='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>VOLVER';bt.setAttribute('aria-label','Volver a la Tienda');sp.parentNode.insertBefore(bt,sp)}}
 var n=0;(function run(){
 /* Media: "Volver a la tienda" pasa a "Volver al inicio" */
-var bk=d.getElementById('dn-hback');if(bk&&!bk.getAttribute('data-dnh')){bk.setAttribute('data-dnh','1');bk.setAttribute('aria-label','Volver al inicio');bk.href='/';var sp=bk.querySelectorAll('span');if(sp.length)sp[sp.length-1].textContent='Volver al inicio'}
+var bk=d.getElementById('dn-hback');if(bk&&!bk.getAttribute('data-dnh')){bk.setAttribute('data-dnh','1');bk.setAttribute('aria-label','Volver al Feed');bk.href='/';var sp=bk.querySelectorAll('span');if(sp.length)sp[sp.length-1].textContent='Volver al Feed'}
 /* Tienda, categorías, búsqueda y productos: el botón Videos se reemplaza por Tienda */
 var v=d.getElementById('dn-hvid');
 if((shop||home)&&v&&!d.getElementById('dn-htie')){v.style.setProperty('display','none','important');var a=d.createElement('a');a.id='dn-htie';a.href='/productos/';a.setAttribute('aria-label','Ir a la tienda');a.innerHTML=BAG+'Tienda';
