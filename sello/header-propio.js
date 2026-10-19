@@ -30,6 +30,17 @@ var css='header.dnh{background:rgba(255,255,255,.97)!important;-webkit-backdrop-
 '@media(max-width:360px){#dnh .pl{padding:0 9px;font-size:11.5px}#dnh .pl span{display:none}}'+
 '@media(min-width:768px){#dnh{padding:12px 24px}#dnh .r1{height:56px;gap:12px}#dnh #logo img{height:60px!important;max-height:60px}#dnh .r2{display:none}#dnh .dsk{flex:1;max-width:560px;margin:0 8px}#dnh .dsk form{width:100%}#dnh .pl{height:40px;padding:0 15px;font-size:13.5px}#dnh .ic,#dnh #ajax-cart,#dnh #ajax-cart>a{width:46px!important;height:46px!important;flex-basis:46px}}'+
 '@media(min-width:768px){header.dnh .js-menu-and-banners-row{border-top:1px solid rgba(29,74,42,.07)}}';
+/* Naturalmente Media: mismo header con piel oscura y barra de secciones */
+css+='header.dnh.dnmd{background:rgba(13,26,18,.97)!important;border-bottom:1px solid rgba(255,255,255,.07)}header.dnh.dnmd.sc{box-shadow:0 10px 28px rgba(0,0,0,.4)}'+
+'.dnmd #dnh .mb{background:rgba(255,255,255,.07);border:1px solid rgba(244,201,93,.4);box-shadow:none}.dnmd #dnh #logo img{filter:brightness(0) invert(1)}'+
+'.dnmd #dnh .ic{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff!important}.dnmd #dnh .ic.fv{color:#ff8fa0!important}.dnmd #dnh .ic.fv b{border-color:#0d1a12}'+
+'.dnmd #dnh #ajax-cart>a{background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326)!important;color:#10281a!important}.dnmd #dnh #ajax-cart .js-cart-widget-amount{background:#fff!important;color:#10281a!important;border-color:#0d1a12}'+
+'.dnmd #dnh .pl.md,.dnmd #dnh .pl.hm{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.14);color:#fff!important}'+
+'.dnmd #dnh .dnf{background:rgba(255,255,255,.07)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:none!important}.dnmd #dnh .dnf:focus-within{border-color:#e0a326!important;box-shadow:0 0 0 4px rgba(224,163,38,.18)!important}'+
+'.dnmd #dnh .dnf-l{color:rgba(255,255,255,.55)}.dnmd #dnh .dnf-i{color:#fff!important}.dnmd #dnh .dnf-ph{color:rgba(255,255,255,.55)}.dnmd #dnh .dnf-b{background:#e0a326!important;color:#10281a!important}'+
+'#dnh .r3{display:flex;align-items:center;gap:10px;padding:0 0 10px}#dnh .r3 .mk{flex:0 0 auto;display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:8px;background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326);color:#10281a!important;font:900 11px/1 Archivo,Arial,sans-serif;letter-spacing:.2em;text-decoration:none!important}'+
+'#dnh .r3 nav{flex:1 1 auto;min-width:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}#dnh .r3 nav::-webkit-scrollbar{display:none}#dnh .r3 nav a{flex:0 0 auto;padding:8px 13px;border-radius:999px;color:rgba(255,255,255,.72)!important;font:800 13.5px/1 Archivo,Arial,sans-serif;text-decoration:none!important;white-space:nowrap}'+
+'#dnh .r3 nav a.on{background:rgba(244,201,93,.14);color:#f4c95d!important;box-shadow:inset 0 0 0 1px rgba(244,201,93,.45)}html.dnmd3 .dn-media .dm-back,html.dnmd3 .dn-media .dmx-top,html.dnmd3 .nt-bk{display:none!important}';
 var st=d.createElement('style');st.id='dnh-css';st.textContent=css;d.head.appendChild(st);
 /* armado */
 var W=d.createElement('div');W.id='dnh';W.innerHTML='<div class="r1"></div><div class="r2"></div>';var r1=W.firstChild,r2=W.lastChild;
@@ -43,6 +54,7 @@ var lg=window.LS&&LS.customer;var ac=d.createElement('a');ac.className='ic ac';a
 r1.appendChild(cart);
 if(mob){if(bkP)r2.appendChild(BK());r2.appendChild(SF(bkP?'Buscar productos':0))}else r2.remove();
 H.insertBefore(W,H.firstChild);H.classList.add('dnh');
+if(media){H.classList.add('dnmd');d.documentElement.classList.add('dnmd');var Q=location.search,sec=/[?&](videos|ep=)/.test(Q)?'v':/[?&](escritos|nota=)/.test(Q)?'e':'';if(sec){var r3=d.createElement('div');r3.className='r3';r3.innerHTML='<a class="mk" href="/naturalmente-media/" aria-label="Naturalmente Media">MEDIA</a><nav aria-label="Secciones de Naturalmente Media"><a href="/naturalmente-media/">Inicio</a><a href="/naturalmente-media/?videos"'+(sec==='v'?' class="on"':'')+'>Videos</a><a href="/naturalmente-media/?escritos"'+(sec==='e'?' class="on"':'')+'>Escritos</a></nav>';W.appendChild(r3);d.documentElement.classList.add('dnmd3')}}
 /* logo: se recorta el margen transparente de la imagen y el dibujo toma el alto de los botones (o lo máximo que entre) */
 (function(){var im=logo.querySelector('img'),wa=logo.querySelector('a')||logo;if(!im||!window.HTMLCanvasElement)return;var cf=null;
 function sp(e,k,v){e.style.setProperty(k,v,'important')}
