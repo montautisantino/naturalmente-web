@@ -98,7 +98,8 @@ var BD={'#dn-sub':function(){return band('hb-sub')},
 '#dn-not':function(){var b=d.getElementById('hb-not');if(b)return b;b=band('hb-not','hb-w');leaves(b,'c9a96a',['right:-30px;top:20px;width:110px;height:110px;opacity:.18;--r:30deg','left:-36px;bottom:30px;width:90px;height:90px;opacity:.14;--r:-140deg']);return b},
 '#dn-qzc':function(){var b=d.getElementById('hb-qzc');if(b)return b;b=band('hb-qzc','hb-w');[['12%','18%','0s'],['86%','24%','.8s'],['70%','80%','1.6s'],['24%','78%','1.2s']].forEach(function(p){var s=d.createElement('span');s.className='sp';s.style.cssText='left:'+p[0]+';top:'+p[1]+';animation-delay:'+p[2];b.appendChild(s)});return b}};
 function adopt(){Object.keys(BD).forEach(function(q){var e=d.getElementById(q.slice(1));if(!e||!box.contains(e))return;var b=BD[q]();if(e.parentNode===b)return;if(e.parentNode!==box){box.appendChild(e)}if(!b.parentNode)box.insertBefore(b,e);b.appendChild(e)})}
-var O=['#hb-sub','#hb-lep','[data-store="home-institutional-message"]','#hb-qs','#hb-lib','#hb-not','[data-store="home-products-featured"]','#hb-qzc','[data-store="home-products-sale"]','#dn-ig','[data-store="home-newsletter"]'];
+/* orden del inicio: dos de contenido / institucional y uno de venta (A-A-B), con Media arriba de todo */
+var O=['#hb-sub','#hb-lep','#hb-not','#hb-lib','#hb-qs','#hb-dato','[data-store="home-products-featured"]','#dn-ig','[data-store="home-institutional-message"]','#hb-qzc','#hb-eps','[data-store="home-newsletter"]','[data-store="home-products-sale"]'];
 var busy=0;function order(){if(busy)return;busy=1;try{adopt();var prev=null;O.forEach(function(q){var e=box.querySelector(':scope > '+q);if(!e)return;if(prev){if(prev.nextElementSibling!==e)box.insertBefore(e,prev.nextElementSibling)}else if(box.firstElementChild!==e)box.insertBefore(e,box.firstElementChild);prev=e});reveal()}catch(e){}busy=0}
 /* leaves in combos and destacados */
 var fs=box.querySelector('[data-store="home-products-featured"]');if(fs)leaves(fs,'ffffff',['right:-40px;top:30px;width:150px;height:150px;opacity:.35;--r:30deg','left:-50px;bottom:10px;width:120px;height:120px;opacity:.3;--r:-140deg']),fs.classList.add('hb');
@@ -126,5 +127,52 @@ box.appendChild(q);
 /* contador que sube al aparecer */
 var done=0;function cnt(){if(done)return;var r=q.getBoundingClientRect();if(r.top>innerHeight*.85||r.bottom<0)return;done=1;removeEventListener('scroll',cnt);[].forEach.call(q.querySelectorAll('b[data-n]'),function(b){var n=+b.getAttribute('data-n'),t0=Date.now(),D=1300;(function st(){var k=Math.min(1,(Date.now()-t0)/D),e=1-Math.pow(1-k,3);b.textContent='+'+Math.round(n*e)+' mil';if(k<1)setTimeout(st,30)})()})}
 addEventListener('scroll',cnt,{passive:true});setTimeout(cnt,1200)})();
+/* ¿Sabías que…? datos curiosos (contenido liviano, sin promesas de salud) */
+(function(){if(d.getElementById('hb-dato'))return;
+var F=['La manzanilla es pariente del girasol: las dos son de la familia de las asteráceas.',
+'El hibiscus de las infusiones no son los pétalos: es el cáliz de la flor, que se vuelve carnoso y de un rojo intenso.',
+'El maní no es un fruto seco: es una legumbre, pariente de las lentejas y los porotos.',
+'La quinoa no es un cereal. Es la semilla de una planta de la familia del amaranto; por eso se la llama pseudocereal.',
+'La yerba mate es pariente del acebo, la planta de hojas con pinches que se usa para decorar en Navidad en el hemisferio norte.',
+'La cúrcuma y el jengibre son de la misma familia, y de los dos se usa el rizoma: un tallo que crece bajo tierra.',
+'La canela es la corteza interna de un árbol: se separa del tronco y, al secarse, se enrolla sola en forma de rama.',
+'Los guaraníes ya usaban la stevia para endulzar. La llamaban ka\'a he\'ẽ: “hierba dulce”.',
+'La pimienta negra, la blanca y la verde salen de la misma planta. Lo que cambia es cuándo se cosecha y cómo se procesa.',
+'Los aztecas usaban granos de cacao como moneda para comprar y vender.',
+'La almendra es pariente del durazno y de la ciruela: lo que comemos es la semilla que está dentro del carozo.',
+'La chía era uno de los cultivos principales de los aztecas, junto con el maíz y el poroto.'];
+for(var i=F.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=F[i];F[i]=F[j];F[j]=t}
+var s=d.createElement('section');s.id='hb-dato';s.className='hb';
+s.innerHTML='<div class="dw"><div class="cd" role="button" tabindex="0" aria-label="Ver otro dato"><span class="bl"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg></span><i class="k">¿SABÍAS QUE…?</i><p class="tx"></p><div class="ft"><small class="n"></small><button type="button" class="ot">Otro dato <b>↻</b></button></div><span class="pb"><b></b></span></div></div>';
+var cs=d.createElement('style');cs.textContent='#hb-dato{position:relative;overflow:hidden;padding:34px 16px 36px;background:radial-gradient(60% 60% at 100% 0%,rgba(127,209,160,.45),transparent 70%),radial-gradient(50% 50% at 0% 100%,rgba(244,201,93,.25),transparent 70%),linear-gradient(170deg,#eef8e8,#e2f1da)}'+
+'#hb-dato .dw{max-width:760px;margin:0 auto}#hb-dato .cd{position:relative;overflow:hidden;background:#fff;border-radius:24px;padding:22px 20px 18px;box-shadow:0 18px 40px rgba(29,74,42,.14);cursor:pointer;outline:0;transform:rotate(-.6deg);transition:transform .25s}#hb-dato .cd:active{transform:rotate(-.6deg) scale(.99)}'+
+'#hb-dato .cd:after{content:"?";position:absolute;right:-6px;bottom:-40px;font:900 170px/1 Archivo,Arial,sans-serif;color:rgba(63,125,58,.07);pointer-events:none}'+
+'#hb-dato .bl{display:inline-flex;width:50px;height:50px;border-radius:15px;align-items:center;justify-content:center;background:linear-gradient(135deg,#fbe3a0,#f4c95d);color:#5a3d08;box-shadow:0 8px 18px rgba(224,163,38,.3);animation:hbBl 2.6s ease-in-out infinite}@keyframes hbBl{50%{transform:rotate(-8deg) scale(1.06)}}'+
+'#hb-dato .k{display:block;font-style:normal;margin:14px 0 6px;font-size:12px;font-weight:900;letter-spacing:.2em;color:#3f7d3a}'+
+'#hb-dato .tx{margin:0 0 16px;min-height:3.9em;font:800 20px/1.32 Archivo,Arial,sans-serif;color:#13361f;transition:opacity .25s,transform .25s}#hb-dato .tx.out{opacity:0;transform:translateY(8px)}'+
+'#hb-dato .ft{display:flex;align-items:center;gap:10px}#hb-dato .n{flex:1;font-size:12.5px;font-weight:800;color:#7a8a76}#hb-dato .ot{height:42px;padding:0 16px;border:0;border-radius:12px;background:#1d4a2a;color:#fff;font:800 14px/1 Archivo,Arial,sans-serif;cursor:pointer}#hb-dato .ot b{display:inline-block;margin-left:4px;transition:transform .4s}#hb-dato .ot:hover b{transform:rotate(180deg)}'+
+'#hb-dato .pb{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(63,125,58,.12)}#hb-dato .pb b{display:block;height:100%;width:0;background:linear-gradient(90deg,#f4c95d,#3f7d3a)}#hb-dato .pb b.go{width:100%;transition:width 9s linear}'+
+'@media(min-width:768px){#hb-dato{padding:56px 16px}#hb-dato .cd{padding:30px 32px 24px}#hb-dato .tx{font-size:26px}}@media(prefers-reduced-motion:reduce){#hb-dato .bl{animation:none}}';d.head.appendChild(cs);
+var tx=s.querySelector('.tx'),n=s.querySelector('.n'),pb=s.querySelector('.pb b'),k=0,tm,vis=0;
+function show(i,anim){k=(i+F.length)%F.length;var put=function(){tx.textContent=F[k];n.textContent='Dato '+(k+1)+' de '+F.length;tx.classList.remove('out')};if(anim){tx.classList.add('out');setTimeout(put,250)}else put();pb.classList.remove('go');void pb.offsetWidth;if(vis)pb.classList.add('go');clearTimeout(tm);tm=setTimeout(function(){if(vis&&!d.hidden)show(k+1,1);else tm=setTimeout(arguments.callee,1000)},9000)}
+var nx=function(){show(k+1,1)};s.querySelector('.cd').addEventListener('click',nx);s.querySelector('.cd').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();nx()}});
+if('IntersectionObserver'in window)new IntersectionObserver(function(e){var v=e[0].isIntersecting;if(v&&!vis){vis=1;show(k,0)}vis=v},{threshold:.5}).observe(s);else vis=1;
+show(0,0);box.appendChild(s)})();
+/* más videos de Naturalmente Media (todos los episodios menos el que ya se muestra arriba) */
+(function(){if(d.getElementById('hb-eps')||!window.dnEPL||!window.dnEPL.length)return;
+var L=window.dnEPL.slice();for(var i=L.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=L[i];L[i]=L[j];L[j]=t}
+var esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var s=d.createElement('section');s.id='hb-eps';s.className='hb';
+s.innerHTML='<div class="eh"><i>NATURALMENTE MEDIA</i><h2>Videos para ver <em>en un rato</em></h2><div class="hn"><span>Deslizá para ver más videos <b>→</b></span><a href="/naturalmente-media/">Ver todos →</a></div></div><div class="er">'+L.map(function(v){return'<a class="ep" href="'+esc(v.h)+'"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+esc(v.y)+'/hqdefault.jpg"><b>▶</b></span><small>'+esc(v.n)+'</small><strong>'+esc(v.t)+'</strong></a>'}).join('')+'</div>';
+var cs=d.createElement('style');cs.textContent='#hb-eps{padding:34px 0 30px;background:linear-gradient(180deg,#fbf8f1,#f4efe2)}#hb-eps .eh{padding:0 16px;max-width:1116px;margin:0 auto 12px}#hb-eps .eh i{font-style:normal;font-size:11px;font-weight:900;letter-spacing:.18em;color:#b07a0e}'+
+'#hb-eps h2{margin:6px 0 8px!important;font:900 27px/1.08 Archivo,Arial,sans-serif!important;color:#13361f!important;text-transform:none!important;text-align:left!important;letter-spacing:-.01em!important}#hb-eps h2:before,#hb-eps h2:after{display:none!important}#hb-eps h2 em{font-style:normal;color:#3f7d3a}'+
+'#hb-eps .hn{display:flex;align-items:center;gap:10px}#hb-eps .hn span{flex:1;font-size:13px;font-weight:800;color:#6b4a0c}#hb-eps .hn span b{display:inline-block;animation:hbEn 1.4s ease-in-out infinite}@keyframes hbEn{50%{transform:translateX(5px)}}#hb-eps .hn a{font-size:13.5px;font-weight:900;color:#1d4a2a!important;text-decoration:none!important;white-space:nowrap}'+
+'#hb-eps .er{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;padding:4px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}#hb-eps .er::-webkit-scrollbar{display:none}'+
+'#hb-eps .ep{flex:0 0 72%;max-width:300px;scroll-snap-align:start;text-decoration:none!important;color:#13361f!important}#hb-eps .th{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0d1a12;box-shadow:0 10px 22px rgba(13,26,18,.22)}#hb-eps .th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}'+
+'#hb-eps .th b{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(224,163,38,.95);color:#10281a;font-size:17px;line-height:46px;text-align:center;padding-left:3px;box-sizing:border-box;box-shadow:0 6px 16px rgba(0,0,0,.35)}'+
+'#hb-eps .ep small{display:block;margin:9px 2px 2px;font-size:12px;font-weight:800;color:#7a6a4a}#hb-eps .ep strong{display:block;margin:0 2px;font-size:15px;font-weight:800;line-height:1.28}'+
+'@media(hover:hover){#hb-eps .ep:hover .th img{transform:scale(1.05)}}@media(min-width:768px){#hb-eps{padding:52px 0 44px}#hb-eps h2{font-size:38px!important}#hb-eps .er{max-width:1148px;margin:0 auto}#hb-eps .ep{flex-basis:260px}}';d.head.appendChild(cs);
+box.appendChild(s);
+var cur=d.getElementById('dn-lep');var drop=function(){var e=d.getElementById('dn-lep');if(!e)return;var h=e.getAttribute('href');[].forEach.call(s.querySelectorAll('.ep'),function(a){if(a.getAttribute('href')===h)a.remove()})};drop();if(!cur)setTimeout(drop,2500)})();
 order();if(window.MutationObserver){var otm;var mo=new MutationObserver(function(){clearTimeout(otm);otm=setTimeout(order,40)});mo.observe(box,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},30000)}
 }();
