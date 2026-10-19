@@ -65,6 +65,12 @@ pr:['Cúrcuma|Especias|0:15|curcuma-por-100g','Pimienta negra en grano|Especias|
 var el=function(t,c,x){var e=d.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 var q=(location.search.match(/[?&]ep=([^&#]+)/)||[])[1],E=null;if(q)EP.forEach(function(x){if(x.s===decodeURIComponent(q))E=x});
 if(E){/* página del episodio */
+/* estilos de la página de episodio: los mismos del episodio publicado (Homo Deus); se cachean */
+var XK='dnEpCss1',XC='';try{XC=localStorage.getItem(XK)||''}catch(e){}
+var xs=function(t){if(!t||d.getElementById('dn-epx-css'))return;var s=d.createElement('style');s.id='dn-epx-css';s.textContent=t;d.head.appendChild(s)};
+if(XC)xs(XC);else M.style.visibility='hidden';
+var xr=function(){M.style.visibility=''};setTimeout(xr,5000);
+fetch('/media-fitoterapia-diego-montauti/').then(function(r){return r.text()}).then(function(h){var c=new DOMParser().parseFromString(h,'text/html').querySelector('.dm-css');var t=c&&c.textContent;if(t&&/dx-hero/.test(t)){if(t!==XC){try{localStorage.setItem(XK,t)}catch(e){}var o=d.getElementById('dn-epx-css');if(o)o.textContent=t;else xs(t)}}xr()}).catch(xr);
 var css=M.querySelector('.dm-css'),wa=M.querySelector('.dm-wa2'),lg=M.querySelector('.dm-legal2');
 var D=el('div','dm-data');D.appendChild(el('p','dm-back')).appendChild(el('a',null,'← Volver')).href='/naturalmente-media/';
 D.appendChild(el('p','dm-yt',E.yt));D.appendChild(el('p','dm-badge',E.p+' · '+E.k));D.appendChild(el('h2','dm-epi-t',E.t));D.appendChild(el('p','dm-epi-src',E.src));D.appendChild(el('p','dm-meta',E.meta.join('|')));
