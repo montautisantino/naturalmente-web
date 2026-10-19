@@ -1,7 +1,7 @@
-/* Ventana para no perder la compra: en Tienda, categorías, búsqueda y productos, si tocan algo que los saca
-   de la ruta de compra (cuenta, contacto, sucursales, redes, otros sitios) se pregunta antes de salir.
-   Incluye el logo (lleva al inicio) y los links a Media. No aplica a: los botones MEDIA/INICIO/TIENDA de la barra fija,
-   otros productos o categorías, carrito/checkout, WhatsApp, anclas ni links que abren en otra pestaña. */
+/* Ventana para no perder la compra. En toda la parte tienda (inicio de Tienda, categorías, búsqueda y productos),
+   cualquier toque que saque de la tienda pregunta antes: botones MEDIA e INICIO de la barra fija, logo, bloques y links
+   de Naturalmente Media, Mi cuenta / pedidos / contacto / sucursales, redes y otros sitios.
+   No pregunta: otros productos o categorías, carrito y checkout, favoritos, WhatsApp, anclas y links en otra pestaña. */
 !function(){var d=document,B=d.body;if(window.__dnExit)return;window.__dnExit=1;
 var prod=/\btemplate-product\b/.test(B.className),shop=prod||/\btemplate-(category|search)\b/.test(B.className)||/^\/productos\/?/.test(location.pathname);if(!shop)return;
 var OUT=/^\/($|account|contacto|quienes-somos|nuestras-sucursales|donde-esta-mi-pedido|naturalmente-media|escritos-|media-)/;
@@ -16,9 +16,9 @@ var st=d.createElement('style');st.id='dn-exit-css';st.textContent='#dn-ex2{posi
 '#dn-ex2 .st{display:block;width:100%;height:50px;border:0;border-radius:14px;background:#1d4a2a;color:#fff;font:800 16px/1 Archivo,Arial,sans-serif;cursor:pointer}#dn-ex2 .go{display:block;margin:12px auto 0;padding:8px;border:0;background:none;color:#53624f;font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer}'+
 '@keyframes dnX2f{from{opacity:0}}@keyframes dnX2u{from{transform:translateY(40px);opacity:0}}@media(min-width:768px){#dn-ex2{align-items:center}#dn-ex2 .bx{border-radius:24px}}';d.head.appendChild(st);
 function ask(url){if(d.getElementById('dn-ex2'))return;var n=0,w=d.querySelector('.js-cart-widget-amount');if(w)n=parseInt(w.textContent,10)||0;
-var t=prod?'¿Seguro que querés salir?':'¿Seguro que querés abandonar la tienda?',x=n?'Tenés '+n+(n>1?' productos':' producto')+' en el carrito. Te los guardamos por si volvés.':(prod?'Estás a un paso de llevártelo. Si salís ahora, vas a tener que volver a buscarlo.':'Todavía estás a tiempo de encontrar lo que buscás.');
+var t='¿Estás seguro que te querés ir sin finalizar tu compra?',x=n?'Tenés '+n+(n>1?' productos':' producto')+' en el carrito esperándote.':(prod?'Estás a un paso de llevártelo.':'');
 var o=d.createElement('div');o.id='dn-ex2';o.setAttribute('role','dialog');o.innerHTML='<div class="bx"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div><h3></h3><p></p><button type="button" class="st">Seguir comprando</button><button type="button" class="go">Salir igual</button></div>';
-o.querySelector('h3').textContent=t;o.querySelector('p').textContent=x;d.body.appendChild(o);var ov=d.body.style.overflow;d.body.style.overflow='hidden';
+o.querySelector('h3').textContent=t;var pp=o.querySelector('p');if(x)pp.textContent=x;else pp.remove();d.body.appendChild(o);var ov=d.body.style.overflow;d.body.style.overflow='hidden';
 var cl=function(){o.remove();d.body.style.overflow=ov};o.addEventListener('click',function(e){if(e.target===o||e.target.closest('.st'))cl();else if(e.target.closest('.go')){cl();location.href=url}})}
-d.addEventListener('click',function(e){if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.closest('#dnh .ic.fv,#dnh .mb,#dn-sbar,#dn-ex2'))return;if(a.matches('#dnh .ic.ac')&&window.dnAcc)return;if(!leaves(a))return;e.preventDefault();e.stopPropagation();ask(a.href)},true);
+d.addEventListener('click',function(e){if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.closest('#dnh .ic.fv,#dnh .mb,#dn-sbar .fv,#dn-sbar .ct,#dn-ex2'))return;if(a.matches('#dnh .ic.ac')&&window.dnAcc)return;if(!leaves(a))return;e.preventDefault();e.stopPropagation();ask(a.href)},true);
 }();
