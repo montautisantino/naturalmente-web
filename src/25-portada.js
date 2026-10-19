@@ -4,7 +4,7 @@ B.classList.add('dn-portal');
 function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
 function SV(p,s){return'<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
 var I={play:'<circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>',bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'};
-var css='body.dn-portal #dn-hmed,body.dn-portal [data-store="home-categories-featured"],body.dn-portal [data-store="home-products-featured"],body.dn-portal [data-store="home-products-sale"],body.dn-portal [data-store="banner-services"]{display:none!important}'+
+var css='body.dn-portal #dn-hmed,body.dn-portal #dn-hvid,body.dn-portal [data-store="home-categories-featured"],body.dn-portal [data-store="home-products-featured"],body.dn-portal [data-store="home-products-sale"],body.dn-portal [data-store="banner-services"]{display:none!important}'+
 '#dn-sub{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 12px 14px}'+
 '#dn-sub a{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:14px;font:900 16px/1 Archivo,Arial,sans-serif;letter-spacing:.08em;text-decoration:none!important;transition:transform .15s}#dn-sub a:active{transform:scale(.97)}'+
 '#dn-sub .md{background:#1d4a2a;color:#fff!important;box-shadow:0 6px 16px rgba(16,40,26,.22)}#dn-sub .md svg{color:#f4c95d}'+
