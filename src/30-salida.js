@@ -1,10 +1,10 @@
 /* Ventana para no perder la compra: en Tienda, categorías, búsqueda y productos, si tocan algo que los saca
    de la ruta de compra (cuenta, contacto, sucursales, redes, otros sitios) se pregunta antes de salir.
-   No aplica a: inicio, Media y notas, otros productos o categorías, carrito/checkout, WhatsApp, anclas,
-   links que abren en otra pestaña ni a los botones del header y la barra fija. */
+   Incluye el logo (lleva al inicio) y los links a Media. No aplica a: los botones MEDIA/INICIO/TIENDA de la barra fija,
+   otros productos o categorías, carrito/checkout, WhatsApp, anclas ni links que abren en otra pestaña. */
 !function(){var d=document,B=d.body;if(window.__dnExit)return;window.__dnExit=1;
 var prod=/\btemplate-product\b/.test(B.className),shop=prod||/\btemplate-(category|search)\b/.test(B.className)||/^\/productos\/?/.test(location.pathname);if(!shop)return;
-var OUT=/^\/(account|contacto|quienes-somos|nuestras-sucursales|donde-esta-mi-pedido)(\/|$)/;
+var OUT=/^\/($|account|contacto|quienes-somos|nuestras-sucursales|donde-esta-mi-pedido|naturalmente-media|escritos-|media-)/;
 function leaves(a){var h=a.getAttribute('href');if(!h||/^(#|javascript:|tel:|mailto:)/i.test(h))return false;if(a.target&&a.target!=='_self')return false;if(a.hasAttribute('download'))return false;
 var u;try{u=new URL(h,location.href)}catch(e){return false}if(!/^https?:$/.test(u.protocol))return false;
 var host=u.hostname.replace(/^www\./,''),me=location.hostname.replace(/^www\./,'');
@@ -20,5 +20,5 @@ var t=prod?'¿Seguro que querés salir?':'¿Seguro que querés abandonar la tien
 var o=d.createElement('div');o.id='dn-ex2';o.setAttribute('role','dialog');o.innerHTML='<div class="bx"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div><h3></h3><p></p><button type="button" class="st">Seguir comprando</button><button type="button" class="go">Salir igual</button></div>';
 o.querySelector('h3').textContent=t;o.querySelector('p').textContent=x;d.body.appendChild(o);var ov=d.body.style.overflow;d.body.style.overflow='hidden';
 var cl=function(){o.remove();d.body.style.overflow=ov};o.addEventListener('click',function(e){if(e.target===o||e.target.closest('.st'))cl();else if(e.target.closest('.go')){cl();location.href=url}})}
-d.addEventListener('click',function(e){if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.closest('#dnh .ic,#dnh .mb,#dn-sbar,#dn-ex2'))return;if(!leaves(a))return;e.preventDefault();e.stopPropagation();ask(a.href)},true);
+d.addEventListener('click',function(e){if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.closest('#dnh .ic.fv,#dnh .mb,#dn-sbar,#dn-ex2'))return;if(a.matches('#dnh .ic.ac')&&window.dnAcc)return;if(!leaves(a))return;e.preventDefault();e.stopPropagation();ask(a.href)},true);
 }();
