@@ -10,3 +10,4 @@ cd "$(dirname "$0")"
 } > dist/dn.js
 npx -y terser@5.31.0 dist/dn.js -c passes=2 -m -o dist/dn.min.js
 wc -c dist/dn.min.js
+echo "SRI: sha384-$(openssl dgst -sha384 -binary dist/dn.min.js | openssl base64 -A)"

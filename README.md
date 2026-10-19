@@ -13,7 +13,8 @@ Se carga desde Tiendanube (código del sello) con una sola línea:
 
 Cada cambio se publica como un commit y recién se activa al actualizar el código del commit en Tiendanube.
 El sello carga el archivo con respaldo: si `cdn.jsdelivr.net` no responde, prueba `fastly.jsdelivr.net` y después `gcore.jsdelivr.net` (redes distintas). El archivo se protege contra doble carga (`window.__dnExt`).
-Para armar `dist/`: `./build.sh`.
+Para armar `dist/`: `./build.sh` (imprime la huella SRI).
+El sello verifica la huella (`integrity`, SRI sha384) del archivo: si el contenido no coincide exacto, el navegador no lo ejecuta. **En cada versión nueva hay que actualizar en el sello el commit y la huella** (en el `<link rel=preload>` y en el cargador).
 Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de Tiendanube.
 
 `sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
