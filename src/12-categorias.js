@@ -24,7 +24,8 @@ var D={
 'teteras-infusores-molinillos':['Teteras, infusores y accesorios para preparar tus hierbas.','Infusores=infusor|Teteras=tetera'],
 'cosmetica-natural':['Shampoo sólido, bálsamos, aceites y cosmética de origen natural.','Shampoo sólido=shampoo|Bálsamo labial=balsamo|Aceites=aceite|Sentida Botánica=sentida'],
 'yerbas':['Yerbas tradicionales, orgánicas y compuestas con hierbas.','Cachamate|Kraus|Orgánicas=organica|Con hierbas=hierbas'],
-'combos':['Programas de hierbas + tintura madre para 30 o 60 días.','']};
+'combos':['Programas de hierbas + tintura madre para 30 o 60 días.',''],
+'productos':['Todo nuestro catálogo: hierbas, suplementos, frutos secos, combos y mucho más, con envíos a todo el país.','Combos=combo|Magnesio|Ashwagandha|Colágeno=colageno|Chía=chia|Maca|Cúrcuma=curcuma|Frutos secos=frutos']};
 var c=D[slug];if(S){var Q=(new URLSearchParams(location.search).get('q')||'').trim(),NC=((d.querySelector('.page-header+.row .d-md-none')||{}).textContent||'').trim();c=['Resultados para “'+Q+'”'+(NC?' · '+NC:''),['Combos=combo','Magnesio','Ashwagandha','Colágeno=colageno','Chía=chia','Frutos secos=frutos','Maca','Cúrcuma=curcuma'].filter(function(x){return(x.split('=')[1]||x).toLowerCase()!==Q.toLowerCase()}).join('|')]}
 var st=d.createElement('style');st.id='dn-cat-css';st.textContent=
 '.dn-cat .page-header{text-transform:none}.dn-cat .page-header h1{display:flex;align-items:center;gap:10px;text-transform:uppercase}'+

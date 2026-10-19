@@ -11,9 +11,9 @@ T="npx -y terser@5.31.0"
 CORE="01 16 02 05 09 10 11 13 17 18 20 23"
 CUENTA="15 24"
 PEDIDO="22"
-HOME_P="06 07 08"
+HOME_P="06 07 08 25"
 MEDIA="03 04"
-LISTADO="00 12 21"
+LISTADO="00 12 21 26"
 PRODUCTO="00 14 19"
 cat_mods() { for n in $1; do f=$(ls src/$n-*.js); echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
 sri() { echo "sha384-$(openssl dgst -sha384 -binary "$1" | openssl base64 -A)"; }
