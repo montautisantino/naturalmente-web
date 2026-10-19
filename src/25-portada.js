@@ -4,7 +4,7 @@ B.classList.add('dn-portal');
 function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
 function SV(p,s){return'<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
 var I={play:'<circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>',bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'};
-var css='body.dn-portal #dn-hmed,body.dn-portal [data-store="home-categories-featured"],body.dn-portal [data-store="home-products-featured"],body.dn-portal [data-store="home-products-sale"],body.dn-portal [data-store="banner-services"],body.dn-portal #dn-qzc{display:none!important}'+
+var css='body.dn-portal #dn-hmed,body.dn-portal [data-store="home-categories-featured"],body.dn-portal [data-store="home-products-featured"],body.dn-portal [data-store="home-products-sale"],body.dn-portal [data-store="banner-services"]{display:none!important}'+
 '#dn-sub{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 12px 14px}'+
 '#dn-sub a{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:14px;font:900 16px/1 Archivo,Arial,sans-serif;letter-spacing:.08em;text-decoration:none!important;transition:transform .15s}#dn-sub a:active{transform:scale(.97)}'+
 '#dn-sub .md{background:#1d4a2a;color:#fff!important;box-shadow:0 6px 16px rgba(16,40,26,.22)}#dn-sub .md svg{color:#f4c95d}'+
@@ -36,13 +36,13 @@ s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Últimas notas</h
 box.appendChild(s);order()}
 var K='dnPrg2',P;try{P=JSON.parse(sessionStorage.getItem(K))}catch(e){}
 var NN;try{NN=JSON.parse(sessionStorage.getItem(K+'n'))}catch(e){}
-if(P){drawP(P);drawN(NN)}else fetch('/naturalmente-media/').then(function(r){return r.text()}).then(function(h){var p=new DOMParser().parseFromString(h,'text/html');
+if(P){drawN(NN)}else fetch('/naturalmente-media/').then(function(r){return r.text()}).then(function(h){var p=new DOMParser().parseFromString(h,'text/html');
 P=[].slice.call(p.querySelectorAll('.dm-prog')).filter(function(g){return g.id!=='dm-leer'&&!g.closest('#dm-leer')}).map(function(g){var t=(g.querySelector('.dm-prog-t')||{}).textContent||'',row=g.querySelector('.dm-row'),n=row?[].filter.call(row.children,function(c){return!/pr[oó]ximamente|muy pronto/i.test(c.textContent)}).length:0;
 return{e:((g.querySelector('.dm-prog-ico')||{}).textContent||'').trim(),t:t.trim(),d:((g.querySelector('.dm-prog-d')||{}).textContent||'').trim(),n:n}}).filter(function(x){return x.t});
 var N=[].slice.call(p.querySelectorAll('#dm-leer .dm-art')).map(function(a){var l=a.matches('a[href]')?a:a.querySelector('a[href]'),im=a.querySelector('img'),t=((a.querySelector('.dm-art-t')||{}).textContent||'').trim();return{u:l?l.getAttribute('href'):'',t:t,c:((a.querySelector('.dm-art-cat')||{}).textContent||'').trim(),x:((a.querySelector('.dm-art-d')||{}).textContent||'').trim(),i:im?im.getAttribute('src'):''}}).filter(function(x){return x.u&&x.t&&!/pr[oó]ximamente/i.test(x.t)});
-try{sessionStorage.setItem(K,JSON.stringify(P));sessionStorage.setItem(K+'n',JSON.stringify(N))}catch(e){}drawP(P);drawN(N)}).catch(function(){});
+try{sessionStorage.setItem(K,JSON.stringify(P));sessionStorage.setItem(K+'n',JSON.stringify(N))}catch(e){}drawN(N)}).catch(function(){});
 /* 3. orden del portal: solo contenido */
-var O=['#dn-sub','#dn-lep','#dn-not','#dn-prg','#dn-ig','[data-store="home-institutional-message"]','[data-store="home-newsletter"]'];
+var O=['#dn-sub','#dn-lep','#dn-not','#dn-qzc','[data-store="home-institutional-message"]','#dn-ig','[data-store="home-newsletter"]'];
 var busy=0;function order(){if(busy)return;busy=1;try{var prev=null;O.forEach(function(q){var e=box.querySelector(':scope > '+q);if(!e)return;if(prev){if(prev.nextElementSibling!==e)box.insertBefore(e,prev.nextElementSibling)}else if(box.firstElementChild!==e)box.insertBefore(e,box.firstElementChild);prev=e})}catch(e){}busy=0}
 order();if(window.MutationObserver){var mo=new MutationObserver(function(){order()});mo.observe(box,{childList:true});setTimeout(function(){mo.disconnect()},15000)}
 }();
