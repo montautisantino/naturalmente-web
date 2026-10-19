@@ -12,7 +12,7 @@ CORE="01 16 02 EPL 34 05 09 10 11 13 17 18 20 23 28 29 30 32"
 CUENTA="15 24"
 PEDIDO="22"
 HOME_P="06 07 33 25"
-MEDIA="03 31 04 27 35"
+MEDIA="03 31 04 27 35 36"
 LISTADO="00 12 21 26"
 PRODUCTO="00 14 19"
 # lista corta de episodios de Media (sale de src/31-episodios.js) para la tarjeta aleatoria del inicio

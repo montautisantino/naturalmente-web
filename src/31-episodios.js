@@ -65,6 +65,7 @@ pr:['Cúrcuma|Especias|0:15|curcuma-por-100g','Pimienta negra en grano|Especias|
 /* videos y notas cargados por el formulario (planilla) */
 var SH0=window.dnSheet&&window.dnSheet.data,RK='dnShR';
 if(SH0&&SH0.video&&SH0.video.length){var hv={};EP.forEach(function(x){hv[x.yt]=1});EP=SH0.video.filter(function(v){return!hv[v.yt]}).concat(EP)}
+window.dnMediaEP=EP;
 function esp(id,has){/* si lo pidieron y todavía no está en la copia guardada, espera la planilla y recarga una sola vez */
 if(!window.dnSheet||sessionStorage.getItem(RK))return;M.style.visibility='hidden';window.dnSheet.ready(function(D){if(D&&has(D)){try{sessionStorage.setItem(RK,'1')}catch(e){}location.reload()}else M.style.visibility=''})}
 var qn=(location.search.match(/[?&]nota=([^&#]+)/)||[])[1];
