@@ -85,11 +85,53 @@ o.innerHTML='<div class="bx"><div class="ic">'+sv('wa',30)+'</div><h3>Vas a aban
 d.body.appendChild(o);var ov=d.body.style.overflow;d.body.style.overflow='hidden';var cl=function(){o.remove();d.body.style.overflow=ov};
 o.addEventListener('click',function(ev){if(ev.target===o||ev.target.closest('.n'))cl();else if(ev.target.closest('.y')){cl();location.href='https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola! Vengo de la tienda online y quiero hacer una consulta.')}})});
 })();
-/* 2. categorías */
+/* 2. categorías: carrusel de 2 filas con íconos propios */
 (function(){var pn=d.querySelector('#nav-hamburger .nav-primary .list-subitems .modal-body');if(!pn)return;var FX={'suplementos':'Suplementos','Diabetico':'Diabético','Dieteticos':'Dietéticos','Celiaco':'Celíaco','Herboristeria':'Herboristería','Te en saquitos':'Té en saquitos','Cosmetica natural':'Cosmética natural','Galletitas, chocolates y más':'Snacks y chocolates','Harinas, cereales y legumbres':'Harinas y cereales'};
 var L=[].map.call(pn.querySelectorAll(':scope > li > a'),function(a){var t=a.textContent.trim().replace(/\s+/g,' ');return{t:FX[t]||t,h:a.getAttribute('href').replace(/^https?:\/\/[^\/]+/,'')}}).filter(function(x){return!/ver todos/i.test(x.t)&&!/^\/productos\/?$/.test(x.h)});if(L.length<4)return;
-var s=d.createElement('section');s.id='dn-tcat';s.className=L.length>8?'cl':'';s.innerHTML='<div class="dn-hd"><div><i style="color:#a8641a">EXPLORÁ</i><h2 style="color:#13261a">Categorías</h2></div></div><div class="g">'+L.map(function(x){return'<a'+(/\/combos\/?$/.test(x.h)?' class="cb"':'')+' href="'+x.h+'"><span>'+(W.dnIco?W.dnIco(x.h):'')+'</span>'+x.t+'</a>'}).join('')+'</div><button type="button" class="more">Ver todas las categorías ('+L.length+') ↓</button>';
-s.querySelector('.more').onclick=function(){s.classList.remove('cl')};ins(s);var old=d.getElementById('dn-ex');if(old)old.remove()})();
+var IC={combos:'<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3.5-6-4-6-1.5S10 9 12 9zm0 0c1.5-3.5 6-4 6-1.5S14 9 12 9z"/>',
+herboristeria:'<path d="M12 21V9"/><path d="M12 13c-4 0-6-2.5-6-6 3.5 0 6 2 6 6zM12 10c0-3.5 2.5-6 6-6 0 3.5-2 6-6 6zM12 17c2.5 0 4.5-1.5 5-4-2.5 0-4.5 1.5-5 4z"/>',
+'frutos-secos':'<path d="M12 3c4 0 7 4.5 7 9.5S16 21 12 21s-7-3.5-7-8.5S8 3 12 3z"/><path d="M12 6v12M9 9c1 .8 2 1 3 1M15 13c-1 .8-2 1-3 1"/>',
+suplementos:'<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.3 8.1l5.4 7.8"/>',
+educativo:'<path d="M3 5.5c3-1 6-1 9 1v13c-3-2-6-2-9-1z"/><path d="M21 5.5c-3-1-6-1-9 1v13c3-2 6-2 9-1z"/>',
+semillas:'<ellipse cx="8" cy="9" rx="2.6" ry="4" transform="rotate(-25 8 9)"/><ellipse cx="16" cy="9.5" rx="2.6" ry="4" transform="rotate(25 16 9.5)"/><ellipse cx="12" cy="16.5" rx="2.6" ry="4"/>',
+condimentos:'<path d="M8 8h8l1 12H7z"/><rect x="8.5" y="3.5" width="7" height="4.5" rx="1"/><path d="M10.5 5.7h.01M13.5 5.7h.01M9.5 13h5"/>',
+'chocolates-barritas-snacks-y-varios':'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M5 15h14M12 3v18"/>',
+harinas:'<path d="M12 21V8"/><path d="M12 8c-2.5 0-3.5-2-3.5-4 2 0 3.5 1.5 3.5 4zm0 0c2.5 0 3.5-2 3.5-4-2 0-3.5 1.5-3.5 4zM12 13c-2.5 0-3.5-2-3.5-4 2 0 3.5 1.5 3.5 4zm0 0c2.5 0 3.5-2 3.5-4-2 0-3.5 1.5-3.5 4zM12 18c-2.5 0-3.5-2-3.5-4 2 0 3.5 1.5 3.5 4zm0 0c2.5 0 3.5-2 3.5-4-2 0-3.5 1.5-3.5 4z"/>',
+'aceites-y-mas':'<path d="M10 3h4v3l2 3v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9l2-3z"/><path d="M12 12.5c1.2 1.4 1.8 2.3 1.8 3.1a1.8 1.8 0 0 1-3.6 0c0-.8.6-1.7 1.8-3.1z"/>',
+diabetico:'<rect x="4" y="8" width="11" height="11" rx="2"/><path d="M15 8l4-3v11l-4 3M4 8l4-3h11"/>',
+galletitas:'<circle cx="12" cy="12" r="8.5"/><path d="M9 9h.01M14.5 8.5h.01M15.5 13.5h.01M10 15h.01M12 12h.01"/>',
+celiaco:'<path d="M12 20V9"/><path d="M12 9c-2.2 0-3.2-1.8-3.2-3.6 1.8 0 3.2 1.4 3.2 3.6zm0 0c2.2 0 3.2-1.8 3.2-3.6-1.8 0-3.2 1.4-3.2 3.6zM12 14c-2.2 0-3.2-1.8-3.2-3.6 1.8 0 3.2 1.4 3.2 3.6zm0 0c2.2 0 3.2-1.8 3.2-3.6-1.8 0-3.2 1.4-3.2 3.6z"/><circle cx="12" cy="12" r="9.5"/><path d="M5.3 18.7L18.7 5.3"/>',
+'tinturas-madres':'<path d="M9 9h6v10a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/><path d="M10 9V6h4v3M11 6V3.5a1 1 0 0 1 2 0V6"/><path d="M9 14h6"/>',
+'premezclas-sin-tacc':'<path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M15 3l-4 8M17 4l-4 7"/>',
+vegano:'<path d="M5 19c0-8 5-13 14-14-.5 9-5.5 14-14 14z"/><path d="M5 19c3-4 6-7 10-9"/>',
+fideos:'<path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M7 12c0-3 1-5 2-5s1 5 2 5 1-6 2-6 1 6 2 6"/>',
+'te-en-saquitos':'<path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M10 9V4l3 1.5"/><rect x="11.5" y="3.5" width="3" height="3.5" rx=".5"/>',
+alfajores:'<ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v3c0 1.7 3.6 3 8 3s8-1.3 8-3V8"/><path d="M4 13v3c0 1.7 3.6 3 8 3s8-1.3 8-3v-3"/>',
+barritas:'<rect x="2.5" y="8.5" width="19" height="7" rx="2" transform="rotate(-20 12 12)"/><path d="M8.5 9.5l2 5.5M13.5 8l2 5.5"/>',
+'teteras-infusores-molinillos':'<path d="M5 10h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 11.5l3.5-2.5v3.5L16 16M8 10V8h5v2M10.5 6V5"/>',
+'cosmetica-natural':'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M7 11V9h10v2"/><path d="M12 8c-1.5-2-1-4 0-5 1 1 1.5 3 0 5z"/>',
+yerbas:'<path d="M7 9c0-1 1-2 2.5-2h5C16 7 17 8 17 9c0 7-1.5 12-5 12S7 16 7 9z"/><path d="M14 3l-1.5 9M7.5 10h9"/>',
+dieteticos:'<path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9z"/><path d="M12 9v8M9.5 13.5L12 16l2.5-2.5"/>'};
+var PAL=[['#e8f3e1','#2f6a35'],['#fdf0d9','#a8641a'],['#e5f1f7','#1f6f94'],['#f6e9f1','#9b3c6e'],['#efeefb','#5a4fb0'],['#e9f5ef','#1f7a55'],['#fbece3','#b5532a'],['#f3f1e4','#6d6a2a']];
+function ico(h){var k=h.replace(/^\/|\/$/g,'').split('/').pop();var p=IC[k]||IC.herboristeria;return'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
+var cs=d.createElement('style');cs.textContent=
+'#dn-tcat{position:relative;margin:16px 0 8px;padding:0!important}#dn-tcat .dn-hd{display:flex;align-items:flex-end;justify-content:space-between;padding:0 12px;margin:0 0 10px}#dn-tcat .nv{display:none;gap:6px}#dn-tcat .nv button{width:38px;height:38px;border-radius:12px;border:1px solid #dbe3d4;background:#fff;color:#1d4a2a;display:flex;align-items:center;justify-content:center;cursor:pointer}'+
+'#dn-tcat .tr{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:94px;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 12px;padding:2px 12px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}#dn-tcat .tr::-webkit-scrollbar{display:none}#dn-tcat.end .tr{-webkit-mask-image:none;mask-image:none}'+
+'#dn-tcat .tr a{scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:12px 6px 11px;border-radius:18px;background:#fff;border:1px solid #e6ede0;box-shadow:0 6px 16px rgba(29,74,42,.06);text-decoration:none!important;color:#1d2a20!important;font:800 11.5px/1.15 Archivo,Arial,sans-serif;text-align:center;transition:transform .18s,box-shadow .18s;animation:dnTcI .5s cubic-bezier(.2,.8,.2,1) both}#dn-tcat .tr a:active{transform:scale(.94)}'+
+'#dn-tcat .tr a span{width:54px;height:54px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);position:relative;overflow:hidden}#dn-tcat .tr a span:after{content:"";position:absolute;right:-10px;top:-10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.55)}#dn-tcat .tr a span svg{position:relative;z-index:1}'+
+'#dn-tcat .tr a.cb{background:radial-gradient(120% 90% at 100% 0%,#4b8f45 0%,#1d4a2a 55%,#10281a 100%);border-color:#1d4a2a;color:#fff!important;box-shadow:0 10px 22px rgba(29,74,42,.28)}#dn-tcat .tr a.cb span{background:rgba(255,255,255,.12);color:#f4c95d;border:1px solid rgba(244,201,93,.45)}#dn-tcat .tr a.cb span:after{background:rgba(244,201,93,.18)}'+
+'@keyframes dnTcI{from{opacity:0;transform:translateY(10px)}}'+
+'@media(hover:hover){#dn-tcat .tr a:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(29,74,42,.12)}}'+
+'@media(min-width:768px){#dn-tcat{max-width:1116px;margin:22px auto 10px}#dn-tcat .dn-hd,#dn-tcat .tr{padding-left:0;padding-right:0}#dn-tcat .tr{grid-auto-columns:118px;gap:12px}#dn-tcat .tr a{font-size:12.5px;padding:16px 8px 14px}#dn-tcat .tr a span{width:62px;height:62px}#dn-tcat .nv{display:flex}}'+
+'@media(prefers-reduced-motion:reduce){#dn-tcat .tr a{animation:none}}';d.head.appendChild(cs);
+var s=d.createElement('section');s.id='dn-tcat';
+var AR=function(p){return'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="'+p+'"/></svg>'};
+s.innerHTML='<div class="dn-hd"><div><i style="color:#a8641a">EXPLORÁ</i><h2 style="color:#13261a">Categorías</h2></div><div class="nv"><button type="button" class="pv" aria-label="Anteriores">'+AR('M15 6l-6 6 6 6')+'</button><button type="button" class="nx" aria-label="Siguientes">'+AR('M9 6l6 6-6 6')+'</button></div></div><div class="tr">'+
+L.map(function(x,k){var c=PAL[k%PAL.length],cb=/\/combos\/?$/.test(x.h);return'<a'+(cb?' class="cb"':'')+' href="'+x.h+'" style="--bg:'+c[0]+';--fg:'+c[1]+';animation-delay:'+Math.min(k,10)*40+'ms"><span>'+ico(x.h)+'</span>'+x.t+'</a>'}).join('')+'</div>';
+ins(s);var old=d.getElementById('dn-ex');if(old)old.remove();
+var tr=s.querySelector('.tr');function edge(){s.classList.toggle('end',tr.scrollLeft+tr.clientWidth>=tr.scrollWidth-4)}tr.addEventListener('scroll',edge,{passive:true});edge();
+s.querySelector('.pv').onclick=function(){tr.scrollBy({left:-tr.clientWidth*.8,behavior:'smooth'})};s.querySelector('.nx').onclick=function(){tr.scrollBy({left:tr.clientWidth*.8,behavior:'smooth'})};})();
+
 /* utilidades de tarjetas */
 var LF=function(col){return'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cpath d=%27M50 4C18 26 14 62 50 96C86 62 82 26 50 4Z%27 fill=%27%23'+col+'%27/%3E%3C/svg%3E")'};
 function band(id,cls,ico,eb,ti,link,lt){var s=d.createElement('section');s.id=id;s.className='dn-band '+cls;s.innerHTML='<div class="in"><div class="hd-w"><div class="dn-hd"><div><i>'+SV(I[ico],14)+eb+'</i><h2>'+ti+'</h2></div>'+(link?'<a href="'+link+'">'+(lt||'Ver todo')+' →</a>':'')+'</div></div><div class="dn-skr"><span></span><span></span><span></span><span></span><span></span></div></div>';
