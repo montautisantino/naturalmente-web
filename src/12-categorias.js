@@ -60,7 +60,7 @@ var qs=location.search,ranked=!S&&!/sort_by=(?!best-selling)/.test(qs)&&!/[?&](m
 function grams(n){var m=n.toLowerCase().match(/(?:x|por|de)\s*(\d+(?:[.,]\d+)?)\s*(kg|kilo|kilos|grs?|g)\b/)||n.toLowerCase().match(/(\d+(?:[.,]\d+)?)\s*(kg|grs?|g)\b/);if(!m){return/de kilo|x kilo|por kilo/.test(n.toLowerCase())?1000:0}var v=parseFloat(m[1].replace(',','.'));return/k/.test(m[2])?v*1000:v}
 function proc(){var it=[].slice.call(tb.querySelectorAll('.js-item-product[data-product-id]')).filter(function(x){return x.getAttribute('data-product-id')});
 it.forEach(function(x,i){if(x.getAttribute('data-dn'))return;x.setAttribute('data-dn','1');
-if(ranked&&i<3){x.setAttribute('data-dnt',i+1);var im=x.querySelector('.js-item-image-padding');if(im){var r=d.createElement('span');r.className='dn-rk r'+(i+1);r.innerHTML='#'+(i+1)+' <small>'+(i?'en ventas':'más vendido')+'</small>';im.appendChild(r)}}
+if(ranked&&i<3&&!window.__dn100){x.setAttribute('data-dnt',i+1);var im=x.querySelector('.js-item-image-padding');if(im){var r=d.createElement('span');r.className='dn-rk r'+(i+1);r.innerHTML='#'+(i+1)+' <small>'+(i?'en ventas':'más vendido')+'</small>';im.appendChild(r)}}
 var nm=(x.querySelector('.js-item-name')||{}).textContent||'',g=/^\s*combo/i.test(nm)?0:grams(nm),pc=x.querySelector('.item-price-container');if(g>100&&g<=5000&&pc){var v={};try{v=JSON.parse(x.querySelector('[data-variants]').getAttribute('data-variants'))[0]||{}}catch(e){}if(v.price_number){var s=d.createElement('span');s.className='dn-ppk';s.textContent=fmt(v.price_number/g*100)+' c/100 g';pc.appendChild(s)}}})
 return it}
 var items=proc();if(window.MutationObserver)new MutationObserver(function(){proc()}).observe(tb,{childList:true});
