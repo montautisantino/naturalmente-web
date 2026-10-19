@@ -13,3 +13,5 @@ Se carga desde Tiendanube (código del sello) con una sola línea:
 
 Cada cambio se publica como una versión nueva (tag `vN`) y recién se activa al actualizar la línea en Tiendanube.
 Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de Tiendanube.
+
+`sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
