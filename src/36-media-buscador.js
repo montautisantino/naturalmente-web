@@ -1,16 +1,17 @@
-/* Buscador del encabezado dentro de Naturalmente Media: primero muestra notas y videos que coinciden y abajo los
+/* Buscador del encabezado con contenido de Naturalmente Media. En el inicio: productos primero y notas/videos abajo (máx. 3), Enter va a productos. Dentro de Media: primero muestra notas y videos que coinciden y abajo los
    productos (el desplegable lo arma el módulo 09; acá se le da el contenido). Enter con notas que coinciden lleva a
    "Escritos" con la búsqueda aplicada; si no hay notas, sigue al buscador normal de productos. */
-!function(){var d=document,W=window;if(W.dnMdSx||!d.querySelector('.dn-media'))return;
+!function(){var d=document,W=window;var HOME=d.body.classList.contains('template-home');if(W.dnMdSx||(!HOME&&!d.querySelector('.dn-media')))return;if(HOME)W.dnMdAfter=1;
 var K='dnMdIx',PH='Notas, videos o productos',BASE='/naturalmente-media/';
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var nz=function(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')};
 var CM={'bienestar y descanso':'Descanso','sueno':'Descanso','descanso y bienestar':'Descanso'};function cn(c){return CM[nz(c)]||c||''}
 /* lo que está en la portada de Media se guarda para poder buscarlo también desde una nota o un video */
-var S0=[];if(W.dnMediaVids||W.dnMediaNotes){(W.dnMediaVids||[]).forEach(function(v){S0.push({k:'v',t:v.t,u:v.h,c:v.p,i:v.i,x:''})});(W.dnMediaNotes||[]).forEach(function(n){S0.push({k:'n',t:n.t,u:n.u,c:cn(n.c),i:n.i,x:n.d})});try{localStorage.setItem(K,JSON.stringify(S0))}catch(e){}}
+var S0=[];if(!HOME&&(W.dnMediaVids||W.dnMediaNotes)){(W.dnMediaVids||[]).forEach(function(v){S0.push({k:'v',t:v.t,u:v.h,c:v.p,i:v.i,x:''})});(W.dnMediaNotes||[]).forEach(function(n){S0.push({k:'n',t:n.t,u:n.u,c:cn(n.c),i:n.i,x:n.d})});try{localStorage.setItem(K,JSON.stringify(S0))}catch(e){}}
 else{try{S0=JSON.parse(localStorage.getItem(K))||[]}catch(e){S0=[]}}
 function ix(){var L=[],by={};function add(o){if(!o.u||!o.t)return;var e=by[o.u];if(e){if(o.x)e.x=(e.x?e.x+' ':'')+o.x;if(!e.i&&o.i)e.i=o.i;return}by[o.u]=o;L.push(o)}
 S0.forEach(function(o){var c={};for(var k in o)c[k]=o[k];add(c)});
+(HOME&&W.dnEPL||[]).forEach(function(v){if(v.h&&v.t)add({k:'v',t:v.t,u:v.h,c:String(v.n||'').split(' · ')[0],i:v.y?'https://i.ytimg.com/vi/'+v.y+'/hqdefault.jpg':'',x:''})});
 (W.dnMediaEP||[]).forEach(function(v){if(v.s&&v.t)add({k:'v',t:v.t,u:BASE+'?ep='+v.s,c:v.p,i:v.yt?'https://i.ytimg.com/vi/'+v.yt+'/hqdefault.jpg':'',x:[].concat(v.tp||[],v.k||[]).join(' ')})});
 var D=W.dnSheet&&W.dnSheet.data;if(D){(D.video||[]).forEach(function(v){add({k:'v',t:v.t,u:BASE+'?ep='+v.s,c:v.p,i:'https://i.ytimg.com/vi/'+v.yt+'/hqdefault.jpg',x:(v.tp||[]).join(' ')})});(D.nota||[]).forEach(function(n){add({k:'n',t:n.t,u:BASE+'?nota='+n.s,c:cn(n.c),i:n.i,x:n.b})})}
 return L}
@@ -24,10 +25,11 @@ var st=d.createElement('style');st.textContent='.dn-sx .mh{display:flex;align-it
 '.dn-sx .ma{display:block;margin:4px 6px 10px;padding:10px 12px;border-radius:12px;border:1px solid #e3cf95;background:#fdf6e3;color:#7a5608!important;font-weight:800;font-size:13.5px;text-decoration:none!important;text-align:center}.dn-sx .mc a{background:#fdf1d2!important;color:#7a5608!important}';d.head.appendChild(st);
 function row(o){var yt=/ytimg\.com/.test(o.i||'');return'<a class="r m" href="'+esc(o.u)+'"><span class="th'+(yt?' yt':'')+'">'+(o.i?'<img src="'+esc(o.i)+'" alt="" loading="lazy">':'')+(o.k==='v'?'<s></s>':'')+'</span><span style="flex:1;min-width:0;margin:0"><em>'+(o.k==='v'?'Video':'Nota')+(o.c?' · '+esc(o.c):'')+'</em><b>'+esc(o.t)+'</b></span></a>'}
 W.dnMdSx=function(q){var R=find(q);if(!R.length)return'';var nN=R.filter(function(o){return o.k==='n'}).length,nV=R.length-nN;
-return'<div class="mh"><p>EN NATURALMENTE MEDIA</p><button type="button" class="dn-sx-x" aria-label="Cerrar búsqueda">×</button></div>'+R.slice(0,5).map(row).join('')+
-(nN>1||R.length>5?'<a class="ma" href="'+BASE+'?escritos&q='+encodeURIComponent(q)+'">Ver '+(nN===1?'la nota':'las '+nN+' notas')+' sobre “'+esc(q)+'”'+(nV?' ('+nV+(nV===1?' video':' videos')+' arriba)':'')+' →</a>':'')};
+return'<div class="mh"><p>'+(HOME?'TAMBIÉN EN NATURALMENTE MEDIA':'EN NATURALMENTE MEDIA')+'</p>'+(HOME?'':'<button type="button" class="dn-sx-x" aria-label="Cerrar búsqueda">×</button>')+'</div>'+R.slice(0,HOME?3:5).map(row).join('')+
+(nN>1||R.length>(HOME?3:5)?'<a class="ma" href="'+BASE+'?escritos&q='+encodeURIComponent(q)+'">Ver '+(nN===1?'la nota':'las '+nN+' notas')+' sobre “'+esc(q)+'”'+(nV?' ('+nV+(nV===1?' video':' videos')+' arriba)':'')+' →</a>':'')};
 var TOP=['Dormir','Mate','Digestión','Infusiones','Recetas','Cúrcuma','Fermentos','Despensa'];
-W.dnMdPop=function(){return'<div class="mh"><p>TEMAS EN MEDIA</p><button type="button" class="dn-sx-x" aria-label="Cerrar búsqueda">×</button></div><div class="c mc">'+TOP.map(function(x){return'<a href="'+BASE+'?escritos&q='+encodeURIComponent(x)+'">'+esc(x)+'</a>'}).join('')+'</div>'};
+W.dnMdPop=function(){return'<div class="mh"><p>'+(HOME?'TEMAS EN NATURALMENTE MEDIA':'TEMAS EN MEDIA')+'</p>'+(HOME?'':'<button type="button" class="dn-sx-x" aria-label="Cerrar búsqueda">×</button>')+'</div><div class="c mc">'+TOP.map(function(x){return'<a href="'+BASE+'?escritos&q='+encodeURIComponent(x)+'">'+esc(x)+'</a>'}).join('')+'</div>'};
+if(HOME)return;
 /* texto del buscador */
 function ph(){[].forEach.call(d.querySelectorAll('input.js-search-input[name=q]'),function(i){i.setAttribute('placeholder',PH);i.setAttribute('aria-label','Buscar notas, videos o productos');var s=i.parentNode&&i.parentNode.querySelector('.dnf-ph');if(s)s.textContent=PH})}
 ph();setTimeout(ph,1500);
