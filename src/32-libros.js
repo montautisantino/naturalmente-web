@@ -72,36 +72,49 @@ var st=d.createElement('style');st.id='dn-lib-css';st.textContent=
 '.dn-lib .pg{margin:0 16px;height:5px;border-radius:5px;background:rgba(122,84,16,.15);overflow:hidden}.dn-lib .pg b{display:block;height:100%;width:30%;border-radius:5px;background:linear-gradient(90deg,#e0a326,#3f7d3a);transition:width .2s}'+
 '#hb-lib{margin-top:0}.dn-lib.tn{margin:26px 0 6px}'+
 '@media(hover:hover){.dn-lib .bk:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(122,84,16,.24)}.dn-lib .bk:hover .cv img{transform:scale(1.05)}}'+
-'@media(min-width:768px){.dn-lib{padding:56px 0 44px}.dn-lib .in{max-width:1148px;margin:0 auto}.dn-lib h2{font-size:40px!important}.dn-lib .rw{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible}.dn-lib .bk{max-width:none}.dn-lib .nv,.dn-lib .pg{display:none}}'+
+'@media(min-width:768px){.dn-lib{padding:56px 0 44px}.dn-lib .in{max-width:1148px;margin:0 auto}.dn-lib h2{font-size:40px!important}.dn-lib .rw{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible}.dn-lib .bk{max-width:none}.dn-lib .rw>.cl{display:none}.dn-lib .nv,.dn-lib .pg{display:none}}'+
 '@media(prefers-reduced-motion:reduce){.dn-gc,.dn-gc:after,.dn-lib .sh,.dn-lib .gl,.dn-lib.on .bk,.dn-lib .hi b{animation:none!important}}';
 d.head.appendChild(st);
 /* tarjeta chica */
 function slide(g,lead,cls){var c=d.createElement('div');c.className='dn-gc'+(cls?' '+cls:'');c.setAttribute('data-k',g.k);
 c.innerHTML='<a class="im" href="'+url(g)+'"><img src="'+img(g)+'" alt="'+esc(g.t)+'" loading="lazy"></a><div class="tx"><i>'+BKI+'LIBRO DIGITAL</i><span class="ld">'+esc(lead)+'</span><a class="tt" href="'+url(g)+'">'+esc(g.t)+'</a><small>'+esc(g.h)+'</small><div class="ac"><strong class="pr"></strong><button type="button" class="ad" data-dnlib-add="'+g.k+'">'+CART+'Agregar</button><a class="vr" href="'+url(g)+'">Ver</a></div></div>';fillPrice(g,c);return c}
 /* carrusel de libros: primero el del tema, después el resto (los que no están en el carrito) */
+/* carrusel sin fin: 3 tandas iguales (antes, la del medio y después); al pasar el último vuelve al primero sin que se
+   note. Avanza solo cada 5 s mientras se ve y nadie lo está tocando. */
+function loop(root,tr,N,pv,nx,onI){var SW=0,iw=0,last=0,vis=0,tm;
+function meas(){var c=tr.children;if(c.length<3*N||!c[N]){SW=0;return}SW=c[N].offsetLeft-c[0].offsetLeft;iw=c[1].offsetLeft-c[0].offsetLeft}
+function on(){return tr.scrollWidth>tr.clientWidth+4}
+function jump(x){tr.style.scrollSnapType='none';tr.scrollLeft=x;requestAnimationFrame(function(){requestAnimationFrame(function(){tr.style.scrollSnapType=''})})}
+function idx(){return iw?((Math.round((tr.scrollLeft-SW)/iw)%N)+N)%N:0}
+function home(n){meas();if(!SW||!iw){if((n||0)<20)setTimeout(function(){home((n||0)+1)},300);return}if(on())jump(SW);onI(0)}
+tr.addEventListener('scroll',function(){if(!SW)meas();onI(idx());clearTimeout(tm);tm=setTimeout(function(){if(!SW||!on())return;if(tr.scrollLeft<SW*.5)jump(tr.scrollLeft+SW);else if(tr.scrollLeft>=SW*1.5)jump(tr.scrollLeft-SW)},140)},{passive:true});
+function step(n){meas();if(iw&&on())tr.scrollBy({left:n*iw,behavior:'smooth'})}
+pv.addEventListener('click',function(){last=Date.now();step(-1)});nx.addEventListener('click',function(){last=Date.now();step(1)});
+['pointerdown','touchstart','wheel','focusin'].forEach(function(e){root.addEventListener(e,function(){last=Date.now()},{passive:true})});
+root.addEventListener('mouseenter',function(){root.__hv=1});root.addEventListener('mouseleave',function(){root.__hv=0});
+if('IntersectionObserver'in W)new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.4}).observe(root);else vis=1;
+setInterval(function(){if(vis&&!root.__hv&&!d.hidden&&Date.now()-last>8000)step(1)},5000);
+W.addEventListener('resize',function(){var i=idx();meas();if(SW&&on())jump(SW+i*iw)});setTimeout(home,40);return{home:home}}
+/* carrusel de libros: primero el del tema, después el resto (los que no están en el carrito) */
 function card(g,lead,cls){cls=cls||'';var L=[g].concat(G.filter(function(x){return x!==g&&!inCart(x)})),w=d.createElement('div');w.className='dn-gcr '+cls;w.setAttribute('data-k',g.k);w.setAttribute('aria-roledescription','carrusel');w.setAttribute('aria-label','Libros digitales');
-var sc=cls.replace(/\bcart\b/,'').trim();w.innerHTML='<div class="hd"><span>Deslizá para ver los '+L.length+' libros <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="tr"></div><div class="dt">'+L.map(function(){return'<i></i>'}).join('')+'</div>';
-var tr=w.querySelector('.tr'),pv=w.querySelector('.pv'),nx=w.querySelector('.nx'),dt=[].slice.call(w.querySelectorAll('.dt i'));L.forEach(function(x,i){tr.appendChild(slide(x,i?'Más libros digitales':lead,sc))});
-function cur(){var c=tr.firstElementChild,wd=c?c.getBoundingClientRect().width+10:1;return Math.round(tr.scrollLeft/wd)}
-function upd(){var i=cur(),m=tr.scrollWidth-tr.clientWidth;dt.forEach(function(e,j){e.className=j===i?'on':''});pv.disabled=tr.scrollLeft<6;nx.disabled=tr.scrollLeft>m-6}
-function step(n){var c=tr.firstElementChild;tr.scrollBy({left:n*(c?c.getBoundingClientRect().width+10:260),behavior:'smooth'})}
-pv.addEventListener('click',function(){step(-1)});nx.addEventListener('click',function(){step(1)});tr.addEventListener('scroll',upd,{passive:true});setTimeout(upd,80);
-if(L.length<2){w.querySelector('.hd').style.display='none';w.querySelector('.dt').style.display='none'}return w}
+var sc=cls.replace(/\bcart\b/,'').trim(),N=L.length;w.innerHTML='<div class="hd"><span>Deslizá para ver los '+N+' libros <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="tr"></div><div class="dt">'+L.map(function(){return'<i></i>'}).join('')+'</div>';
+var tr=w.querySelector('.tr'),dt=[].slice.call(w.querySelectorAll('.dt i'));
+if(N<2){tr.appendChild(slide(g,lead,sc));w.querySelector('.hd').style.display='none';w.querySelector('.dt').style.display='none';return w}
+[0,1,2].forEach(function(r){L.forEach(function(x,i){var e=slide(x,i?'Más libros digitales':lead,sc);if(r!==1){e.classList.add('cl');e.setAttribute('aria-hidden','true')}tr.appendChild(e)})});
+loop(w,tr,N,w.querySelector('.pv'),w.querySelector('.nx'),function(i){dt.forEach(function(e,j){e.className=j===i?'on':''})});return w}
 function wait(sel,fn,ms){var t0=Date.now();(function p(){var e=d.querySelector(sel);if(e)return fn(e);if(Date.now()-t0<(ms||12000))setTimeout(p,250)})()}
 var path=location.pathname,isP=/\btemplate-product\b/.test(B.className),isC=/\btemplate-category\b/.test(B.className),isS=/\btemplate-search\b/.test(B.className),isHome=B.classList.contains('template-home'),isLanding=/^\/productos\/?$/.test(path);
 /* sección destacada */
 function section(id,cls){var s=d.createElement('section');s.id=id;s.className='dn-lib '+(cls||'');s.setAttribute('aria-label','Libros digitales');s.setAttribute('aria-roledescription','carrusel');
 s.innerHTML='<span class="gl g1"></span><span class="gl g2"></span><div class="in"><div class="hd"><i>'+BKI+'LIBROS DIGITALES</i><h2>Aprendé a hacerlo <em>en casa</em></h2><p>Guías prácticas en PDF de Dietéticas Naturalmente, para leer en el celu, la compu o la tablet.</p><div class="chs"><span>Formato PDF</span><span>Celu, compu o tablet</span><span>Pago seguro</span></div></div>'+
 '<div class="nv"><span class="hi">Deslizá para ver los '+G.length+' libros <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="rw">'+
-G.map(function(g){return'<article class="bk" data-k="'+g.k+'"><a class="cv" href="'+url(g)+'"><img src="'+img(g)+'" alt="'+esc(g.t)+'" loading="lazy"><span class="tg">'+esc(g.tg)+'</span><span class="pf">PDF</span><span class="sh"></span></a><h3><a href="'+url(g)+'">'+esc(g.t)+'</a></h3><p>'+esc(g.h)+'</p><a class="vm" href="'+url(g)+'">Ver qué trae →</a><div class="ft"><strong class="pr"></strong><button type="button" class="ad" data-dnlib-add="'+g.k+'">'+CART+'Agregar</button></div></article>'}).join('')+
+[0,1,2].map(function(r){return G.map(function(g){return'<article class="bk'+(r!==1?' cl" aria-hidden="true':'')+'" data-k="'+g.k+'"><a class="cv" href="'+url(g)+'"><img src="'+img(g)+'" alt="'+esc(g.t)+'" loading="lazy"><span class="tg">'+esc(g.tg)+'</span><span class="pf">PDF</span><span class="sh"></span></a><h3><a href="'+url(g)+'">'+esc(g.t)+'</a></h3><p>'+esc(g.h)+'</p><a class="vm" href="'+url(g)+'">Ver qué trae →</a><div class="ft"><strong class="pr"></strong><button type="button" class="ad" data-dnlib-add="'+g.k+'">'+CART+'Agregar</button></div></article>'}).join('')}).join('')+
 '</div><div class="pg"><b></b></div></div>';
 var rw=s.querySelector('.rw'),pv=s.querySelector('.pv'),nx=s.querySelector('.nx'),pb=s.querySelector('.pg b');
-function upd(){var m=rw.scrollWidth-rw.clientWidth,f=m>0?rw.scrollLeft/m:1;pb.style.width=Math.max(18,Math.round(18+f*82))+'%';pv.disabled=rw.scrollLeft<8;nx.disabled=rw.scrollLeft>m-8}
-function step(n){var c=rw.querySelector('.bk');rw.scrollBy({left:n*(c?c.getBoundingClientRect().width+14:220),behavior:'smooth'})}
-pv.addEventListener('click',function(){step(-1)});nx.addEventListener('click',function(){step(1)});rw.addEventListener('scroll',upd,{passive:true});setTimeout(upd,60);
+var LP=loop(s,rw,G.length,pv,nx,function(i){pb.style.width=Math.round((i+1)/G.length*100)+'%'});
 var go=function(){if(s.__go)return;s.__go=1;s.classList.add('on');[].forEach.call(s.querySelectorAll('.bk'),function(b){fillPrice(BK[b.getAttribute('data-k')],b)});
 /* empujoncito para mostrar que se desliza */
-if(rw.scrollWidth>rw.clientWidth+20&&rw.scrollLeft<4)setTimeout(function(){rw.scrollBy({left:60,behavior:'smooth'});setTimeout(function(){rw.scrollBy({left:-60,behavior:'smooth'})},650)},900)};
+if(rw.scrollWidth>rw.clientWidth+20)setTimeout(function(){rw.scrollBy({left:60,behavior:'smooth'});setTimeout(function(){rw.scrollBy({left:-60,behavior:'smooth'})},650)},900)};
 if('IntersectionObserver'in W){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go()}},{rootMargin:'0px 0px 200px 0px'});io.observe(s)}else go();setTimeout(go,8000);return s}
 if(isHome&&!d.getElementById('hb-lib')){var hf=d.querySelector('[data-store="home-products-featured"]');if(hf)hf.parentNode.insertBefore(section('hb-lib'),hf)}
 if(isLanding&&!d.getElementById('dn-tlib')){var ts=section('dn-tlib','tn'),t0=Date.now();(function p(){var a=d.getElementById('dn-tcb'),b=d.getElementById('dn-tme');if(a&&a.parentNode){a.parentNode.insertBefore(ts,a);return}if(Date.now()-t0>9000){if(b&&b.parentNode)b.parentNode.insertBefore(ts,b.nextSibling);return}setTimeout(p,250)})()}
