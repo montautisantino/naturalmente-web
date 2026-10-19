@@ -4,6 +4,8 @@
    Si la planilla falla, la web sigue con el contenido que trae el código. Solo trabaja en el inicio y en Media. */
 !function(){var W=window,d=document;if(W.dnSheet)return;
 var ID='1qrT32OXed3bPESBFqYxXbhhtxI_wInRjb3N2D_5IHAg',K='dnSh1',TTL=5*60e3;
+/* lo cargado por formulario solo se publica si viene de estas cuentas (el formulario pide iniciar sesión) */
+var OK=['dieteticasnaturalmente@gmail.com','santinomontauti02@gmail.com'];
 var need=d.body.classList.contains('template-home')||!!d.querySelector('.dn-media');
 var c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(e){}
 var S={data:c&&c.d||null,done:0,cbs:[],ready:function(f){if(S.done)f(S.data);else S.cbs.push(f)}};W.dnSheet=S;
@@ -16,9 +18,9 @@ function yt(u){var m=/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/.exec(u||''
 function lines(t){return String(t||'').split(/\r?\n/).map(function(x){return x.trim()}).filter(Boolean)}
 function pretty(s){s=s.replace(/-[a-z0-9]{4,6}$/,'').replace(/-/g,' ');return s.charAt(0).toUpperCase()+s.slice(1)}
 function parse(tabs){var D={dato:[],mito:[],yuyo:[],ficha:[],tip:[],video:[],nota:[]};
-tabs.forEach(function(j){if(!j||!j.table)return;var L=j.table.cols.map(function(c){return(c.label||'').trim()});
+tabs.forEach(function(j,ti){if(!j||!j.table)return;var L=j.table.cols.map(function(c){return(c.label||'').trim()}),EM=L.filter(function(l){return/mail|correo/i.test(l)})[0];
 j.table.rows.forEach(function(r){var o={};L.forEach(function(l,i){var c=r.c[i];o[l]=c?(c.f&&l==='Timestamp'?c.v:(c.v==null?'':c.v)):''});
-var g=function(k){return String(o[k]==null?'':o[k]).trim()};if(!/^s/i.test(g('Publicar')))return;var t=g('Tipo').toLowerCase(),ts=date(o.Timestamp||o['Marca temporal']);
+var g=function(k){return String(o[k]==null?'':o[k]).trim()};if(!/^s/i.test(g('Publicar')))return;if(ti===1&&(!EM||OK.indexOf(g(EM).toLowerCase())<0))return;var t=g('Tipo').toLowerCase(),ts=date(o.Timestamp||o['Marca temporal']);
 if(/^dato/.test(t)){if(g('Dato: texto'))D.dato.push(g('Dato: texto'))}
 else if(/^mito/.test(t)){if(g('Mito: frase'))D.mito.push([g('Mito: frase'),/^real/i.test(g('Mito: respuesta'))?1:0,g('Mito: explicación')])}
 else if(/^adivin/.test(t)){if(g('Yuyo: pista')&&g('Yuyo: respuesta correcta'))D.yuyo.push([g('Yuyo: pista'),g('Yuyo: respuesta correcta'),[g('Yuyo: opción incorrecta 1'),g('Yuyo: opción incorrecta 2')].filter(Boolean)])}
