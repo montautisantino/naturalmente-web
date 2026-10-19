@@ -70,7 +70,7 @@ if(!window.dnSheet||sessionStorage.getItem(RK))return;M.style.visibility='hidden
 var qn=(location.search.match(/[?&]nota=([^&#]+)/)||[])[1];
 if(qn){qn=decodeURIComponent(qn);var NN=((SH0&&SH0.nota)||[]).filter(function(x){return x.s===qn})[0];
 if(NN){try{sessionStorage.removeItem(RK)}catch(e){}var eh=function(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
-var body=String(NN.x).split(/\r?\n\s*\r?\n/).map(function(b){b=b.trim();if(!b)return'';if(/^##/.test(b))return'<h2>'+eh(b.replace(/^#+\s*/,''))+'</h2>';return'<p>'+eh(b).replace(/\r?\n/g,'<br>')+'</p>'}).join('');
+var body=String(NN.x).split(/\r?\n\s*\r?\n/).map(function(b){b=b.trim();if(!b)return'';if(/^##/.test(b)||(!/\n/.test(b)&&b.length<=90&&!/[.:;!?)…]$/.test(b)))return'<h2>'+eh(b.replace(/^#+\s*/,''))+'</h2>';return'<p>'+eh(b).replace(/\r?\n/g,'<br>')+'</p>'}).join('');
 var words=String(NN.x).split(/\s+/).length;
 M.className='dn-media dm-nota';M.innerHTML='<p class="dm-back"><a href="/naturalmente-media/">← Naturalmente Media</a></p><p class="dm-n-aut">Equipo de Dietéticas Naturalmente</p><p class="dm-n-sec">Escritos</p><p class="dm-n-cat">'+eh(NN.c||'Naturalmente Media')+'</p><p class="dm-n-tema">'+eh(NN.c||'')+'</p><p class="dm-n-fecha">'+eh(NN.f||'')+'</p><p class="dm-n-min">'+Math.max(1,Math.round(words/200))+'</p><p class="dm-n-cv"><img src="'+eh(NN.i)+'" alt=""></p><h2 class="dm-n-t">'+eh(NN.t)+'</h2><p class="dm-n-baj">'+eh(NN.b||'')+'</p><div class="dm-n-body">'+body+'</div>';
 d.title=NN.t+' | Naturalmente Media';return}
