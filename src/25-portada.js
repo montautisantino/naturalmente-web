@@ -66,7 +66,7 @@ var bc=''+
 '#hb-lep #dn-lep span{overflow:hidden}#hb-lep #dn-lep img{transition:transform 6s ease}#hb-lep.on #dn-lep img{transform:scale(1.06)}#hb-lep #dn-lep span b{animation:hbPulse 2s ease-out infinite}@keyframes hbPulse{0%{box-shadow:0 0 0 0 rgba(244,201,93,.55)}100%{box-shadow:0 0 0 18px rgba(244,201,93,0)}}'+
 '#hb-lep .hb-a{position:absolute;z-index:-1;border-radius:50%;filter:blur(40px);opacity:.55;animation:hbAur 12s ease-in-out infinite alternate}#hb-lep .hb-a.a1{width:220px;height:220px;right:-60px;top:-40px;background:#3f7d3a}#hb-lep .hb-a.a2{width:180px;height:180px;left:-70px;bottom:-30px;background:#a8641a;animation-delay:-5s}@keyframes hbAur{to{transform:translate(-30px,30px) scale(1.15)}}'+
 /* 2 notas: banda de papel */
-'#hb-not{padding:34px 0 24px;background:radial-gradient(rgba(122,90,40,.07) 1px,transparent 1.4px) 0 0/14px 14px,linear-gradient(180deg,#f8f2e4,#f3ead6)}#hb-not.hb-w{--wv:'+WAVE('f8f2e4')+'}#hb-not #dn-not{margin:0!important}'+
+'#hb-not{padding:34px 0 24px;background:linear-gradient(180deg,#f8f2e4,#f3ead6)}#hb-not.hb-w{--wv:'+WAVE('f8f2e4')+'}#hb-not #dn-not{margin:0!important}'+
 '#hb-not .hd i{letter-spacing:.2em!important}#hb-not .f{transition:transform .3s,box-shadow .3s}#hb-not .f:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(90,60,20,.15)}#hb-not .f img{transition:transform 5s ease}#hb-not.on .f img{transform:scale(1.05)}#hb-not .ls a{transition:background .2s}#hb-not .ls a:hover{background:rgba(255,255,255,.6)}'+
 /* 3 combos destacados: banda dorada */
 'body.dn-portal [data-store="home-products-featured"]{position:relative;isolation:isolate;padding:40px 0 26px!important;background:radial-gradient(80% 60% at 0% 0%,rgba(255,255,255,.55),transparent 60%),linear-gradient(160deg,#f8e2a6,#e8bb55)!important}'+
@@ -75,7 +75,7 @@ var bc=''+
 '#hb-qzc{padding:30px 0 30px;background:radial-gradient(60% 80% at 100% 50%,rgba(127,209,160,.25),transparent 70%),linear-gradient(160deg,#d6ecd9,#b7dcc0)}#hb-qzc.hb-w{--wv:'+WAVE('d6ecd9')+'}#hb-qzc #dn-qzc{margin:0 12px!important;transform:none;transition:transform .2s}#hb-qzc #dn-qzc:hover{transform:translateY(-2px)}'+
 '#hb-qzc .sp{position:absolute;z-index:-1;width:14px;height:14px;background:#e0a326;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hbTw 2.4s ease-in-out infinite}@keyframes hbTw{0%,100%{transform:scale(.4);opacity:.3}50%{transform:scale(1);opacity:1}}'+
 /* 5 sucursales */
-'body.dn-portal [data-store="home-institutional-message"]{position:relative;padding:34px 0 26px!important;background:radial-gradient(rgba(90,53,16,.08) 1.2px,transparent 1.6px) 0 0/18px 18px,linear-gradient(180deg,#f4ead7,#ecdcc0)!important}'+
+'body.dn-portal [data-store="home-institutional-message"]{position:relative;padding:34px 0 26px!important;background:linear-gradient(180deg,#f4ead7,#ecdcc0)!important}'+
 'body.dn-portal [data-store="home-institutional-message"]:before{content:"";position:absolute;left:0;right:0;top:-22px;height:24px;background:'+WAVE('f4ead7')+' no-repeat center/100% 100%}'+
 /* 6 productos destacados */
 'body.dn-portal [data-store="home-products-sale"]{position:relative;isolation:isolate;padding:40px 0 26px!important;background:radial-gradient(70% 50% at 100% 0%,rgba(127,209,160,.3),transparent 60%),linear-gradient(180deg,#f2f8f1,#e4f1e3)!important}'+
