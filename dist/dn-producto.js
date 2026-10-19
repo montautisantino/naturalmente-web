@@ -7,7 +7,7 @@ try{
 }catch(e){}
 /* src/14-producto.js */
 try{
-!function(){var d=document,B=d.body;if(!B.classList.contains('template-product')||d.querySelector('.dn-lp')||d.getElementById('dn-pt'))return;
+!function(){var d=document,B=d.body;if(!B.classList.contains('template-product'))return;[].forEach.call(d.querySelectorAll('#related-products,#complementary-products'),function(s){window.dnCards&&window.dnCards(s)});if(d.querySelector('.dn-lp')||d.getElementById('dn-pt'))return;
 var h1=d.querySelector('.js-product-name'),nm=h1?h1.textContent.trim():'';if(!h1||/^combo/i.test(nm))return;
 function fmt(n){return'$'+Math.round(n).toLocaleString('es-AR')}
 function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
