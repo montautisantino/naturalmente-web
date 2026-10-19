@@ -107,4 +107,22 @@ var pend=[];function chk(){pend=pend.filter(function(e){if(e.getBoundingClientRe
 var lt=0;window.addEventListener('scroll',function(){var n=Date.now();if(n-lt<80)return;lt=n;chk()},{passive:true});setTimeout(function(){pend.forEach(function(e){e.classList.add('on')});pend=[]},6000);
 function reveal(){['#hb-lep','#hb-not','[data-store="home-products-featured"]','#hb-qzc','[data-store="home-products-sale"]'].forEach(function(q){var e=box.querySelector(':scope > '+q);if(!e||e.getAttribute('data-hbr'))return;e.setAttribute('data-hbr','1');e.classList.add('hb-rv');pend.push(e)});setTimeout(chk,60)}
 order();if(window.MutationObserver){var mo=new MutationObserver(function(){order()});mo.observe(box,{childList:true});setTimeout(function(){mo.disconnect()},15000)}
+/* 4. barra fija MEDIA | TIENDA | carrito (el header deja de ser fijo en el inicio) */
+(function(){var d=document;if(d.getElementById('dn-sbar'))return;
+var SV=function(p,s){return'<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'};
+var st=d.createElement('style');st.id='dn-sbar-css';st.textContent='body.dn-portal .js-head-main{position:relative!important;top:auto!important}'+
+'#dn-sbar{position:fixed;left:0;right:0;top:0;z-index:1040;display:flex;gap:8px;align-items:center;padding:8px 10px calc(8px);background:rgba(251,248,241,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(16,40,26,.12);transform:translateY(-110%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}#dn-sbar.on{transform:none}'+
+'#dn-sbar a{display:flex;align-items:center;justify-content:center;gap:7px;height:42px;border-radius:13px;font:900 15px/1 Archivo,Arial,sans-serif;letter-spacing:.07em;text-decoration:none!important}'+
+'#dn-sbar .md{flex:1;background:#1d4a2a;color:#fff!important}#dn-sbar .md svg{color:#f4c95d}#dn-sbar .sh{flex:1;background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326);color:#10281a!important}'+
+'#dn-sbar .ct{position:relative;flex:0 0 46px;background:#fff;border:1px solid #dbe3d4;color:#1d4a2a!important}#dn-sbar .ct b{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#e0a326;color:#10281a;font:900 11px/20px Arial,sans-serif;text-align:center}#dn-sbar .ct b:empty,#dn-sbar .ct b.z{display:none}'+
+'@media(min-width:768px){#dn-sbar{padding:10px calc(50% - 558px)}#dn-sbar a{height:46px;font-size:16px}}';d.head.appendChild(st);
+var b=d.createElement('nav');b.id='dn-sbar';b.setAttribute('aria-label','Accesos rápidos');
+b.innerHTML='<a class="md" href="/naturalmente-media/">'+SV('<circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>',18)+'MEDIA</a><a class="sh" href="/productos/">'+SV('<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',18)+'TIENDA</a><a class="ct" href="/comprar/" aria-label="Carrito">'+SV('<path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/>',20)+'<b></b></a>';
+d.body.appendChild(b);
+var bd=b.querySelector('.ct b');function cnt(){var w=d.querySelector('.js-cart-widget-amount');var n=w?parseInt(w.textContent,10)||0:0;bd.textContent=n?n:'';bd.className=n?'':'z'}cnt();
+var w=d.querySelector('.js-cart-widget-amount');if(w&&window.MutationObserver)new MutationObserver(cnt).observe(w,{childList:true,characterData:true,subtree:true});
+b.querySelector('.ct').addEventListener('click',function(e){var t=d.querySelector('.js-head-main [data-toggle="#modal-cart"]')||d.querySelector('[data-toggle="#modal-cart"]');if(t){e.preventDefault();t.click()}});
+function chk(){var s=d.getElementById('dn-sub'),r=s?s.getBoundingClientRect():null;b.classList.toggle('on',!!r&&r.bottom<0)}
+var lt=0;window.addEventListener('scroll',function(){var n=Date.now();if(n-lt<60)return;lt=n;chk()},{passive:true});chk();
+})();
 }();
