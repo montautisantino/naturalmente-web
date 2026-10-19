@@ -74,7 +74,7 @@ NV.innerHTML='<div class="dmx-hd"><div><i>NATURALMENTE MEDIA</i><h2>Novedades</h
 drawNov();
 /* videos: sin tarjetas "Muy pronto", programas vacíos ocultos, encabezado con "Ver todos" */
 var PR=M.querySelector('#dm-programas');if(PR){[].forEach.call(PR.querySelectorAll('.dm-ep'),function(e){if(/pr[oó]ximamente|muy pronto/i.test(e.textContent)||!e.querySelector('a[href]'))e.remove()});
-[].forEach.call(PR.querySelectorAll('.dm-prog'),function(p){var n=p.querySelectorAll('.dm-ep').length,t=((p.querySelector('.dm-prog-t')||{}).textContent||'').trim();if(!n){p.style.display='none';return}var a=d.createElement('a');a.className='dmx-pa';a.href='/naturalmente-media/?videos&p='+encodeURIComponent(t);a.setAttribute('aria-label','Ver los '+n+' videos de '+t);a.innerHTML='<b>'+n+'</b> videos <span>›</span>';var hd=p.querySelector('.dm-prog-head');(hd||p).appendChild(a)});
+[].forEach.call(PR.querySelectorAll('.dm-prog'),function(p){var n=p.querySelectorAll('.dm-ep').length,t=((p.querySelector('.dm-prog-t')||{}).textContent||'').trim();if(!n){p.style.display='none';return}var a=d.createElement('a');a.className='dmx-pa';a.href='/naturalmente-media/?videos&p='+encodeURIComponent(t);a.setAttribute('aria-label','Ver los '+n+' videos de '+t);a.innerHTML='<b>'+n+'</b> videos <span>›</span>';var hd=p.querySelector('.dm-prog-head');if(n>1)(hd||p).appendChild(a)});
 var vh=d.createElement('div');vh.className='dmx-hd sm';vh.innerHTML='<div><h2>Todos los programas</h2></div><a class="dmx-more" href="/naturalmente-media/?videos">Ver todos '+IC.play+'</a>';PR.parentNode.insertBefore(vh,PR)}
 /* notas: la lista larga se reemplaza por una selección con adelanto desplegable */
 var LE=M.querySelector('#dm-leer');var NS=d.createElement('section');NS.id='dmx-notes';
