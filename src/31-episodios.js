@@ -62,9 +62,23 @@ tp:['Cúrcuma','Jengibre','Aceite de coco','Receta casera'],
 ch:['0:00 Presentación','0:15 Cúrcuma y pimienta negra','0:38 Por qué necesita un medio graso','1:02 Los ingredientes','1:37 La preparación base','2:30 Cómo usarla en un té o un café','2:46 Con jengibre','3:29 Comprimidos caseros en el freezer','4:26 Cuántos por día'],
 pr:['Cúrcuma|Especias|0:15|curcuma-por-100g','Pimienta negra en grano|Especias|0:15|pimienta-negra-en-grano-por-100gr,pimienta-negra-molida-por-100gr','Aceite de coco virgen|Entrenuts|0:45|aceite-de-coco-virgen-entrenuts-200cc,aceite-de-coco-virgen-entrenuts-360cc','Jengibre molido|Especias|2:52|jengibre-molido-por-100gr']}
 ];
+/* videos y notas cargados por el formulario (planilla) */
+var SH0=window.dnSheet&&window.dnSheet.data,RK='dnShR';
+if(SH0&&SH0.video&&SH0.video.length){var hv={};EP.forEach(function(x){hv[x.yt]=1});EP=SH0.video.filter(function(v){return!hv[v.yt]}).concat(EP)}
+function esp(id,has){/* si lo pidieron y todavía no está en la copia guardada, espera la planilla y recarga una sola vez */
+if(!window.dnSheet||sessionStorage.getItem(RK))return;M.style.visibility='hidden';window.dnSheet.ready(function(D){if(D&&has(D)){try{sessionStorage.setItem(RK,'1')}catch(e){}location.reload()}else M.style.visibility=''})}
+var qn=(location.search.match(/[?&]nota=([^&#]+)/)||[])[1];
+if(qn){qn=decodeURIComponent(qn);var NN=((SH0&&SH0.nota)||[]).filter(function(x){return x.s===qn})[0];
+if(NN){try{sessionStorage.removeItem(RK)}catch(e){}var eh=function(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var body=String(NN.x).split(/\r?\n\s*\r?\n/).map(function(b){b=b.trim();if(!b)return'';if(/^##/.test(b))return'<h2>'+eh(b.replace(/^#+\s*/,''))+'</h2>';return'<p>'+eh(b).replace(/\r?\n/g,'<br>')+'</p>'}).join('');
+var words=String(NN.x).split(/\s+/).length;
+M.className='dn-media dm-nota';M.innerHTML='<p class="dm-back"><a href="/naturalmente-media/">← Naturalmente Media</a></p><p class="dm-n-aut">Equipo de Dietéticas Naturalmente</p><p class="dm-n-sec">Escritos</p><p class="dm-n-cat">'+eh(NN.c||'Naturalmente Media')+'</p><p class="dm-n-tema">'+eh(NN.c||'')+'</p><p class="dm-n-fecha">'+eh(NN.f||'')+'</p><p class="dm-n-min">'+Math.max(1,Math.round(words/200))+'</p><p class="dm-n-cv"><img src="'+eh(NN.i)+'" alt=""></p><h2 class="dm-n-t">'+eh(NN.t)+'</h2><p class="dm-n-baj">'+eh(NN.b||'')+'</p><div class="dm-n-body">'+body+'</div>';
+d.title=NN.t+' | Naturalmente Media';return}
+esp(qn,function(D){return(D.nota||[]).some(function(x){return x.s===qn})})}
 var el=function(t,c,x){var e=d.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 var q=(location.search.match(/[?&]ep=([^&#]+)/)||[])[1],E=null;if(q)EP.forEach(function(x){if(x.s===decodeURIComponent(q))E=x});
-if(E){/* página del episodio */
+if(q&&!E)esp(q,function(D){return(D.video||[]).some(function(x){return x.s===decodeURIComponent(q)})});
+if(E){try{sessionStorage.removeItem(RK)}catch(e){}/* página del episodio */
 /* estilos de la página de episodio: los mismos del episodio publicado (Homo Deus); se cachean */
 var XK='dnEpCss1',XC='';try{XC=localStorage.getItem(XK)||''}catch(e){}
 var xs=function(t){if(!t||d.getElementById('dn-epx-css'))return;var s=d.createElement('style');s.id='dn-epx-css';s.textContent=t;d.head.appendChild(s)};
@@ -78,6 +92,9 @@ E.d.forEach(function(x){D.appendChild(el('p','dm-epi-d',x))});D.appendChild(el('
 var C=el('div','dm-chs');E.ch.forEach(function(x){C.appendChild(el('p','dm-ch',x))});D.appendChild(C);E.pr.forEach(function(x){D.appendChild(el('p','dm-prod',x))});
 M.innerHTML='';M.appendChild(D);if(wa)M.appendChild(wa);if(lg)M.appendChild(lg);if(css)M.appendChild(css);M.classList.add('dm-epi');
 d.title=E.t+' | Naturalmente Media';var md=d.querySelector('meta[name="description"]');if(md)md.setAttribute('content',E.d[0]);return}
+/* listado: notas cargadas por formulario arriba de todo en "Escritos" */
+(function(){var NS=(SH0&&SH0.nota)||[],a0=M.querySelector('#dm-leer .dm-art');if(!NS.length||!a0)return;var row=a0.parentNode;var eh=function(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+NS.slice().reverse().forEach(function(n){var u='/naturalmente-media/?nota='+n.s,a=el('div','dm-art');a.innerHTML='<p class="dm-art-th"><a href="'+u+'"><img src="'+eh(n.i)+'" alt=""></a></p><p class="dm-art-cat">'+eh(n.c||'')+'</p><p class="dm-art-t"><a href="'+u+'">'+eh(n.t)+'</a></p><p class="dm-art-d">'+eh(n.b||'')+'</p><p class="dm-art-min">'+Math.max(1,Math.round(String(n.x).split(/\s+/).length/200))+' min de lectura</p>';row.insertBefore(a,row.firstChild)})})();
 /* listado: completa los programas */
 var prog={};[].forEach.call(M.querySelectorAll('#dm-programas .dm-prog'),function(p){var h=p.querySelector('.dm-prog-t');if(h)prog[h.textContent.trim()]=p});
 if(!prog['Charlas en vivo']&&prog['Varios']){var np=el('div','dm-prog');np.innerHTML='<div class="dm-prog-head"><p class="dm-prog-ico">🔴</p><div><h2 class="dm-prog-t">Charlas en vivo</h2><p class="dm-prog-d">Diego responde en vivo las preguntas de la comunidad sobre fitoterapia.</p></div></div><div class="dm-row"></div>';prog['Varios'].parentNode.insertBefore(np,prog['Varios']);prog['Charlas en vivo']=np}

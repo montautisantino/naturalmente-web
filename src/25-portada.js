@@ -35,7 +35,7 @@ s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Programas</h2></d
 L.map(function(x){return'<a href="/naturalmente-media/#dm-programas"><span class="e">'+esc(x.e)+'</span><b>'+esc(x.t)+'</b><small>'+esc(x.d)+'</small><u'+(x.n?' class="on">'+x.n+(x.n>1?' episodios':' episodio'):'>PRÓXIMAMENTE')+'</u></a>'}).join('')+'</div>';
 box.appendChild(s);order()}
 /* notas: la última cargada fija arriba como NOVEDAD; el resto se mezcla en cada visita y va rotando de a una */
-function drawN(L){if(L&&L.length)window.dnNotes=L;if(!L||!L.length||d.getElementById('dn-not'))return;var s=d.createElement('section');s.id='dn-not';var f=L[0],R=L.slice(1);
+function drawN(L){var SN=(window.dnSheet&&window.dnSheet.data&&window.dnSheet.data.nota)||[];L=SN.map(function(n){return{u:'/naturalmente-media/?nota='+n.s,t:n.t,c:n.c,x:n.b,i:n.i}}).concat(L||[]);if(L&&L.length)window.dnNotes=L;if(!L||!L.length||d.getElementById('dn-not'))return;var s=d.createElement('section');s.id='dn-not';var f=L[0],R=L.slice(1);
 for(var i=R.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=R[i];R[i]=R[j];R[j]=t}
 var row=function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<span>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b></span></a>'},V=Math.min(3,R.length),st=0;
 s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Notas para leer</h2></div><a href="/naturalmente-media/#dm-leer">Ver todas →</a></div>'+
