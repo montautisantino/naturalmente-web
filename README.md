@@ -11,7 +11,9 @@ Se carga desde Tiendanube (código del sello) con una sola línea:
 - `dist/dn.js` — todo junto, cada bloque aislado con `try/catch`.
 - `dist/dn.min.js` — versión comprimida que carga la tienda.
 
-Cada cambio se publica como una versión nueva (tag `vN`) y recién se activa al actualizar la línea en Tiendanube.
+Cada cambio se publica como un commit y recién se activa al actualizar el código del commit en Tiendanube.
+El sello carga el archivo con respaldo: si `cdn.jsdelivr.net` no responde, prueba `fastly.jsdelivr.net` y después `gcore.jsdelivr.net` (redes distintas). El archivo se protege contra doble carga (`window.__dnExt`).
+Para armar `dist/`: `./build.sh`.
 Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de Tiendanube.
 
 `sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
