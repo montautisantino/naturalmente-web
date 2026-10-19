@@ -330,7 +330,8 @@ function more(n){var added=0,guard=0;while(added<n&&count<MAX&&guard<200){guard+
 if(count>=MAX||!added){s.classList.add('end');var e=card('dato','');e.className='fc t-end';e.innerHTML='<b>¡Llegaste al final!</b><small style="color:rgba(255,255,255,.85)">Volvé en otro momento: el inicio cambia en cada visita.</small><a href="#" class="up">Volver arriba ↑</a>';e.querySelector('.up').addEventListener('click',function(ev){ev.preventDefault();window.scrollTo({top:0,behavior:'smooth'})});ff.appendChild(e)}}
 var io=null,started=0,lt=0;function chk(){if(s.classList.contains('end'))return;var r=s.querySelector('.fs').getBoundingClientRect();if(r.top<innerHeight+700){more(6);setTimeout(chk,120)}}
 function start(){if(started)return;started=1;loadExtra();more(8);addEventListener('scroll',function(){var n=Date.now();if(n-lt<150)return;lt=n;chk()},{passive:true});setTimeout(chk,300)}
-if('IntersectionObserver'in window){var o0=new IntersectionObserver(function(en){if(en[0].isIntersecting){o0.disconnect();start()}},{rootMargin:'0px 0px 900px 0px'});o0.observe(s)}else start();
-box.appendChild(s)})();
+box.appendChild(s);
+/* arranca cuando se acerca a la pantalla (se revisa con el scroll y cada tanto, sin depender de un solo mecanismo) */
+function near(){if(started)return;var r=s.getBoundingClientRect();if(r.height&&r.top<innerHeight+900)start()}addEventListener('scroll',near,{passive:true});var nt=setInterval(function(){near();if(started)clearInterval(nt)},1500);setTimeout(near,500)})();
 order();if(window.MutationObserver){var otm;var mo=new MutationObserver(function(){clearTimeout(otm);otm=setTimeout(order,40)});mo.observe(box,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},30000)}
 }();
