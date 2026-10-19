@@ -19,3 +19,6 @@ El sello verifica la huella (`integrity`, SRI sha384) del archivo: si el conteni
 Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de Tiendanube.
 
 `sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
+
+
+Importante: en `dist/` solo van los `.min.js`. Si existiera el `.js` sin comprimir con el mismo nombre, jsDelivr puede servir su propia versión comprimida y la huella SRI no coincide (el navegador la rechaza). Los intermedios quedan en `build/` (ignorado).

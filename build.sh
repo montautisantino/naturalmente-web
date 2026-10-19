@@ -5,6 +5,7 @@
 # Cada parte se carga con su huella SRI, que va escrita dentro del núcleo (el núcleo a su vez
 # se verifica con la huella que está en el sello de Tiendanube).
 set -e
+mkdir -p "$(dirname "$0")/build"
 cd "$(dirname "$0")"
 T="npx -y terser@5.31.0"
 CORE="01 16 02 05 09 10 11 13 15 17 18"
@@ -17,8 +18,8 @@ sri() { echo "sha384-$(openssl dgst -sha384 -binary "$1" | openssl base64 -A)"; 
 MAP=""
 for p in home media listado producto; do
   case $p in home) L=$HOME_P;; media) L=$MEDIA;; listado) L=$LISTADO;; producto) L=$PRODUCTO;; esac
-  { echo "/* Dieteticas Naturalmente - parte: $p */"; echo "!function(){if(window.__dn_$p)return;window.__dn_$p=1;"; cat_mods "$L"; echo "}();"; } > dist/dn-$p.js
-  $T dist/dn-$p.js -c passes=2 -m -o dist/dn-$p.min.js
+  { echo "/* Dieteticas Naturalmente - parte: $p */"; echo "!function(){if(window.__dn_$p)return;window.__dn_$p=1;"; cat_mods "$L"; echo "}();"; } > build/dn-$p.js
+  $T build/dn-$p.js -c passes=2 -m -o dist/dn-$p.min.js
   MAP="$MAP$p:'$(sri dist/dn-$p.min.js)',"
 done
 {
@@ -33,7 +34,7 @@ var H=[m[1]].concat(['https://cdn.jsdelivr.net','https://fastly.jsdelivr.net','h
 function L(){if(window['__dn_'+k]||i>=H.length)return;var e=d.createElement('script');e.src=H[i++]+m[2]+'dn-'+k+'.min.js';e.integrity=M[k];e.crossOrigin='anonymous';e.onerror=L;d.head.appendChild(e)}L()}()}catch(e){}
 JS
   echo "}();"
-} > dist/dn.js
-$T dist/dn.js -c passes=2 -m -o dist/dn.min.js
+} > build/dn.js
+$T build/dn.js -c passes=2 -m -o dist/dn.min.js
 wc -c dist/*.min.js
 echo "SRI nucleo: $(sri dist/dn.min.js)"
