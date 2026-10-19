@@ -7,4 +7,4 @@ var seen={};it=it.filter(function(e){var k=e.getAttribute('data-product-id');if(
 var cls=ref.className,html=it.map(function(e){e.className=cls;return'<div class="swiper-slide">'+e.outerHTML+'</div>'}),w=sw.swiper;
 if(w){if(w.params.loop&&w.loopDestroy)w.loopDestroy();w.removeAllSlides();w.appendSlide(html);if(w.params.loop&&w.loopCreate)w.loopCreate();w.update();w.slideTo&&w.slideTo(w.params.loop?w.loopedSlides||0:0,0)}
 else{var wr=sw.querySelector('.swiper-wrapper');if(!wr)return;wr.innerHTML=html.join('')}
-if(h)h.textContent='Más vendidos';s.classList.add('dn-mv')}).catch(function(){})}();
+if(h)h.textContent='Productos destacados';s.classList.add('dn-mv')}).catch(function(){})}();
