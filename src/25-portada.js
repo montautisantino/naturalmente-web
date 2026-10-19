@@ -27,7 +27,7 @@ a.style.cssText='position:absolute;top:50%;transform:translateY(-50%);right:4px;
 v.parentNode.insertBefore(a,v)})(0);
 /* 1. submenú */
 var sb=d.createElement('nav');sb.id='dn-sub';sb.setAttribute('aria-label','Secciones');
-sb.innerHTML='<a class="md" href="/naturalmente-media/">'+SV(I.play,20)+'MEDIA</a><a class="sh" href="/productos/">'+SV(I.bag,20)+'TIENDA</a>';
+sb.innerHTML='<a class="md" href="/naturalmente-media/"><span class="t">'+SV(I.play,22)+'MEDIA</span><small>Episodios, notas y videos</small></a><a class="sh" href="/productos/"><span class="t">'+SV(I.bag,22)+'TIENDA</span><small>Todo el catálogo</small></a>';
 box.insertBefore(sb,box.firstChild);
 /* 2. programas de Naturalmente Media (se arman solos desde la página de Media) */
 function drawP(L){if(!L||!L.length||d.getElementById('dn-prg'))return;var s=d.createElement('section');s.id='dn-prg';
@@ -55,7 +55,7 @@ var bc=''+
 '@keyframes hbDrift{from{transform:translate(0,0) rotate(var(--r,0deg))}to{transform:translate(10px,-14px) rotate(calc(var(--r,0deg) + 14deg))}}'+
 '.hb-w{position:relative}.hb-w:before{content:"";position:absolute;left:0;right:0;top:-22px;height:24px;background:var(--wv) no-repeat center/100% 100%;pointer-events:none}'+
 /* 0 submenú */
-'#hb-sub{padding:12px 0 6px;background:linear-gradient(180deg,#f3f6ee,#fbf8f1)}#hb-sub #dn-sub{margin:0 12px}'+
+'#hb-sub{padding:14px 0 40px;background:linear-gradient(180deg,#f3f6ee,#fbf8f1)}#hb-sub #dn-sub{margin:0 12px;gap:10px}'+'#dn-sub a{height:auto!important;min-height:76px;padding:12px 14px!important;border-radius:18px!important;flex-direction:column;align-items:flex-start!important;justify-content:center!important;gap:2px!important;font-size:19px!important;letter-spacing:.06em!important}'+'#dn-sub a small{display:block;font:700 11.5px/1.2 Figtree,Arial,sans-serif;letter-spacing:0;text-transform:none;opacity:.85}#dn-sub a .t{display:flex;align-items:center;gap:8px}'+'#dn-sub a.md{box-shadow:0 10px 24px rgba(16,40,26,.3)!important}#dn-sub a.sh{box-shadow:0 10px 24px rgba(224,163,38,.35)!important}'+
 '#dn-sub a{position:relative;overflow:hidden}#dn-sub a:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:hbSweep 4.5s ease-in-out infinite}#dn-sub a.sh:after{animation-delay:2.2s}@keyframes hbSweep{0%,70%{left:-60%}100%{left:130%}}'+
 '#dn-sub a svg{transition:transform .3s}#dn-sub a:hover svg{transform:scale(1.15) rotate(-8deg)}'+
 /* 1 episodio: banda oscura de Media */
@@ -88,7 +88,7 @@ var bc=''+
 '.hb-rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.hb-rv.on{opacity:1;transform:none}'+
 '.hb-rv .js-item-product{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}.hb-rv.on .js-item-product{opacity:1;transform:none}'+[1,2,3,4,5,6].map(function(n){return'.hb-rv.on .js-item-product:nth-child('+n+'){transition-delay:'+(n*.07).toFixed(2)+'s}'}).join('')+
 '.hb-rv .js-item-product .item-image img{transition:transform .5s ease}.hb-rv .js-item-product:hover .item-image img{transform:scale(1.04)}'+
-'@media(min-width:768px){#hb-sub #dn-sub,#hb-lep #dn-lep,#hb-qzc #dn-qzc{max-width:1116px;margin-left:auto!important;margin-right:auto!important}#hb-lep .hb-h{max-width:1116px;margin:0 auto 18px;padding:0}#hb-lep .hb-h h2{font-size:36px}#hb-lep,#hb-not{padding-top:48px;padding-bottom:40px}}'+
+'@media(min-width:768px){#dn-sub a{min-height:88px;font-size:24px!important;padding:14px 22px!important}#dn-sub a small{font-size:13.5px}#hb-sub #dn-sub,#hb-lep #dn-lep,#hb-qzc #dn-qzc{max-width:1116px;margin-left:auto!important;margin-right:auto!important}#hb-lep .hb-h{max-width:1116px;margin:0 auto 18px;padding:0}#hb-lep .hb-h h2{font-size:36px}#hb-lep,#hb-not{padding-top:48px;padding-bottom:40px}}'+
 '@media(prefers-reduced-motion:reduce){.hb *,.hb-rv,.hb-rv .js-item-product{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}';
 var bs=d.createElement('style');bs.id='dn-hb-css';bs.textContent=bc;d.head.appendChild(bs);
 function leaves(b,col,list){list.forEach(function(a,i){var e=d.createElement('span');e.className='hb-lf'+(i%2?' b':'');e.setAttribute('aria-hidden','true');e.style.cssText=a+';background-image:'+LF(col);b.appendChild(e)})}
