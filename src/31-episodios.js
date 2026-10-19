@@ -107,4 +107,9 @@ var ph=[].filter.call(row.querySelectorAll('.dm-ep'),function(e){return/pr[oó]x
 var first=row.firstChild;by[pn].forEach(function(x){var c=el('div','dm-ep');var th=el('div','dm-ep-th '+(CL[pn]||'dm-c5'));var im=el('img');im.src='https://i.ytimg.com/vi/'+x.yt+'/hqdefault.jpg';im.alt='';im.loading='lazy';th.appendChild(im);th.appendChild(el('p','dm-ep-tag',x.k));c.appendChild(th);
 c.appendChild(el('p','dm-ep-num',x.src.split(' · ')[0]+' · '+x.meta[1].replace(/^⏱\s*/,'')));var tt=el('p','dm-ep-tt');var a=el('a',null,x.t);a.href='/naturalmente-media/?ep='+x.s;tt.appendChild(a);c.appendChild(tt);row.insertBefore(c,first)});
 ph.slice(0,by[pn].length).forEach(function(e){e.remove()})});
+
+/* datos para las páginas "Videos" y "Escritos" y para la portada de Media (módulo 35) */
+window.dnMediaVids=[].map.call(M.querySelectorAll('#dm-programas .dm-ep'),function(e){var a=e.querySelector('.dm-ep-tt a')||e.querySelector('a[href]');if(!a||/pr[oó]ximamente|muy pronto/i.test(e.textContent))return null;var p=e.closest('.dm-prog'),im=e.querySelector('img'),tg=(e.querySelector('.dm-ep-tag')||{}).textContent||'',y=/^yt:\s*([\w-]{11})/.exec(tg);
+return{h:a.getAttribute('href'),t:a.textContent.trim(),n:((e.querySelector('.dm-ep-num')||{}).textContent||'').trim(),p:p?((p.querySelector('.dm-prog-t')||{}).textContent||'').trim():'',i:im?im.getAttribute('src'):(y?'https://i.ytimg.com/vi/'+y[1]+'/hqdefault.jpg':''),k:y?'Video':tg.trim()}}).filter(Boolean);
+window.dnMediaNotes=[].map.call(M.querySelectorAll('#dm-leer .dm-art'),function(a){var l=a.querySelector('a[href]'),im=a.querySelector('img'),g=function(c){return((a.querySelector(c)||{}).textContent||'').trim()};return l?{u:l.getAttribute('href'),t:g('.dm-art-t'),c:g('.dm-art-cat'),d:g('.dm-art-d'),m:g('.dm-art-min'),i:im?im.getAttribute('src'):''}:null}).filter(Boolean);
 }();
