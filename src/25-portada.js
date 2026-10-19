@@ -334,8 +334,9 @@ else if(t==='nota'){c.href=x.u;c.innerHTML=(x.i?'<span class="im"><img loading="
 else if(t==='prod'){c.href=x.u;c.innerHTML=(x.i?'<img loading="lazy" alt="" src="'+es(x.i)+'">':'')+'<span><span class="tg">Para tu alacena</span><b>'+es(x.n)+'</b>'+(x.p?'<span class="p">'+es(x.p)+'</span>':'')+'</span>'}
 return c}
 function more(n){var added=0,guard=0;while(added<n&&count<MAX&&guard<200){guard++;var t=PAT[pi++%PAT.length],pool=P[t];if(!pool||!pool.length)continue;if(t==='prod'&&count<3)continue;ff.appendChild(card(t,pool.shift()));added++;count++}
-if(count>=MAX||!added){s.classList.add('end');if(io)io.disconnect();var e=card('dato','');e.className='fc t-end';e.innerHTML='<b>¡Llegaste al final!</b><small style="color:rgba(255,255,255,.85)">Volvé en otro momento: el inicio cambia en cada visita.</small><a href="/naturalmente-media/">Ir a Naturalmente Media →</a>';ff.appendChild(e)}}
-var io=null,started=0;function start(){if(started)return;started=1;loadExtra();more(8);var fs=s.querySelector('.fs');if('IntersectionObserver'in window){io=new IntersectionObserver(function(en){if(en[0].isIntersecting)more(6)},{rootMargin:'0px 0px 600px 0px'});io.observe(fs)}else more(MAX)}
+if(count>=MAX||!added){s.classList.add('end');var e=card('dato','');e.className='fc t-end';e.innerHTML='<b>¡Llegaste al final!</b><small style="color:rgba(255,255,255,.85)">Volvé en otro momento: el inicio cambia en cada visita.</small><a href="/naturalmente-media/">Ir a Naturalmente Media →</a>';ff.appendChild(e)}}
+var io=null,started=0,lt=0;function chk(){if(s.classList.contains('end'))return;var r=s.querySelector('.fs').getBoundingClientRect();if(r.top<innerHeight+700){more(6);setTimeout(chk,120)}}
+function start(){if(started)return;started=1;loadExtra();more(8);addEventListener('scroll',function(){var n=Date.now();if(n-lt<150)return;lt=n;chk()},{passive:true});setTimeout(chk,300)}
 if('IntersectionObserver'in window){var o0=new IntersectionObserver(function(en){if(en[0].isIntersecting){o0.disconnect();start()}},{rootMargin:'0px 0px 900px 0px'});o0.observe(s)}else start();
 box.appendChild(s)})();
 order();if(window.MutationObserver){var otm;var mo=new MutationObserver(function(){clearTimeout(otm);otm=setTimeout(order,40)});mo.observe(box,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},30000)}
