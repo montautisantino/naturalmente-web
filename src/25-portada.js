@@ -20,6 +20,11 @@ var css='body.dn-portal #dn-hmed,body.dn-portal #dn-hvid,body.dn-portal [data-st
 '@media(min-width:768px){#dn-not{max-width:1116px;margin:6px auto 34px}#dn-not .f{display:grid;grid-template-columns:1.3fr 1fr}#dn-not .f img{height:100%}#dn-not .f span{padding:22px}#dn-not .f b{font-size:26px}#dn-not .ls{grid-template-columns:repeat(2,1fr);column-gap:24px}}'+
 '@media(min-width:768px){#dn-sub{max-width:1116px;margin:16px auto 22px;gap:14px}#dn-sub a{height:60px;font-size:19px}#dn-prg{max-width:1116px;margin:6px auto 34px}#dn-prg .g{grid-template-columns:repeat(3,1fr);gap:12px}}';
 var st=d.createElement('style');st.id='dn-sub-css';st.textContent=css;d.head.appendChild(st);
+/* 0. botón TIENDA fijo en el header del inicio */
+(function hb(n){var v=d.getElementById('dn-hvid');if(!v){if(n<40)setTimeout(function(){hb(n+1)},150);return}if(d.getElementById('dn-htie'))return;
+var a=d.createElement('a');a.id='dn-htie';a.href='/productos/';a.setAttribute('aria-label','Ir a la tienda');a.innerHTML=SV(I.bag,15)+'Tienda';
+a.style.cssText='position:absolute;top:50%;transform:translateY(-50%);right:4px;display:inline-flex;align-items:center;justify-content:center;gap:5px;height:32px;padding:0 12px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;color:#10281a;background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326);box-shadow:0 4px 10px rgba(224,163,38,.3)';
+v.parentNode.insertBefore(a,v)})(0);
 /* 1. submenú */
 var sb=d.createElement('nav');sb.id='dn-sub';sb.setAttribute('aria-label','Secciones');
 sb.innerHTML='<a class="md" href="/naturalmente-media/">'+SV(I.play,20)+'MEDIA</a><a class="sh" href="/productos/">'+SV(I.bag,20)+'TIENDA</a>';
