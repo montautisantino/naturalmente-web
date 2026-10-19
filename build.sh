@@ -8,14 +8,16 @@ set -e
 mkdir -p "$(dirname "$0")/build"
 cd "$(dirname "$0")"
 T="npx -y terser@5.31.0"
-CORE="01 16 02 05 09 10 11 13 17 18 20 23 28 29 30"
+CORE="01 16 02 EPL 05 09 10 11 13 17 18 20 23 28 29 30"
 CUENTA="15 24"
 PEDIDO="22"
 HOME_P="06 07 25"
 MEDIA="03 31 04 27"
 LISTADO="00 12 21 26"
 PRODUCTO="00 14 19"
-cat_mods() { for n in $1; do f=$(ls src/$n-*.js); echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
+# lista corta de episodios de Media (sale de src/31-episodios.js) para la tarjeta aleatoria del inicio
+node -e "var s=require('fs').readFileSync('src/31-episodios.js','utf8'),a=s.indexOf('var EP=['),b=s.indexOf('\\n];',a);var EP=eval(s.slice(a+7,b+2));require('fs').writeFileSync('build/eplist.js','/* lista generada por build.sh */\\nwindow.dnEPL='+JSON.stringify(EP.map(function(x){return{h:'/naturalmente-media/?ep='+x.s,t:x.t,n:x.src.split(' · ')[0]+' · '+x.meta[1].replace(/^\\u23f1\\s*/,''),y:x.yt}}))+';')"
+cat_mods() { for n in $1; do if [ "$n" = EPL ]; then f=build/eplist.js; else f=$(ls src/$n-*.js); fi; echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
 sri() { echo "sha384-$(openssl dgst -sha384 -binary "$1" | openssl base64 -A)"; }
 MAP=""
 for p in home media listado producto cuenta pedido; do
