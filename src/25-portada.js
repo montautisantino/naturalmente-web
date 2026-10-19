@@ -34,10 +34,19 @@ function drawP(L){if(!L||!L.length||d.getElementById('dn-prg'))return;var s=d.cr
 s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Programas</h2></div><a href="/naturalmente-media/">Ver todo →</a></div><div class="g">'+
 L.map(function(x){return'<a href="/naturalmente-media/#dm-programas"><span class="e">'+esc(x.e)+'</span><b>'+esc(x.t)+'</b><small>'+esc(x.d)+'</small><u'+(x.n?' class="on">'+x.n+(x.n>1?' episodios':' episodio'):'>PRÓXIMAMENTE')+'</u></a>'}).join('')+'</div>';
 box.appendChild(s);order()}
-function drawN(L){if(!L||!L.length||d.getElementById('dn-not'))return;var s=d.createElement('section');s.id='dn-not';var f=L[0];
-s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Últimas notas</h2></div><a href="/naturalmente-media/#dm-leer">Ver todas →</a></div>'+
-'<a class="f" href="'+esc(f.u)+'">'+(f.i?'<img alt="" loading="lazy" src="'+esc(f.i)+'">':'')+'<span>'+(f.c?'<em>'+esc(f.c)+'</em>':'')+'<b>'+esc(f.t)+'</b>'+(f.x?'<small>'+esc(f.x)+'</small>':'')+'</span></a>'+
-(L.length>1?'<div class="ls">'+L.slice(1,6).map(function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<span>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b></span></a>'}).join('')+'</div>':'');
+/* notas: la última cargada fija arriba como NOVEDAD; el resto se mezcla en cada visita y va rotando de a una */
+function drawN(L){if(!L||!L.length||d.getElementById('dn-not'))return;var s=d.createElement('section');s.id='dn-not';var f=L[0],R=L.slice(1);
+for(var i=R.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=R[i];R[i]=R[j];R[j]=t}
+var row=function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<span>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b></span></a>'},V=Math.min(3,R.length),st=0;
+s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Notas para leer</h2></div><a href="/naturalmente-media/#dm-leer">Ver todas →</a></div>'+
+'<a class="f" href="'+esc(f.u)+'">'+(f.i?'<img alt="" loading="lazy" src="'+esc(f.i)+'">':'')+'<span class="nv"><i></i>NOVEDAD</span><span>'+(f.c?'<em>'+esc(f.c)+'</em>':'')+'<b>'+esc(f.t)+'</b>'+(f.x?'<small>'+esc(f.x)+'</small>':'')+'</span></a>'+
+(R.length?'<p class="mr">Más para leer'+(R.length>V?' <span>· van cambiando</span>':'')+'</p><div class="ls"></div>':'');
+var ls=s.querySelector('.ls');function paint(){if(!ls)return;var h='';for(var k=0;k<V;k++)h+=row(R[(st+k)%R.length]);ls.innerHTML=h}paint();
+if(ls&&R.length>V){var vis=0,hv=0;if('IntersectionObserver'in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.3}).observe(ls);else vis=1;
+ls.addEventListener('mouseenter',function(){hv=1});ls.addEventListener('mouseleave',function(){hv=0});ls.addEventListener('touchstart',function(){hv=1;setTimeout(function(){hv=0},6000)},{passive:true});
+setInterval(function(){if(!vis||hv||d.hidden)return;ls.classList.add('out');setTimeout(function(){st=(st+1)%R.length;paint();ls.classList.remove('out')},350)},6000)}
+var ns=d.createElement('style');ns.textContent='#dn-not .f{position:relative}#dn-not .nv{position:absolute;left:10px;top:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:8px;background:#e0a326;color:#10281a;font:900 11px/1 Archivo,Arial,sans-serif;letter-spacing:.12em;box-shadow:0 6px 14px rgba(0,0,0,.2)}#dn-not .nv i{width:7px;height:7px;border-radius:50%;background:#b3261e;animation:dnNv 1.6s ease-out infinite}@keyframes dnNv{0%{box-shadow:0 0 0 0 rgba(179,38,30,.6)}100%{box-shadow:0 0 0 8px rgba(179,38,30,0)}}'+
+'#dn-not .mr{margin:16px 2px 0;font:900 12px/1 Archivo,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8641a}#dn-not .mr span{letter-spacing:.04em;text-transform:none;font-weight:700;color:#8a8f86}#dn-not .ls{transition:opacity .35s,transform .35s}#dn-not .ls.out{opacity:0;transform:translateY(6px)}';d.head.appendChild(ns);
 box.appendChild(s);order()}
 var K='dnPrg2',P;try{P=JSON.parse(sessionStorage.getItem(K))}catch(e){}
 var NN;try{NN=JSON.parse(sessionStorage.getItem(K+'n'))}catch(e){}
