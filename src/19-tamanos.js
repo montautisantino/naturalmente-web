@@ -1,0 +1,36 @@
+!function(){var d=document,B=d.body;if(!B.classList.contains('template-product')||d.getElementById('dn-pa'))return;
+var h1=d.querySelector('.js-product-name');if(!h1)return;var nm=h1.textContent.trim(),pid=(d.querySelector('#product_form [name="add_to_cart"]')||{}).value;
+function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
+function fmt(n){return'$'+Math.round(n).toLocaleString('es-AR')}
+var SV=function(p,w){return'<svg viewBox="0 0 24 24" width="'+(w||17)+'" height="'+(w||17)+'" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'};
+var st=d.createElement('style');st.id='dn-sz-css';st.textContent=
+'#dn-pa{display:flex;gap:8px;margin:-4px 0 12px}#dn-pa button,#dn-pa a{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;border:1.5px solid #dbe3d4;background:#fff;color:#1d4a2a!important;font-weight:800;font-size:13px;text-decoration:none!important;cursor:pointer;line-height:1}#dn-pa .on{color:#e0485f!important;border-color:#f3c3cb;background:#fff5f6}#dn-pa .on svg{fill:currentColor}#dn-pa a svg{color:#25a956}'+
+'#dn-sz{margin:0 0 14px}#dn-sz p{margin:0 0 8px;font-size:12px;letter-spacing:.12em;font-weight:900;color:#3f7d3a;text-transform:uppercase}#dn-sz .o{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}'+
+'#dn-sz .s{position:relative;display:block;padding:11px 8px 9px;border-radius:14px;border:2px solid #dbe3d4;background:#fff;text-align:center;text-decoration:none!important;color:#16261b!important;transition:border-color .15s}#dn-sz a.s:hover{border-color:#3f7d3a}#dn-sz .s.on{border-color:#1d4a2a;background:#f3f8ef;box-shadow:0 0 0 3px rgba(63,125,58,.12)}'+
+'#dn-sz .s strong{display:block;font:900 16px/1.1 Archivo,Arial,sans-serif;color:#1d4a2a}#dn-sz .s b{display:block;font-size:14px;margin:4px 0 2px}#dn-sz .s small{display:block;font-size:11.5px;color:#6b7a67}#dn-sz .s em{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:10px;font-weight:900;letter-spacing:.04em;background:linear-gradient(135deg,#f4c95d,#e0a326);color:#10281a;border-radius:999px;padding:3px 8px}'+
+'#dn-sz .sv{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 0;padding:11px 14px;border-radius:14px;background:#fdf6e3;border:1px solid #f0dca6;color:#5a3d0c!important;font-size:13.5px;font-weight:700;text-decoration:none!important}#dn-sz .sv b{color:#1d4a2a}#dn-sz .sv span:last-child{font-weight:900;color:#1d4a2a;white-space:nowrap}';
+d.head.appendChild(st);
+/* acciones: favorito + compartir por WhatsApp */
+var pa=d.createElement('div');pa.id='dn-pa';var HT='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>';
+var url=location.href.split(/[?#]/)[0];
+pa.innerHTML=(pid&&window.dnFav?'<button type="button" data-dn-fav="'+esc(pid)+'">'+HT+'<span>Guardar</span></button>':'')+'<a href="https://wa.me/?text='+encodeURIComponent(nm+' '+url)+'" target="_blank" rel="noopener">'+SV('<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/>')+'Compartir</a>';
+h1.parentNode.insertBefore(pa,h1.nextSibling);
+var fb=pa.querySelector('[data-dn-fav]');if(fb){var upd=function(){var on=window.dnFav.has(pid);fb.classList.toggle('on',on);fb.querySelector('span').textContent=on?'Guardado':'Guardar'};upd();fb.onclick=function(){var pd=d.getElementById('price_display'),im=d.querySelector('meta[property="og:image"]');window.dnFav.toggle({id:pid,n:nm,u:url.replace(/^https?:\/\/[^\/]+/,''),p:(parseInt(pd&&pd.getAttribute('data-product-price'),10)/100)||0,i:im?im.content:''});upd()}}
+/* selector y comparador de tamaños */
+if(d.querySelector('.dn-lp')||/^\s*combo/i.test(nm))return;
+function nz(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+var RX=/(?:\b(?:x|por|de)\s*)?(\d+(?:[.,]\d+)?)\s*(kg|kilos?|grs?|gramos|g|ml|cc|lts?|l)\b/;
+function parse(n){var s=nz(n),m=s.match(RX),q,u;if(m){var v=parseFloat(m[1].replace(',','.')),k=m[2];if(/^k/.test(k)){q=v*1000;u='g'}else if(/^g/.test(k)){q=v;u='g'}else if(/^(ml|cc)$/.test(k)){q=v;u='ml'}else{q=v*1000;u='ml'}s=s.replace(m[0],' ')}else if(/\b(de|x|por) kilo\b/.test(s)){q=1000;u='g';s=s.replace(/\b(de|x|por) kilo\b/,' ')}else return null;
+return{q:q,u:u,b:s.replace(/[^a-z0-9ñ ]/g,' ').replace(/\s+/g,' ').trim()}}
+var me=parse(nm);if(!me||!me.b)return;
+function lab(x){return x.u==='g'?(x.q>=1000?(x.q/1000).toString().replace('.',',')+' kg':x.q+' g'):(x.q>=1000?(x.q/1000).toString().replace('.',',')+' L':x.q+' ml')}
+function draw(L){var opts=L.filter(function(x){var p=parse(x.n);return p&&p.b===me.b&&p.u===me.u&&x.av}).map(function(x){var p=parse(x.n);return{q:p.q,u:p.u,u2:x.u,p:x.p,id:x.id}});
+var seen={};opts=opts.filter(function(o){if(seen[o.q])return!1;return seen[o.q]=1}).sort(function(a,b){return a.q-b.q});if(opts.length<2)return;
+var cur=opts.filter(function(o){return o.id==pid})[0]||opts.filter(function(o){return o.q===me.q})[0];if(!cur)return;
+opts.forEach(function(o){o.k=o.p/o.q*100});var best=opts.slice().sort(function(a,b){return a.k-b.k})[0];
+var h='<p>Elegí el tamaño</p><div class="o">'+opts.map(function(o){var on=o===cur,tag=on?'div':'a';return'<'+tag+' class="s'+(on?' on':'')+'"'+(on?'':' href="'+esc(o.u2)+'"')+'>'+(o===best?'<em>MEJOR PRECIO</em>':'')+'<strong>'+lab(o)+'</strong><b>'+fmt(o.p)+'</b><small>'+fmt(o.k)+' c/100 '+(o.u==='g'?'g':'ml')+'</small></'+tag+'>'}).join('')+'</div>';
+if(best!==cur&&cur.k>0){var pc=Math.round((1-best.k/cur.k)*100);if(pc>=5)h+='<a class="sv" href="'+esc(best.u2)+'"><span>Llevando <b>'+lab(best)+'</b> ahorrás <b>'+pc+'%</b> cada 100 '+(best.u==='g'?'g':'ml')+'</span><span>Ver →</span></a>'}
+var box=d.createElement('div');box.id='dn-sz';box.innerHTML=h;var anchor=d.querySelector('.dn-p100')||d.querySelector('.js-price-container');if(!anchor)return;anchor.parentNode.insertBefore(box,anchor.nextSibling)}
+var K='dnSz:'+me.b,c;try{c=JSON.parse(sessionStorage.getItem(K))}catch(e){}if(c)return draw(c);
+fetch('/search/?q='+encodeURIComponent(me.b.split(' ').slice(0,5).join(' '))).then(function(r){return r.text()}).then(function(h){var L=[].slice.call(new DOMParser().parseFromString(h,'text/html').querySelectorAll('.js-item-product[data-product-id]')).filter(function(x){return x.getAttribute('data-product-id')}).map(function(x){var v={};try{v=JSON.parse(x.querySelector('[data-variants]').getAttribute('data-variants'))[0]||{}}catch(e){}var a=x.querySelector('a[href*="/productos/"]');return{id:x.getAttribute('data-product-id'),n:((x.querySelector('.js-item-name')||{}).textContent||'').trim(),u:a?a.getAttribute('href').split('?')[0].replace(/^https?:\/\/[^\/]+/,''):'',p:v.price_number||0,av:v.available!==false&&(v.stock==null||v.stock>0)}});try{sessionStorage.setItem(K,JSON.stringify(L))}catch(e){}draw(L)}).catch(function(){})
+}();

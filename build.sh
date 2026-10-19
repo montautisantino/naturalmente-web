@@ -7,11 +7,11 @@
 set -e
 cd "$(dirname "$0")"
 T="npx -y terser@5.31.0"
-CORE="01 02 05 09 10 11 13 15"
+CORE="01 16 02 05 09 10 11 13 15 17 18"
 HOME_P="06 07 08"
 MEDIA="03 04"
 LISTADO="00 12"
-PRODUCTO="00 14"
+PRODUCTO="00 14 19"
 cat_mods() { for n in $1; do f=$(ls src/$n-*.js); echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
 sri() { echo "sha384-$(openssl dgst -sha384 -binary "$1" | openssl base64 -A)"; }
 MAP=""
