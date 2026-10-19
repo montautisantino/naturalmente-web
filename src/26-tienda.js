@@ -12,5 +12,5 @@ if(/\/page\/\d/.test(location.pathname))return;
 var tries=0;(function mv(){var ex=d.getElementById('dn-ex'),tb=d.querySelector('.js-product-table');if(!ex||!tb){if(++tries<20)setTimeout(mv,250);return}
 if(ex.classList.contains('top'))return;var wa=ex.querySelector('.wa');if(wa){wa.id='dn-wa2';wa.className='';ex.parentNode.insertBefore(wa,ex.nextSibling)}
 var h=ex.querySelector('h3');if(h)h.textContent='Comprá por categoría';ex.classList.add('top');
-var hr=d.querySelector('.dn-hero');if(hr)hr.parentNode.insertBefore(ex,hr.nextSibling);else{var ref=d.querySelector('.dn-gh')||(tb.closest('.container')||tb);ref.parentNode.insertBefore(ex,ref)}})();
+var hr=d.querySelector('.dn-hero'),hs=hr&&(hr.closest('section')||hr.parentNode);if(hs)hs.parentNode.insertBefore(ex,hs.nextSibling);else{var ref=d.querySelector('.dn-gh')||(tb.closest('.container')||tb);ref.parentNode.insertBefore(ex,ref)}})();
 }();

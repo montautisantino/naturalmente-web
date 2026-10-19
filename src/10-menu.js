@@ -17,6 +17,6 @@ w.innerHTML='<a class="hl" href="/combos/"><span><b>Combos</b><small>Programas d
 '<div class="two"><a class="mv" href="/productos/">Más vendidos<small>Lo que más se lleva</small></a><a class="md" href="/naturalmente-media/"><span><i></i>Naturalmente Media</span><small>Videos y episodios</small></a></div>'+
 '<p>CATEGORÍAS</p><div class="cg">'+cats.map(function(c,i){return'<a href="'+c.h+'"'+(i>=8?' class="x"':'')+'><i>'+ico(c.h)+'</i>'+c.t+'</a>'}).join('')+'</div>'+
 (cats.length>8?'<button type="button" class="more">Ver todas las categorías ('+cats.length+') ↓</button>':'')+
-'<p>LA TIENDA</p><div class="ls"><a href="/">Inicio'+AR+'</a><a href="/productos/">Todos los productos'+AR+'</a><a href="/nuestras-sucursales/">Nuestras sucursales'+AR+'</a><a href="/quienes-somos/">Quiénes somos'+AR+'</a><a href="/contacto/">Contacto'+AR+'</a></div>'+
+'<p>LA TIENDA</p><div class="ls"><a href="/">Inicio'+AR+'</a><a href="/productos/">Tienda'+AR+'</a><a href="/nuestras-sucursales/">Nuestras sucursales'+AR+'</a><a href="/quienes-somos/">Quiénes somos'+AR+'</a><a href="/contacto/">Contacto'+AR+'</a></div>'+
 '<a class="wa" href="https://wa.me/5491141816107?text='+encodeURIComponent('Hola! Tengo una consulta')+'" target="_blank" rel="noopener">Escribinos por WhatsApp</a><p class="fs" style="letter-spacing:0;font-weight:600;color:#53624f">Envíos a todo el país · Gratis superando $65.000</p>';
 nb.insertBefore(w,np);var mb=w.querySelector('.more');mb&&mb.addEventListener('click',function(){w.classList.add('all');mb.remove()})}();
