@@ -46,6 +46,6 @@ H.insertBefore(W,H.firstChild);H.classList.add('dnh');
 /* contador con animación */
 var ct=cart.querySelector('.js-cart-widget-amount');if(ct&&window.MutationObserver){var last=ct.textContent;new MutationObserver(function(){if(ct.textContent!==last){last=ct.textContent;ct.classList.remove('bump');void ct.offsetWidth;ct.classList.add('bump')}}).observe(ct,{childList:true,characterData:true,subtree:true})}
 /* sombra al bajar y buscador que se esconde al bajar y vuelve al subir (celular) */
-var y0=scrollY,lt=0;window.addEventListener('scroll',function(){var n=Date.now();if(n-lt<50)return;lt=n;var y=scrollY;H.classList.toggle('sc',y>8);if(mob&&!home){if(y>160&&y>y0+6)H.classList.add('hd');else if(y<y0-6||y<160)H.classList.remove('hd')}y0=y},{passive:true});
+var y0=scrollY,lt=0,tm;window.addEventListener('scroll',function(){var n=Date.now();clearTimeout(tm);tm=setTimeout(function(){var y=scrollY;H.classList.toggle('sc',y>8);if(y<160)H.classList.remove('hd')},90);if(n-lt<50)return;lt=n;var y=scrollY;H.classList.toggle('sc',y>8);if(mob&&!home){if(y>160&&y>y0+6)H.classList.add('hd');else if(y<y0-6||y<160)H.classList.remove('hd')}y0=y},{passive:true});
 }catch(e){}}
 if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',go);else go();})();
