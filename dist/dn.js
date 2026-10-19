@@ -70,3 +70,16 @@ if(w){if(w.params.loop&&w.loopDestroy)w.loopDestroy();w.removeAllSlides();w.appe
 else{var wr=sw.querySelector('.swiper-wrapper');if(!wr)return;wr.innerHTML=html.join('')}
 if(h)h.textContent='Más vendidos';s.classList.add('dn-mv')}).catch(function(){})}();
 }catch(e){console.warn("dn:07-inicio-mas-vendidos.js",e)}
+
+/* src/08-inicio-categorias.js */
+try{
+!function(){var d=document;if(!d.body.classList.contains('template-home'))return;
+var s=d.querySelector('[data-store="home-categories-featured"]'),sw=s&&s.querySelector('.swiper-container,.swiper');if(!sw)return;
+var ORD=['combos','herboristeria','frutos-secos','suplementos','educativo','semillas','condimentos','chocolates-barritas-snacks-y-varios','harinas','aceites-y-mas','diabetico','galletitas','celiaco','tinturas-madres','premezclas-sin-tacc','vegano','fideos','te-en-saquitos','alfajores','barritas','teteras-infusores-molinillos','cosmetica-natural','yerbas'];
+function key(el){var a=el.querySelector('a[href]');var h=a?a.getAttribute('href').replace(/^https?:\/\/[^/]+\//,'').replace(/\/.*$/,''):'';var i=ORD.indexOf(h);return i<0?99:i}
+var w=sw.swiper,sl=[].filter.call(sw.querySelectorAll('.swiper-slide'),function(e){return!e.classList.contains('swiper-slide-duplicate')});if(sl.length<2)return;
+var sorted=sl.slice().sort(function(a,b){return key(a)-key(b)});if(sorted.every(function(e,i){return e===sl[i]}))return;
+var html=sorted.map(function(e){var c=e.cloneNode(!0);c.className='swiper-slide';c.removeAttribute('style');c.removeAttribute('data-swiper-slide-index');[].forEach.call(c.querySelectorAll('img[data-src],img[data-srcset]'),function(i){if(i.getAttribute('data-src'))i.src=i.getAttribute('data-src');if(i.getAttribute('data-srcset'))i.srcset=i.getAttribute('data-srcset');i.removeAttribute('data-src');i.removeAttribute('data-srcset');i.classList.add('swiper-lazy-loaded')});[].forEach.call(c.querySelectorAll('.swiper-lazy-preloader'),function(x){x.remove()});return c.outerHTML});
+if(w){if(w.params.loop&&w.loopDestroy)w.loopDestroy();w.removeAllSlides();w.appendSlide(html);if(w.params.loop&&w.loopCreate)w.loopCreate();w.update();w.slideTo&&w.slideTo(w.params.loop?w.loopedSlides||0:0,0)}
+else{var wr=sw.querySelector('.swiper-wrapper');wr&&(wr.innerHTML=html.join(''))}}();
+}catch(e){console.warn("dn:08-inicio-categorias.js",e)}
