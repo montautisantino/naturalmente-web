@@ -3,7 +3,7 @@
    Publicar = Sí. Guarda una copia en el navegador (se renueva cada 5 minutos) para que la página no espere.
    Si la planilla falla, la web sigue con el contenido que trae el código. Solo trabaja en el inicio y en Media. */
 !function(){var W=window,d=document;if(W.dnSheet)return;
-var ID='1qrT32OXed3bPESBFqYxXbhhtxI_wInRjb3N2D_5IHAg',K='dnSh2',TTL=5*60e3;
+var ID='1qrT32OXed3bPESBFqYxXbhhtxI_wInRjb3N2D_5IHAg',K='dnSh3',TTL=5*60e3;
 /* lo cargado por formulario solo se publica si viene de estas cuentas (el formulario pide iniciar sesión) */
 var OK=['dieteticasnaturalmente@gmail.com','santinomontauti02@gmail.com'];
 var need=d.body.classList.contains('template-home')||!!d.querySelector('.dn-media');
@@ -41,6 +41,11 @@ d:g('Video: descripción').split(/\n\s*\n|\r?\n/).map(function(x){return x.trim(
 pr:lines(g('Video: productos')).map(function(u){var m=/\/productos\/([^\/?#]+)/.exec(u);return m?pretty(m[1])+'|||'+m[1]:''}).filter(Boolean),ts:ts?+ts:0})}
 else if(/^nota/.test(t)){var nt=g('Nota: título');if(!nt||!g('Nota: texto'))return;D.nota.push({s:slug(nt),t:nt,c:g('Nota: categoría'),b:g('Nota: bajada'),x:g('Nota: texto'),i:okImg(g('Nota: link de imagen'))?g('Nota: link de imagen'):cover(g('Nota: categoría')),f:ts?ts.getDate()+' de '+MES[ts.getMonth()]+' de '+ts.getFullYear():'',ts:ts?+ts:0})}})});
 D.video.sort(function(a,b){return b.ts-a.ts});D.nota.sort(function(a,b){return b.ts-a.ts});return D}
+/* pestaña "Notas": notas largas. La lista viaja sin el texto (liviana); el texto se baja solo al abrir la nota */
+function notas(j,D){if(!j||!j.table)return;j.table.rows.forEach(function(r){var v=function(i){var c=r.c[i];return c&&c.v!=null?String(c.v).trim():''};if(!/^s/i.test(v(0))||!v(1)||!v(6))return;
+D.nota.push({s:v(6),t:v(1),c:v(2),b:v(3),i:okImg(v(4))?v(4):cover(v(2)),f:v(5),m:+v(7)||0,x:'',lz:1,ts:0})})}
+S.texto=function(s,cb){var k='dnNt:'+s,c=null;try{c=sessionStorage.getItem(k)}catch(e){}if(c)return cb(c);
+get('Notas',"select I where G = '"+String(s).replace(/'/g,'')+"'").then(function(j){var t=j&&j.table.rows[0]&&j.table.rows[0].c[0]&&j.table.rows[0].c[0].v||'';t=String(t).replace(/[⁠￼​]/g,'');try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){cb('')})};
 /* videos nuevos también en la lista corta que usa el inicio */
 function apply(){var V=S.data&&S.data.video;if(!V||!V.length||!W.dnEPL)return;var have={};W.dnEPL.forEach(function(x){have[x.y]=1});
 W.dnEPL=V.filter(function(v){return!have[v.yt]}).map(function(v){return{h:'/naturalmente-media/?ep='+v.s,t:v.t,n:v.p+' · '+String(v.meta[1]).replace(/^⏱\s*/,''),y:v.yt}}).concat(W.dnEPL)}
@@ -48,6 +53,6 @@ S.slug=slug;if(S.data)apply();
 if(need){[].forEach.call(d.querySelectorAll('img[src*="/covers/"]'),swap);if(W.MutationObserver)new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){if(n.nodeType!==1)return;if(n.tagName==='IMG')swap(n);else if(n.querySelectorAll)[].forEach.call(n.querySelectorAll('img[src*="/covers/"]'),swap)})})}).observe(d.documentElement,{childList:true,subtree:true})}
 function fin(){S.done=1;var f=S.cbs;S.cbs=[];f.forEach(function(x){try{x(S.data)}catch(e){}})}
 if(!need||(c&&Date.now()-c.t<TTL)){fin();return}
-function get(sh){return fetch('https://docs.google.com/spreadsheets/d/'+ID+'/gviz/tq?tqx=out:json&headers=1&sheet='+encodeURIComponent(sh)).then(function(r){return r.text()}).then(function(t){return JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1))})}
-Promise.all([get('Base'),get('Respuestas').catch(function(){return null})]).then(function(T){var D=parse(T);var n=0;for(var k in D)n+=D[k].length;if(n){S.data=D;try{localStorage.setItem(K,JSON.stringify({t:Date.now(),d:D}))}catch(e){}apply()}fin()}).catch(fin);
+function get(sh,q){return fetch('https://docs.google.com/spreadsheets/d/'+ID+'/gviz/tq?tqx=out:json&headers=1&sheet='+encodeURIComponent(sh)+(q?'&tq='+encodeURIComponent(q):'')).then(function(r){return r.text()}).then(function(t){return JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1))})}
+Promise.all([get('Base'),get('Respuestas').catch(function(){return null}),get('Notas','select A,B,C,D,E,F,G,H').catch(function(){return null})]).then(function(T){var D=parse(T.slice(0,2));notas(T[2],D);var n=0;for(var k in D)n+=D[k].length;if(n){S.data=D;try{localStorage.setItem(K,JSON.stringify({t:Date.now(),d:D}))}catch(e){}apply()}fin()}).catch(fin);
 }();

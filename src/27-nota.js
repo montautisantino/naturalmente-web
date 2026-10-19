@@ -16,7 +16,8 @@ lr.className+=' dnw';lr.innerHTML='<div class="dw-hd"><div><i>NATURALMENTE MEDIA
 '<div class="dw-ls">'+L.slice(1).map(function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<div>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b>'+(x.m?'<u>'+esc(x.m)+'</u>':'')+'</div></a>'}).join('')+'</div></div>';
 var hero=d.querySelector('.dn-media .dm-hero2');if(hero&&hero.nextElementSibling!==lr)hero.parentNode.insertBefore(lr,hero.nextSibling)}}
 /* ===== B. página de una nota ===== */
-var R=d.querySelector('.dn-media.dm-nota');if(!R||R.getAttribute('data-dnr'))return;R.setAttribute('data-dnr','1');
+/* si la nota espera su texto (notas cargadas por planilla), se dibuja cuando llega */
+function runB(){var R=d.querySelector('.dn-media.dm-nota');if(!R||R.getAttribute('data-dnr'))return;R.setAttribute('data-dnr','1');
 var G=function(c){return T(R.querySelector(c))};
 var N={aut:G('.dm-n-aut')||'Equipo de Dietéticas Naturalmente',sec:G('.dm-n-sec'),cat:G('.dm-n-cat'),tema:G('.dm-n-tema'),fecha:G('.dm-n-fecha'),min:G('.dm-n-min'),t:G('.dm-n-t'),baj:G('.dm-n-baj'),cv:(R.querySelector('.dm-n-cv img')||{}).src||'',back:(R.querySelector('.dm-back a')||{}).href||'/naturalmente-media/'};
 var body=R.querySelector('.dm-n-body'),refs=R.querySelector('.dm-n-refs'),prods=[].map.call(R.querySelectorAll('.dm-n-prod'),function(p){var a=T(p).split('|');return{s:(a[0]||'').trim(),l:(a[1]||'').trim()}}).filter(function(x){return x.s});
@@ -89,4 +90,6 @@ fetch('/comprar/',{method:'POST',credentials:'same-origin',headers:{'Content-Typ
 var mo=A.querySelector('.nt-mo');fetch('/naturalmente-media/').then(function(r){return r.text()}).then(function(t){var q=new DOMParser().parseFromString(t,'text/html'),me=location.pathname.replace(/\/+$/,'');
 var L=[].map.call(q.querySelectorAll('#dm-leer .dm-art'),function(a){var l=a.querySelector('a[href]'),im=a.querySelector('img');return l&&{u:l.getAttribute('href'),i:im?im.getAttribute('src'):'',c:T(a.querySelector('.dm-art-cat')),t:T(a.querySelector('.dm-art-t'))}}).filter(function(x){return x&&x.t&&x.u.replace(/^https?:\/\/[^\/]+/,'').replace(/\/+$/,'')!==me}).slice(0,4);
 if(!L.length)return;mo.querySelector('.rw').innerHTML=L.map(function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<div>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b></div></a>'}).join('');mo.hidden=false}).catch(function(){});
+}
+if(d.querySelector('.dn-media.dm-nota[data-wait]'))W.dnNotaRun=runB;else runB();
 }();
