@@ -1,6 +1,6 @@
 /* Libros digitales (PDF).
    - Sección destacada "Libros digitales" en el inicio de la web y en el inicio de la Tienda (carrusel).
-   - Una tarjeta chica con el libro del tema en: ficha de producto, categorías relacionadas, resultados y
+   - Una tarjeta chica con el libro del tema en: ficha de producto (solo Herboristería), categorías relacionadas, resultados y
      sugerencias del buscador, carrito y episodios de Naturalmente Media.
    Una sola tarjeta por lugar y nunca un libro que ya está en el carrito. Precios: se leen de la ficha de cada
    libro (no se escriben acá) y se guardan durante la visita. Sin promesas de salud en los textos. */
@@ -105,10 +105,9 @@ if(rw.scrollWidth>rw.clientWidth+20&&rw.scrollLeft<4)setTimeout(function(){rw.sc
 if('IntersectionObserver'in W){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go()}},{rootMargin:'0px 0px 200px 0px'});io.observe(s)}else go();setTimeout(go,8000);return s}
 if(isHome&&!d.getElementById('hb-lib')){var hf=d.querySelector('[data-store="home-products-featured"]');if(hf)hf.parentNode.insertBefore(section('hb-lib'),hf)}
 if(isLanding&&!d.getElementById('dn-tlib')){var ts=section('dn-tlib','tn'),t0=Date.now();(function p(){var a=d.getElementById('dn-tcb'),b=d.getElementById('dn-tme');if(a&&a.parentNode){a.parentNode.insertBefore(ts,a);return}if(Date.now()-t0>9000){if(b&&b.parentNode)b.parentNode.insertBefore(ts,b.nextSibling);return}setTimeout(p,250)})()}
-/* ficha de producto */
-if(isP){var slug=(path.match(/\/productos\/([^\/]+)/)||[])[1]||'',own=G.filter(function(g){return g.s===slug})[0],k='',lead='Aprendé a sacarle el jugo';
-if(own){var ix=G.indexOf(own);k=G[(ix+1)%G.length].k;lead='También te puede interesar'}else{var h1=d.querySelector('#single-product h1, h1');k=topic(h1&&h1.textContent);if(!k){[].some.call(d.querySelectorAll('.breadcrumbs a,.breadcrumb a'),function(a){var m=(a.getAttribute('href')||'').match(/\/([a-z0-9-]+)\/?$/);if(m&&CAT[m[1]]){k=CAT[m[1]];return true}})}}
-if(k&&!inCart(BK[k]))wait('#single-product form#product_form, #single-product .js-product-form',function(f){if(d.querySelector('#single-product .dn-gc'))return;f.parentNode.insertBefore(card(BK[k],lead),f.nextSibling)})}
+/* ficha de producto: solo en productos de Herboristería (las fichas son las landings de la publicidad) */
+if(isP){var slug=(path.match(/\/productos\/([^\/]+)/)||[])[1]||'',own=G.some(function(g){return g.s===slug}),herb=[].some.call(d.querySelectorAll('.breadcrumbs a,.breadcrumb a'),function(a){return/\/herboristeria\/?$/.test(a.getAttribute('href')||'')});
+if(herb&&!own){var h1=d.querySelector('#single-product h1, h1'),k=topic(h1&&h1.textContent)||'boti';if(!inCart(BK[k]))wait('#single-product form#product_form, #single-product .js-product-form',function(f){if(d.querySelector('#single-product .dn-gc'))return;f.parentNode.insertBefore(card(BK[k],'Aprendé a sacarle el jugo'),f.nextSibling)})}}
 /* categoría y resultados de búsqueda */
 if((isC&&!isLanding)||isS){var kc='';if(isS){var q=(location.search.match(/[?&]q=([^&#]*)/)||[])[1];try{q=decodeURIComponent((q||'').replace(/\+/g,' '))}catch(e){}kc=topic(q)}else{var sl=(path.match(/^\/([a-z0-9-]+)\/?$/)||[])[1];kc=CAT[sl]||topic((d.querySelector('h1')||{}).textContent)}
 if(kc&&!inCart(BK[kc]))wait('.js-product-table',function(t){if(d.querySelector('.dn-gc-w.ct'))return;var w=d.createElement('div');w.className='dn-gc-w ct';w.appendChild(card(BK[kc],isS?'Para aprender más sobre lo que buscás':'¿Querés aprender a usarlos?'));t.parentNode.insertBefore(w,t)})}
