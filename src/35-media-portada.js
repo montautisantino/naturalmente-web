@@ -86,7 +86,7 @@ drawN();if(LE)LE.style.display='none';var ref=M.querySelector('.dm-wa2');if(ref)
 /* cabecera compacta + selector Videos / Escritos */
 var nProg=PR?[].filter.call(PR.querySelectorAll('.dm-prog'),function(p){return p.style.display!=='none'}).length:0;
 var MA=d.createElement('section');MA.id='dmx-mast';
-var drawMast=function(){MA.innerHTML='<span class="gl"></span><div class="in"><p class="br"><span class="lg">Naturalmente</span><span class="md">MEDIA</span></p><p class="ds">Videos y notas del equipo de Dietéticas Naturalmente sobre hierbas, cocina y alimentación natural. Para ver y leer cuando quieras.</p><div class="sts"><span><b>'+V.length+'</b>videos</span><span><b>'+notes().length+'</b>notas</span><span><b>'+nProg+'</b>programas</span></div></div>'};drawMast();
+var drawMast=function(){MA.innerHTML='<span class="gl"></span><div class="in"><p class="br"><span class="lg">Naturalmente</span><span class="md">MEDIA</span></p><p class="ds">Videos y notas del equipo de Naturalmente Media sobre hierbas, cocina y alimentación natural. Para ver y leer cuando quieras.</p><div class="sts"><span><b>'+V.length+'</b>videos</span><span><b>'+notes().length+'</b>notas</span><span><b>'+nProg+'</b>programas</span></div></div>'};drawMast();
 var TB=d.createElement('div');TB.id='dmx-tabs';TB.setAttribute('role','tablist');
 var TV=d.createElement('div');TV.id='dmx-tv';TV.setAttribute('role','tabpanel');var TE=d.createElement('div');TE.id='dmx-te';TE.setAttribute('role','tabpanel');
 if(vh)TV.appendChild(vh);if(PR)TV.appendChild(PR);TE.appendChild(NS);
