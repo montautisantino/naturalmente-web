@@ -2,7 +2,7 @@
    productos (el desplegable lo arma el módulo 09; acá se le da el contenido). Enter con notas que coinciden lleva a
    "Escritos" con la búsqueda aplicada; si no hay notas, sigue al buscador normal de productos. */
 !function(){var d=document,W=window;if(W.dnMdSx||!d.querySelector('.dn-media'))return;
-var K='dnMdIx',PH='Buscá notas, videos o productos',BASE='/naturalmente-media/';
+var K='dnMdIx',PH='Notas, videos o productos',BASE='/naturalmente-media/';
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var nz=function(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')};
 var CM={'bienestar y descanso':'Descanso','sueno':'Descanso','descanso y bienestar':'Descanso'};function cn(c){return CM[nz(c)]||c||''}
