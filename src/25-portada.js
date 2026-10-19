@@ -1,50 +1,48 @@
 !function(){var d=document,B=d.body;if(!B.classList.contains('template-home'))return;
-var box=d.querySelector('.js-home-sections-container');if(!box||d.getElementById('dn-hm'))return;
+var box=d.querySelector('.js-home-sections-container');if(!box||d.getElementById('dn-sub'))return;
+B.classList.add('dn-portal');
 function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
-function fmt(n){return'$'+Math.round(n).toLocaleString('es-AR')}
 function SV(p,s){return'<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
-var I={play:'<circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>',bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',pin:'<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/>',star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill="currentColor" stroke="none"/>',truck:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>',book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/>'};
-var css='body.template-home #dn-hmed{display:none!important}'+
-'#dn-hm{position:relative;overflow:hidden;margin:12px 12px 18px;padding:22px 18px 16px;border-radius:26px;color:#fff;background:radial-gradient(90% 70% at 100% 0%,rgba(244,201,93,.22),transparent 60%),radial-gradient(120% 90% at 0% 100%,#2f6a35 0%,transparent 60%),linear-gradient(150deg,#1d4a2a 0%,#10281a 100%);box-shadow:0 18px 40px rgba(16,40,26,.28)}'+
-'#dn-hm>*{position:relative;z-index:1}#dn-hm .lf{position:absolute;z-index:0;pointer-events:none;background:no-repeat center/contain}'+
-'#dn-hm .eb{display:block;font-size:11px;font-weight:800;letter-spacing:.18em;color:#f4c95d;margin:0 0 6px}'+
-'#dn-hm h1{margin:0 0 8px;color:#fff;font:900 28px/1.08 Archivo,Arial,sans-serif;letter-spacing:-.01em;text-transform:none}#dn-hm h1 em{font-style:normal;color:#f4c95d}'+
-'#dn-hm p{margin:0 0 16px;color:#cfe6bd;font-size:14.5px;line-height:1.45}'+
-'#dn-hm .bt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}'+
-'#dn-hm .bt a{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:118px;padding:14px;border-radius:20px;text-decoration:none!important;transition:transform .15s}#dn-hm .bt a:active{transform:scale(.97)}'+
-'#dn-hm .bt a .ic{position:absolute;top:12px;left:12px;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center}'+
-'#dn-hm .bt b{display:block;font:900 22px/1 Archivo,Arial,sans-serif;letter-spacing:.04em}#dn-hm .bt small{display:block;margin-top:4px;font-size:12px;font-weight:700;line-height:1.25}#dn-hm .bt em{position:absolute;top:14px;right:14px;font-style:normal;font-weight:900;font-size:18px}'+
-'#dn-hm .md{background:linear-gradient(160deg,rgba(16,40,26,.15),rgba(16,40,26,.92)),var(--th,#14331f) center/cover;border:1.5px solid rgba(255,255,255,.18);color:#fff!important}#dn-hm .md .ic{background:#e1306c;color:#fff;box-shadow:0 6px 14px rgba(225,48,108,.35)}#dn-hm .md small{color:#e8f2df}#dn-hm .md em{color:#fff}'+
-'#dn-hm .sh{background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326);color:#10281a!important;box-shadow:0 10px 24px rgba(224,163,38,.3)}#dn-hm .sh .ic{background:#1d4a2a;color:#f4c95d}#dn-hm .sh small{color:#4a3a12}#dn-hm .sh em{color:#1d4a2a}'+
-'#dn-hm .fx{display:flex;gap:14px;padding:12px 0 0;border-top:1px solid rgba(255,255,255,.14);overflow-x:auto;scrollbar-width:none}#dn-hm .fx::-webkit-scrollbar{display:none}#dn-hm .fx a,#dn-hm .fx span{flex:0 0 auto;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#e8f2df!important;text-decoration:none!important;white-space:nowrap}#dn-hm .fx svg{color:#f4c95d}'+
-'#dn-ap{margin:6px 0 26px;padding:0 12px}#dn-ap .hd{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 0 12px}#dn-ap .hd i{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.16em;color:#a8641a;margin:0 0 3px}#dn-ap h2{margin:0;font:900 22px/1.15 Archivo,Arial,sans-serif;color:#1d4a2a;text-transform:none}#dn-ap h2:before,#dn-ap h2:after{display:none!important}#dn-ap .hd a{flex:0 0 auto;font-size:13px;font-weight:800;color:#3f7d3a!important;text-decoration:none!important}'+
-'#dn-ap .rw{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;scrollbar-width:none}#dn-ap .rw::-webkit-scrollbar{display:none}'+
-'#dn-ap .rw a{flex:0 0 150px;scroll-snap-align:start;display:flex;flex-direction:column;background:#fff;border:1px solid #e6ede0;border-radius:18px;overflow:hidden;text-decoration:none!important;color:#16261b!important;box-shadow:0 6px 16px rgba(29,74,42,.07)}#dn-ap .rw img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#f3efe6}#dn-ap .rw span{display:block;padding:9px 10px 0;font-size:13px;font-weight:700;line-height:1.25;flex:1}#dn-ap .rw u{display:block;padding:4px 10px 10px;text-decoration:none;font-weight:900;color:#1d4a2a;font-size:14px}'+
-'#dn-ap .rw a.mx{justify-content:center;align-items:flex-start;gap:8px;padding:14px;background:linear-gradient(160deg,#1d4a2a,#10281a);border:0;color:#fff!important}#dn-ap .rw a.mx svg{color:#f4c95d}#dn-ap .rw a.mx b{font:900 16px/1.2 Archivo,Arial,sans-serif}#dn-ap .rw a.mx small{color:#cfe6bd;font-size:12.5px;line-height:1.3}'+
-'@media(min-width:768px){#dn-hm{max-width:1116px;margin:18px auto 26px;padding:34px 36px 22px}#dn-hm h1{font-size:40px}#dn-hm p{font-size:16px;max-width:640px}#dn-hm .bt{gap:16px}#dn-hm .bt a{min-height:170px;padding:20px}#dn-hm .bt b{font-size:30px}#dn-hm .bt small{font-size:14px}#dn-ap{max-width:1116px;margin:10px auto 34px}#dn-ap .rw a{flex-basis:190px}}'+
-'@media(prefers-reduced-motion:reduce){#dn-hm *{transition:none!important}}';
-var st=d.createElement('style');st.id='dn-hm-css';st.textContent=css;d.head.appendChild(st);
-/* 1. portada */
-var LF=function(col){return'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cpath d=%27M50 4C18 26 14 62 50 96C86 62 82 26 50 4Z%27 fill=%27%23'+col+'%27/%3E%3C/svg%3E")'};
-var hm=d.createElement('section');hm.id='dn-hm';
-hm.innerHTML='<span class="eb">DIETÉTICAS NATURALMENTE</span><h1>Hola, somos <em>Naturalmente</em></h1>'+
-'<p>Dietéticas en Ezeiza, Tristán Suárez y Spegazzini, una tienda online con envíos a todo el país y un canal donde compartimos lo que sabemos de hierbas y alimentación natural.</p>'+
-'<div class="bt"><a class="md" href="/naturalmente-media/"><span class="ic">'+SV(I.play,20)+'</span><em>→</em><b>MEDIA</b><small>Episodios, videos y guías</small></a>'+
-'<a class="sh" href="/productos/"><span class="ic">'+SV(I.bag,20)+'</span><em>→</em><b>TIENDA</b><small>Todo el catálogo, con envío a todo el país</small></a></div>'+
-'<div class="fx"><a href="/nuestras-sucursales/">'+SV(I.pin,16)+'3 sucursales</a><span>'+SV(I.star,16)+'4,7 en Google · 80 reseñas</span><span>'+SV(I.truck,16)+'Envíos a todo el país</span></div>';
-[['right:-34px;top:-40px;width:150px;height:150px;opacity:.14;transform:rotate(30deg)','7aa65a'],['left:-40px;bottom:-56px;width:120px;height:120px;opacity:.09;transform:rotate(-140deg)','f4c95d']].forEach(function(a){var e=d.createElement('span');e.className='lf';e.setAttribute('aria-hidden','true');e.style.cssText=a[0]+';background-image:'+LF(a[1]);hm.appendChild(e)});
-box.insertBefore(hm,box.firstChild);
-function thumb(){var im=d.querySelector('#dn-lep img'),md=hm.querySelector('.md');if(im&&md&&!md.style.getPropertyValue('--th')){md.style.setProperty('--th','url("'+im.getAttribute('src')+'")');return 1}}
-/* 2. aprendé (guías digitales) */
-function drawAp(L){if(!L||!L.length||d.getElementById('dn-ap'))return;var s=d.createElement('section');s.id='dn-ap';
-s.innerHTML='<div class="hd"><div><i>APRENDÉ CON NOSOTROS</i><h2>Guías digitales</h2></div><a href="/educativo/">Ver todas →</a></div><div class="rw">'+
-L.map(function(x){return'<a href="'+x.u+'"><img alt="" loading="lazy" src="'+x.i+'"><span>'+esc(x.n)+'</span><u>'+fmt(x.p)+'</u></a>'}).join('')+
-'<a class="mx" href="/naturalmente-media/">'+SV(I.play,26)+'<b>Naturalmente Media</b><small>Episodios y videos sobre hierbas y alimentación natural.</small></a></div>';
+var I={play:'<circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>',bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'};
+var css='body.dn-portal #dn-hmed,body.dn-portal [data-store="home-categories-featured"],body.dn-portal [data-store="home-products-featured"],body.dn-portal [data-store="home-products-sale"],body.dn-portal [data-store="banner-services"],body.dn-portal #dn-qzc{display:none!important}'+
+'#dn-sub{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 12px 14px}'+
+'#dn-sub a{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:14px;font:900 16px/1 Archivo,Arial,sans-serif;letter-spacing:.08em;text-decoration:none!important;transition:transform .15s}#dn-sub a:active{transform:scale(.97)}'+
+'#dn-sub .md{background:#1d4a2a;color:#fff!important;box-shadow:0 6px 16px rgba(16,40,26,.22)}#dn-sub .md svg{color:#f4c95d}'+
+'#dn-sub .sh{background:linear-gradient(135deg,#fbe3a0,#f4c95d 45%,#e0a326);color:#10281a!important;box-shadow:0 6px 16px rgba(224,163,38,.25)}'+
+'#dn-prg{margin:4px 0 26px;padding:0 12px}#dn-prg .hd{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 0 12px}#dn-prg .hd i{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.16em;color:#a8641a;margin:0 0 3px}#dn-prg h2{margin:0;font:900 22px/1.15 Archivo,Arial,sans-serif;color:#1d4a2a;text-transform:none}#dn-prg h2:before,#dn-prg h2:after{display:none!important}#dn-prg .hd a{flex:0 0 auto;font-size:13px;font-weight:800;color:#3f7d3a!important;text-decoration:none!important}'+
+'#dn-prg .g{display:grid;grid-template-columns:1fr 1fr;gap:8px}'+
+'#dn-prg .g a{display:flex;flex-direction:column;gap:4px;padding:13px 12px;border-radius:16px;background:#fff;border:1px solid #e6ede0;box-shadow:0 4px 12px rgba(29,74,42,.06);text-decoration:none!important;color:#16261b!important}#dn-prg .g .e{font-size:24px;line-height:1}#dn-prg .g b{font:800 14.5px/1.2 Archivo,Arial,sans-serif;color:#1d4a2a}#dn-prg .g small{font-size:12px;line-height:1.3;color:#53624f;flex:1}'+
+'#dn-prg .g u{align-self:flex-start;margin-top:4px;text-decoration:none;font-size:10.5px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:3px 8px;background:#f3efe6;color:#8a7a62}#dn-prg .g u.on{background:#e1306c;color:#fff}'+
+'#dn-not{margin:4px 0 26px;padding:0 12px}#dn-not .hd{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 0 12px}#dn-not .hd i{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.16em;color:#a8641a;margin:0 0 3px}#dn-not h2{margin:0;font:900 22px/1.15 Archivo,Arial,sans-serif;color:#1d4a2a;text-transform:none}#dn-not h2:before,#dn-not h2:after{display:none!important}#dn-not .hd a{font-size:13px;font-weight:800;color:#3f7d3a!important;text-decoration:none!important}'+
+'#dn-not a{text-decoration:none!important;color:#16261b!important}#dn-not em{display:block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#a8641a;margin:0 0 3px}'+
+'#dn-not .f{display:block;background:#fff;border:1px solid #e6ede0;border-radius:18px;overflow:hidden;box-shadow:0 6px 16px rgba(29,74,42,.07)}#dn-not .f img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#f3efe6}#dn-not .f span{display:block;padding:12px 14px 14px}#dn-not .f b{display:block;font:900 19px/1.2 Archivo,Arial,sans-serif;color:#1d4a2a}#dn-not .f small{display:block;margin-top:5px;font-size:13.5px;line-height:1.4;color:#53624f}'+
+'#dn-not .ls{display:grid;gap:0;margin-top:6px}#dn-not .ls a{display:flex;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid #e6ede0}#dn-not .ls img{flex:0 0 76px;width:76px;height:58px;border-radius:10px;object-fit:cover;background:#f3efe6}#dn-not .ls b{display:block;font:800 14.5px/1.25 Archivo,Arial,sans-serif;color:#1d4a2a}'+
+'@media(min-width:768px){#dn-not{max-width:1116px;margin:6px auto 34px}#dn-not .f{display:grid;grid-template-columns:1.3fr 1fr}#dn-not .f img{height:100%}#dn-not .f span{padding:22px}#dn-not .f b{font-size:26px}#dn-not .ls{grid-template-columns:repeat(2,1fr);column-gap:24px}}'+
+'@media(min-width:768px){#dn-sub{max-width:1116px;margin:16px auto 22px;gap:14px}#dn-sub a{height:60px;font-size:19px}#dn-prg{max-width:1116px;margin:6px auto 34px}#dn-prg .g{grid-template-columns:repeat(3,1fr);gap:12px}}';
+var st=d.createElement('style');st.id='dn-sub-css';st.textContent=css;d.head.appendChild(st);
+/* 1. submenú */
+var sb=d.createElement('nav');sb.id='dn-sub';sb.setAttribute('aria-label','Secciones');
+sb.innerHTML='<a class="md" href="/naturalmente-media/">'+SV(I.play,20)+'MEDIA</a><a class="sh" href="/productos/">'+SV(I.bag,20)+'TIENDA</a>';
+box.insertBefore(sb,box.firstChild);
+/* 2. programas de Naturalmente Media (se arman solos desde la página de Media) */
+function drawP(L){if(!L||!L.length||d.getElementById('dn-prg'))return;var s=d.createElement('section');s.id='dn-prg';
+s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Programas</h2></div><a href="/naturalmente-media/">Ver todo →</a></div><div class="g">'+
+L.map(function(x){return'<a href="/naturalmente-media/#dm-programas"><span class="e">'+esc(x.e)+'</span><b>'+esc(x.t)+'</b><small>'+esc(x.d)+'</small><u'+(x.n?' class="on">'+x.n+(x.n>1?' episodios':' episodio'):'>PRÓXIMAMENTE')+'</u></a>'}).join('')+'</div>';
 box.appendChild(s);order()}
-var K='dnEdu1',E;try{E=JSON.parse(sessionStorage.getItem(K))}catch(e){}
-if(E)drawAp(E);else fetch('/educativo/').then(function(r){return r.text()}).then(function(h){var p=new DOMParser().parseFromString(h,'text/html');E=[].slice.call(p.querySelectorAll('.js-item-product[data-product-id]')).filter(function(x){return x.getAttribute('data-product-id')}).map(function(x){var v={};try{v=JSON.parse(x.querySelector('[data-variants]').getAttribute('data-variants'))[0]||{}}catch(e){}var a=x.querySelector('a[href*="/productos/"]');return{n:((x.querySelector('.js-item-name')||{}).textContent||'').trim(),u:a?a.getAttribute('href').split('?')[0]:'/educativo/',p:v.price_number||0,i:(v.image_url||'').replace(/-1024-1024(\.\w+)$/,'-480-0$1')}}).filter(function(x){return x.p&&x.i&&x.n}).slice(0,8);try{sessionStorage.setItem(K,JSON.stringify(E))}catch(e){}drawAp(E)}).catch(function(){});
-/* 3. orden: contenido y venta mechados */
-var O=['#dn-hm','[data-store="home-categories-featured"]','#dn-lep','[data-store="home-products-featured"]','[data-store="home-institutional-message"]','#dn-qzc','[data-store="home-products-sale"]','#dn-ig','#dn-ap','[data-store="banner-services"]','[data-store="home-newsletter"]'];
-var busy=0;function order(){if(busy)return;busy=1;try{thumb();var prev=null;O.forEach(function(q){var e=box.querySelector(':scope > '+q);if(!e)return;if(prev){if(prev.nextElementSibling!==e)box.insertBefore(e,prev.nextElementSibling)}else if(box.firstElementChild!==e)box.insertBefore(e,box.firstElementChild);prev=e})}catch(e){}busy=0}
+function drawN(L){if(!L||!L.length||d.getElementById('dn-not'))return;var s=d.createElement('section');s.id='dn-not';var f=L[0];
+s.innerHTML='<div class="hd"><div><i>NATURALMENTE MEDIA</i><h2>Últimas notas</h2></div><a href="/naturalmente-media/#dm-leer">Ver todas →</a></div>'+
+'<a class="f" href="'+esc(f.u)+'">'+(f.i?'<img alt="" loading="lazy" src="'+esc(f.i)+'">':'')+'<span>'+(f.c?'<em>'+esc(f.c)+'</em>':'')+'<b>'+esc(f.t)+'</b>'+(f.x?'<small>'+esc(f.x)+'</small>':'')+'</span></a>'+
+(L.length>1?'<div class="ls">'+L.slice(1,6).map(function(x){return'<a href="'+esc(x.u)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(x.i)+'">':'')+'<span>'+(x.c?'<em>'+esc(x.c)+'</em>':'')+'<b>'+esc(x.t)+'</b></span></a>'}).join('')+'</div>':'');
+box.appendChild(s);order()}
+var K='dnPrg2',P;try{P=JSON.parse(sessionStorage.getItem(K))}catch(e){}
+var NN;try{NN=JSON.parse(sessionStorage.getItem(K+'n'))}catch(e){}
+if(P){drawP(P);drawN(NN)}else fetch('/naturalmente-media/').then(function(r){return r.text()}).then(function(h){var p=new DOMParser().parseFromString(h,'text/html');
+P=[].slice.call(p.querySelectorAll('.dm-prog')).filter(function(g){return g.id!=='dm-leer'&&!g.closest('#dm-leer')}).map(function(g){var t=(g.querySelector('.dm-prog-t')||{}).textContent||'',row=g.querySelector('.dm-row'),n=row?[].filter.call(row.children,function(c){return!/pr[oó]ximamente|muy pronto/i.test(c.textContent)}).length:0;
+return{e:((g.querySelector('.dm-prog-ico')||{}).textContent||'').trim(),t:t.trim(),d:((g.querySelector('.dm-prog-d')||{}).textContent||'').trim(),n:n}}).filter(function(x){return x.t});
+var N=[].slice.call(p.querySelectorAll('#dm-leer .dm-art')).map(function(a){var l=a.matches('a[href]')?a:a.querySelector('a[href]'),im=a.querySelector('img'),t=((a.querySelector('.dm-art-t')||{}).textContent||'').trim();return{u:l?l.getAttribute('href'):'',t:t,c:((a.querySelector('.dm-art-cat')||{}).textContent||'').trim(),x:((a.querySelector('.dm-art-d')||{}).textContent||'').trim(),i:im?im.getAttribute('src'):''}}).filter(function(x){return x.u&&x.t&&!/pr[oó]ximamente/i.test(x.t)});
+try{sessionStorage.setItem(K,JSON.stringify(P));sessionStorage.setItem(K+'n',JSON.stringify(N))}catch(e){}drawP(P);drawN(N)}).catch(function(){});
+/* 3. orden del portal: solo contenido */
+var O=['#dn-sub','#dn-lep','#dn-not','#dn-prg','#dn-ig','[data-store="home-institutional-message"]','[data-store="home-newsletter"]'];
+var busy=0;function order(){if(busy)return;busy=1;try{var prev=null;O.forEach(function(q){var e=box.querySelector(':scope > '+q);if(!e)return;if(prev){if(prev.nextElementSibling!==e)box.insertBefore(e,prev.nextElementSibling)}else if(box.firstElementChild!==e)box.insertBefore(e,box.firstElementChild);prev=e})}catch(e){}busy=0}
 order();if(window.MutationObserver){var mo=new MutationObserver(function(){order()});mo.observe(box,{childList:true});setTimeout(function(){mo.disconnect()},15000)}
 }();
