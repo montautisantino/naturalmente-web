@@ -1,0 +1,37 @@
+!function(){var d=document,B=d.body;if(!B.classList.contains('template-product')||d.querySelector('.dn-lp')||d.getElementById('dn-pt'))return;
+var h1=d.querySelector('.js-product-name'),nm=h1?h1.textContent.trim():'';if(!h1||/^combo/i.test(nm))return;
+function fmt(n){return'$'+Math.round(n).toLocaleString('es-AR')}
+function esc(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
+var SV=function(p){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'};
+var st=d.createElement('style');st.id='dn-prod-css';st.textContent=
+'#dn-pt{margin:16px 0 6px;border-radius:18px;background:#f6f9f3;border:1px solid #e1eadb;overflow:hidden}#dn-pt>*{display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none!important;color:#16261b!important}#dn-pt>*+*{border-top:1px solid #e6ede0}'+
+'#dn-pt i{flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #dbe6d2;display:flex;align-items:center;justify-content:center;color:#2f6a35}#dn-pt i svg{width:18px;height:18px}#dn-pt b{display:block;font-size:14px;line-height:1.2}#dn-pt small{display:block;font-size:12.5px;color:#5d6d59;line-height:1.3;margin-top:2px}#dn-pt a em{margin-left:auto;font-style:normal;font-weight:900;color:#25a956;font-size:13px;white-space:nowrap}'+
+'.dn-p100{margin:-6px 0 12px;font-size:13px;color:#5d6d59}.dn-p100 b{color:#1d4a2a}'+
+'.dn-prk{display:inline-flex;align-items:center;gap:6px;margin:0 0 8px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,#f4c95d,#e0a326 55%,#c98a35);color:#10281a;font:900 12.5px/1 Archivo,Arial,sans-serif;box-shadow:0 4px 12px rgba(224,163,38,.3);position:relative;overflow:hidden}.dn-prk:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:dnSweep 3.2s ease-in-out infinite}.dn-prk.g{background:#1d4a2a;color:#fff;box-shadow:0 4px 12px rgba(29,74,42,.25)}.dn-prk svg{width:14px;height:14px}'+
+'#dn-pd{position:relative;background:#fff;border:1px solid #e6ede0;border-radius:20px;padding:18px 16px 16px;box-shadow:0 6px 18px rgba(29,74,42,.06);margin:0 0 18px}#dn-pd h5{margin:0 0 10px!important;font:900 19px/1.2 Archivo,Arial,sans-serif!important;color:#1d4a2a}#dn-pd .user-content{margin:0!important;font-size:14.5px!important;line-height:1.6;color:#2b3a2e}'+
+'#dn-pd.cl .user-content{max-height:340px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 65%,transparent);mask-image:linear-gradient(#000 65%,transparent)}#dn-pd .mo{display:block;width:100%;margin:10px 0 0;padding:11px;border-radius:999px;border:1.5px solid #cfdcc5;background:#f6f9f3;color:#1d4a2a;font-weight:800;font-size:14px;cursor:pointer}'+
+'.template-product .products-section-title{font:900 21px/1.2 Archivo,Arial,sans-serif!important;color:#1d4a2a!important;text-transform:none!important;letter-spacing:0!important}';
+d.head.appendChild(st);
+/* franja de confianza */
+var min=(B.textContent.match(/env[ií]o gratis (?:desde|superando los) \$\s*([\d.]+)/i)||[])[1];min=min?'$'+min.replace(/,00$/,''):'';
+var pt=d.createElement('div');pt.id='dn-pt';pt.innerHTML='<div><i>'+SV('<path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>')+'</i><div><b>Compra segura</b><small>Pagos protegidos y tus datos siempre resguardados.</small></div></div>'+
+'<div><i>'+SV('<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>')+'</i><div><b>Envíos a todo el país</b><small>'+(min?'Gratis superando los '+esc(min)+'.':'Te lo llevamos a cualquier punto de Argentina.')+'</small></div></div>'+
+'<a href="https://wa.me/5491141816107?text='+encodeURIComponent('Hola! Tengo una consulta sobre: '+nm+' '+location.href.split('?')[0])+'" target="_blank" rel="noopener"><i>'+SV('<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/>')+'</i><div><b>¿Tenés dudas?</b><small>Te asesoramos por WhatsApp.</small></div><em>Escribinos →</em></a>';
+var anchor=d.getElementById('dn-buy')||d.getElementById('product_form');if(anchor)anchor.parentNode.insertBefore(pt,anchor.nextSibling);
+/* precio por 100 g */
+function grams(n){n=n.toLowerCase();var m=n.match(/(?:x|por|de)\s*(\d+(?:[.,]\d+)?)\s*(kg|kilo|kilos|grs?|g)\b/)||n.match(/(\d+(?:[.,]\d+)?)\s*(kg|grs?|g)\b/);if(!m)return/de kilo|x kilo|por kilo/.test(n)?1000:0;var v=parseFloat(m[1].replace(',','.'));return/k/.test(m[2])?v*1000:v}
+var g=grams(nm),pd=d.getElementById('price_display'),pc=d.querySelector('.js-price-container');
+if(g>100&&g<=5000&&pd&&pc){var p1=d.createElement('div');p1.className='dn-p100';pc.parentNode.insertBefore(p1,pc.nextSibling);var up=function(){var v=parseInt(pd.getAttribute('data-product-price'),10)/100||parseFloat(pd.textContent.replace(/[^\d,]/g,'').replace(',','.'));p1.innerHTML=v?'Equivale a <b>'+fmt(v/g*100)+'</b> cada 100 g':''};up();if(window.MutationObserver)new MutationObserver(up).observe(pd,{attributes:true,childList:true,characterData:true,subtree:true})}
+/* ranking en su categoría */
+var bc=[].slice.call(d.querySelectorAll('.breadcrumbs a')).filter(function(a){return!/^https?:\/\/[^\/]+\/?$/.test(a.href)}).pop(),pid=(d.querySelector('#product_form [name="add_to_cart"]')||{}).value;
+if(bc&&pid){var ch=bc.getAttribute('href').replace(/^https?:\/\/[^\/]+/,''),cn=bc.textContent.trim(),FX={suplementos:'Suplementos',Herboristeria:'Herboristería',Diabetico:'Diabético',Dieteticos:'Dietéticos',Celiaco:'Celíaco','Te en saquitos':'Té en saquitos','Cosmetica natural':'Cosmética natural'};cn=FX[cn]||cn;
+var show=function(ids){var i=ids.indexOf(String(pid));if(i<0||i>2||d.querySelector('.dn-prk'))return;var b=d.createElement('div');b.className='dn-prk'+(i?' g':'');b.innerHTML=SV('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>')+(i?'#'+(i+1)+' en ventas en '+esc(cn):'#1 más vendido en '+esc(cn));h1.parentNode.insertBefore(b,h1)};
+var K='dnRk:'+ch,c;try{c=JSON.parse(sessionStorage.getItem(K))}catch(e){}
+if(c)show(c);else fetch(ch).then(function(r){return r.text()}).then(function(h){var ids=[].slice.call(new DOMParser().parseFromString(h,'text/html').querySelectorAll('.js-product-table .js-item-product[data-product-id]')).map(function(x){return x.getAttribute('data-product-id')}).filter(Boolean).slice(0,3);try{sessionStorage.setItem(K,JSON.stringify(ids))}catch(e){}show(ids)}).catch(function(){})}
+/* descripción en tarjeta, plegable si es larga */
+var uc=d.querySelector('.template-product .user-content'),h5=uc&&uc.previousElementSibling;
+if(uc){var w=d.createElement('div');w.id='dn-pd';uc.parentNode.insertBefore(w,h5&&/^H5$/.test(h5.tagName)?h5:uc);if(h5&&/^H5$/.test(h5.tagName))w.appendChild(h5);w.appendChild(uc);
+setTimeout(function(){if(uc.scrollHeight>520){w.classList.add('cl');var b=d.createElement('button');b.type='button';b.className='mo';b.textContent='Ver descripción completa ↓';b.onclick=function(){var o=w.classList.toggle('cl');b.textContent=o?'Ver descripción completa ↓':'Ver menos ↑';if(o)w.scrollIntoView({block:'start',behavior:'smooth'})};w.appendChild(b)}},300)}
+/* tarjetas nuevas en sugeridos */
+[].forEach.call(d.querySelectorAll('#related-products,#complementary-products'),function(s){window.dnCards&&window.dnCards(s)});
+}();

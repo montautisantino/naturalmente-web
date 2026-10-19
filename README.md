@@ -8,8 +8,9 @@ Se carga desde Tiendanube (código del sello) con una sola línea:
 ```
 
 - `src/` — cada función por separado.
-- `dist/dn.js` — todo junto, cada bloque aislado con `try/catch`.
-- `dist/dn.min.js` — versión comprimida que carga la tienda.
+- `dist/dn.min.js` — núcleo (todas las páginas): 404/búsqueda vacía, videos, Media en todas las páginas, buscador, menú, test, footer. Al final carga la parte de la página.
+- `dist/dn-home.min.js`, `dn-listado.min.js` (categorías y búsqueda), `dn-producto.min.js`, `dn-media.min.js` — partes por tipo de página. El núcleo las carga con su huella SRI (escrita dentro del núcleo al armarlo).
+- Qué módulo va en cada parte: ver `build.sh`.
 
 Cada cambio se publica como un commit y recién se activa al actualizar el código del commit en Tiendanube.
 El sello carga el archivo con respaldo: si `cdn.jsdelivr.net` no responde, prueba `fastly.jsdelivr.net` y después `gcore.jsdelivr.net` (redes distintas). El archivo se protege contra doble carga (`window.__dnExt`).
