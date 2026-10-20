@@ -57,7 +57,8 @@ B #hb-dato .ot,B #hb-nov .go,B #hb-lib .ad,B #hb-qs .hi,B .section-featured-home
 B #hb-qs .hi{background:var(--fp-gold)!important;color:var(--fp-ink)!important}
 B #dn-ig a[href*="instagram"]{border-radius:999px!important}
 B #hb-qzc .bt{background:var(--fp-gold)!important;box-shadow:none!important;color:var(--fp-ink)!important}
-B #hb-yuyo .cd button,B #hb-mito button,B #hb-mate .op button,B #hb-feed .fc button{border-radius:12px!important;box-shadow:none!important}
+B #hb-yuyo .cd button,B #hb-mito button,B #hb-mate .op button,B #hb-feed .fc button{border-radius:12px!important}
+B #hb-yuyo .cd button:not(.pk),B #hb-mito button:not(.pk),B #hb-mate .op button:not(.pk),B #hb-feed .fc button:not(.pk){box-shadow:none!important}
 B #hb-lib .pv,B #hb-lib .nx,B #hb-fich .pv,B #hb-fich .nx,B #hb-tips .pv,B #hb-tips .nx{border-radius:12px!important;box-shadow:none!important}
 B #hb-lib .pv,B #hb-lib .nx,B #hb-fich .pv,B #hb-fich .nx{background:#fff!important;border:1px solid var(--fp-line)!important}
 B #dn-ig button{box-shadow:0 1px 4px rgba(0,0,0,.18)!important}
