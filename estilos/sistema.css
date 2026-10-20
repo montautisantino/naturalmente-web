@@ -23,7 +23,8 @@ html body.template-product #single-product #product_form .btn-add-to-cart,html b
 html body.template-product #single-product #product_form .js-addtocart:active{transform:scale(.97)!important}
 html body.template-product #single-product #product_form .js-quantity .form-quantity,html body.template-product #single-product #product_form .js-quantity-input{border-radius:12px!important}
 html body.template-product #single-product .dn-cta{background:#1d4a2a linear-gradient(110deg,#1d4a2a 0%,#1d4a2a 40%,#3b7a49 50%,#1d4a2a 60%,#1d4a2a 100%)!important;background-size:260% 100%!important;animation:dnBuy 4.8s ease-in-out infinite!important}
-html body.template-product #single-product .dn-cta,html body.template-product #single-product .dn-more-btn{border-radius:12px!important;background-image:none!important}
+html body.template-product #single-product .dn-cta,html body.template-product #single-product .dn-more-btn{border-radius:12px!important}
+html body.template-product #single-product .dn-more-btn{background-image:none!important}
 html body #single-product{background-image:none!important}
 html body.template-product #single-product>.container>.row{border-radius:18px!important}
 
