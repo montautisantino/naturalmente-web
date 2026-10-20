@@ -12,6 +12,8 @@ var c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(e){}
 var EQ=W.dnNotasEquipo||[],BASE=(function(){var m=CS&&CS.src&&/^(https:\/\/.+\/)dist\/dn\.min\.js/.exec(CS.src);return m?m[1]:''})(),EQS={};EQ.forEach(function(n){EQS[n.s]=1});
 function eq(D){if(!EQ.length)return D;D=D||{dato:[],mito:[],yuyo:[],ficha:[],tip:[],video:[],nota:[]};D.nota=D.nota||[];var h={};D.nota.forEach(function(n){h[n.s]=1});EQ.forEach(function(n){if(!h[n.s])D.nota.push(n)});D.nota.sort(function(a,b){return(+b.ts||0)-(+a.ts||0)});return D}
 var S={data:eq(c&&c.d||null),done:0,cbs:[],ready:function(f){if(S.done)f(S.data);else S.cbs.push(f)}};W.dnSheet=S;
+/* la lista de notas del equipo viene en la parte de inicio y de Media (no en el núcleo): se suma cuando llega */
+S.eqAdd=function(L){if(!L||!L.length)return;EQ=L;EQS={};EQ.forEach(function(n){EQS[n.s]=1});S.data=eq(S.data)};
 var CV='https://cdn.jsdelivr.net/gh/montautisantino/naturalmente-web@f573e17d4855fc1df454703d150736732f82c70e/covers/';
 var MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function slug(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70)}
