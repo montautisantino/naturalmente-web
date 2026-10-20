@@ -54,7 +54,7 @@ var mins=Math.max(1,Math.round((bd.textContent.split(/\s+/).length*(1-cut/H))/20
 var m=d.createElement('div');m.className='dn-rmore';var ar='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
 function draw(on){m.classList.toggle('on',on);m.innerHTML='<div><button type="button" aria-expanded="'+on+'">'+(on?'Cerrar nota':'Seguir leyendo')+ar+'</button>'+(on?'':'<small>Te quedan unos '+mins+' min de lectura</small>')+'</div>'}draw(false);bd.parentNode.insertBefore(m,bd.nextSibling);
 function open(){bd.style.maxHeight=bd.scrollHeight+'px';setTimeout(function(){bd.classList.remove('dn-cl');bd.style.maxHeight=''},520);draw(true)}
-function close(){bd.style.maxHeight=bd.scrollHeight+'px';void bd.offsetHeight;bd.classList.add('dn-cl');bd.style.maxHeight=cut+'px';draw(false);setTimeout(function(){var y=m.getBoundingClientRect().top+scrollY-innerHeight*.45;scrollTo({top:Math.max(0,y),behavior:'smooth'})},60)}
+function close(){var y=bd.getBoundingClientRect().top+scrollY+cut-innerHeight*.55;bd.style.transition='none';bd.classList.add('dn-cl');bd.style.maxHeight=cut+'px';void bd.offsetHeight;bd.style.transition='';draw(false);scrollTo({top:Math.max(0,y),behavior:'auto'})}
 m.addEventListener('click',function(e){if(!e.target.closest('button'))return;m.classList.contains('on')?close():open()});
 A.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a||!bd.classList.contains('dn-cl'))return;var t=d.getElementById(a.getAttribute('href').slice(1));if(t&&bd.contains(t)){bd.classList.remove('dn-cl');bd.style.maxHeight='';draw(true)}},true)},300)}
 /* esperar a que la nota o el video terminen de armarse */
