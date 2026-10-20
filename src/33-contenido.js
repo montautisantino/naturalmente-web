@@ -58,16 +58,16 @@ var GU=[['Cómo cocinar legumbres secas',['Remojalas de 8 a 12 horas (las lentej
 ['Cómo cocinar quinoa',['Enjuagala bien en un colador fino.','Usá 2 partes de agua por 1 de quinoa.','Cociná tapada, a fuego bajo, unos 15 minutos.','Dejala reposar 5 minutos y separá los granos con un tenedor.'],'quinoa'],
 ['Cómo comprar a granel',['Llevá frascos o bolsas reutilizables.','Comprá lo que vas a usar en poco tiempo.','Etiquetá cada frasco con el nombre y la fecha.','Guardá todo en un lugar fresco, seco y oscuro.'],'granel'],
 ['Cómo empezar un compost en casa',['Usá un recipiente con tapa y agujeros para que respire.','Alterná restos húmedos (cáscaras) con secos (hojas, cartón).','Removelo una vez por semana.','En 2 a 4 meses tenés tierra oscura, con olor a bosque.'],'compost'],
-['Cómo hacer aguas saborizadas',['Cortá frutas o hierbas frescas en agua fría.','Dejala en la heladera al menos 2 horas.','Probá pepino y menta, o naranja y canela.','Tomala en el día.'],'agua'],
+['Cómo hacer aguas saborizadas',['Cortá frutas o hierbas frescas en agua fría.','Dejala en la heladera al menos 2 horas.','Probá pepino y menta, o naranja y canela.','Tomala en el día.'],'saborizadas'],
 ['Cómo hacer leche de almendras',['Remojá 1 taza de almendras toda la noche.','Enjuagalas y licualas con 4 tazas de agua.','Colá con un lienzo o una bolsa de tela.','Guardala en la heladera y usala en 3 o 4 días.'],'almendra'],
 ['Cómo tostar frutos secos y semillas',['Sartén sin aceite, a fuego medio.','Movelos seguido, de 3 a 6 minutos.','Sacalos cuando larguen aroma y tomen color.','Pasalos a un plato para que no se sigan tostando.'],'frutos secos'],
 ['Cómo usar especias enteras',['Tostalas unos segundos en sartén seca.','Molelas en el momento, con mortero o molinillo.','Las enteras van al principio de la cocción; las molidas, al final.','Guardalas lejos de la luz y del calor.'],'especia'],
 ['Cómo hacer granola casera',['Mezclá avena, frutos secos y semillas.','Sumá un poco de miel o de aceite y mezclá bien.','Horneá a 160 °C de 20 a 25 minutos, revolviendo a la mitad.','Agregá las pasas al final, fuera del horno.'],'granola'],
-['Té: cuánto reposa cada uno',['Verde: 2 a 3 minutos, con agua de 70 a 80 °C.','Blanco: 4 a 5 minutos, con agua de 75 a 85 °C.','Negro: 3 a 5 minutos, con agua bien caliente.','Hierbas: 5 a 10 minutos, con la taza tapada.'],'té ']];
+['Té: cuánto reposa cada uno',['Verde: 2 a 3 minutos, con agua de 70 a 80 °C.','Blanco: 4 a 5 minutos, con agua de 75 a 85 °C.','Negro: 3 a 5 minutos, con agua bien caliente.','Hierbas: 5 a 10 minutos, con la taza tapada.'],'oolong']];
 /* glosario: [término, definición, palabra para buscar la nota relacionada] */
 var GL=[['Pseudocereal','Semilla que se usa como un cereal pero no es de la familia de los pastos. Por ejemplo: quinoa, amaranto y trigo sarraceno.','pseudocereal'],
 ['Tintura madre','Preparación que se obtiene dejando una planta en una mezcla de alcohol y agua, para extraer parte de sus componentes.','tintura'],
-['Adaptógeno','Nombre que se le da a un grupo de plantas y hongos de uso tradicional, como la ashwagandha o el ginseng. Describe una tradición de uso, no un efecto garantizado.','adapt'],
+['Adaptógeno','Nombre que se le da a un grupo de plantas y hongos de uso tradicional, como la ashwagandha o el ginseng. Describe una tradición de uso, no un efecto garantizado.','adaptogeno'],
 ['Infusión','Volcar agua caliente sobre la planta y dejarla reposar. Se usa para hojas y flores.','infusi'],
 ['Decocción','Hervir la planta unos minutos en el agua. Se usa para partes duras: raíces, cortezas y semillas.','decocci'],
 ['Maceración','Dejar la planta en agua fría o a temperatura ambiente durante varias horas.','maceraci'],
