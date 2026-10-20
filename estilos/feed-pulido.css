@@ -74,10 +74,15 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
 
 /* ---------- celular: escala tipográfica, legibilidad y ritmo ---------- */
 @media (max-width:767px){
- /* ritmo vertical: secciones 40px, bloques compactos 28px; margen lateral 16px */
- B #hb-lep,B #hb-yuyo,B #hb-lib,B #hb-not,B #hb-mito,B #hb-eps,B #hb-guia,B #hb-fich,B #hb-mate,B #hb-tips,B #dn-ig,B #hb-feed,B #hb-qs,B .section-featured-home{padding-top:40px!important;padding-bottom:40px!important}
- B #hb-dato,B #hb-qzc{padding-top:28px!important;padding-bottom:28px!important}
- B #hb-sub{padding-bottom:20px!important}
+ /* ritmo vertical compacto (sin espacio muerto): secciones 24px, bloques chicos 16px; margen lateral 16px */
+ B #hb-lep,B #hb-yuyo,B #hb-lib,B #hb-not,B #hb-mito,B #hb-eps,B #hb-guia,B #hb-fich,B #hb-mate,B #hb-tips,B #dn-ig,B #hb-feed,B #hb-qs,B .section-featured-home{padding-top:24px!important;padding-bottom:24px!important}
+ B #hb-dato,B #hb-qzc{padding-top:16px!important;padding-bottom:16px!important}
+ B .section-newsletter-home{padding-top:32px!important;padding-bottom:32px!important}
+ B #hb-fich .cr,B #hb-tips .cr,B #hb-eps .er{padding-bottom:4px!important}
+ B #dn-ig>div{padding-bottom:16px!important}
+ B :is(#hb-lep .hb-h,#hb-eps .eh,#hb-fich .ch,#hb-tips .ch,#hb-feed .fh){margin-bottom:12px!important}
+ B #hb-sub{padding-top:8px!important}
+ B #hb-sub{padding-bottom:12px!important}
  B #hb-sub #dn-sub,B #hb-lep #dn-lep{margin-left:16px!important;margin-right:16px!important}
 
  /* volanta */

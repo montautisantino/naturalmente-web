@@ -7,7 +7,7 @@ var st=d.createElement('style');st.id='dn-det-css';st.textContent=
 '.breadcrumbs .separator{font-size:0!important;width:14px;height:14px;flex:0 0 14px;margin:0 1px;background:no-repeat center/12px url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M9 6l6 6-6 6%27 fill=%27none%27 stroke=%27%239aa596%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")}'+
 '.breadcrumbs .dn-hm{width:13px;height:13px}'+
 /* botón comprar con respuesta */
-'.js-item-product input.js-addtocart.dn-ok,.js-item-product .btn.dn-ok{background:linear-gradient(135deg,#25a956,#178a42)!important;color:#fff!important;transform:scale(1.03)}.js-item-product input.js-addtocart{transition:background .25s,transform .2s}'+
+'.js-item-product input.js-addtocart.dn-ok,.js-item-product .btn.dn-ok{background:#1e9a4c!important;color:#fff!important;transform:scale(1.03)}.js-item-product input.js-addtocart{transition:background .25s,transform .2s}'+
 /* fondo mientras cargan las imágenes */
 '.js-item-image-padding,.product-item-image-container,.js-product-slide,.product-detail-slider .swiper-slide{background-color:#f4f1e4}';
 d.head.appendChild(st);
