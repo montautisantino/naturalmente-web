@@ -8,7 +8,7 @@ set -e
 mkdir -p "$(dirname "$0")/build"
 cd "$(dirname "$0")"
 T="npx -y terser@5.31.0"
-CORE="01 16 02 EPL 34 05 09 10 11 13 17 18 20 23 28 29 30 32 38 41"
+CORE="01 16 02 EPL 34 05 09 10 11 13 17 18 20 23 28 29 30 32 38 41 43"
 CUENTA="15 24 37"
 PEDIDO="22"
 HOME_P="06 07 33 25 36 42"

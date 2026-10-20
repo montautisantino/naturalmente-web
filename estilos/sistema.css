@@ -1,0 +1,40 @@
+/* Sistema visual de todo el sitio, para piezas que no salen de nuestros módulos
+   (tema de Tiendanube, contenido cargado en el admin: landings de producto, páginas de Media).
+   Radios 6/12/18 · una sola sombra suave · sin degradados · textos mínimos legibles.
+   Compila a src/43-sistema.js (núcleo, todas las páginas). */
+
+/* ---------- etiquetas del tema ---------- */
+html body .label-offer-percentage,html body .label-offer-percentage-text,html body .js-offer-percentage,html body .js-stock-label,html body .free-shipping-message{font-size:12px!important}
+html body .js-free-shipping-minimum-message{border-radius:12px!important}
+
+/* ---------- botones de compra: color plano, radio 12 ---------- */
+html body .js-addtocart,html body .btn-add-to-cart,html body .dn-cta,html body .dn-more-btn{background-image:none!important;border-radius:12px!important;box-shadow:none!important}
+html body .js-addtocart.btn-primary,html body .js-addtocart.btn-add-to-cart,html body .dn-cta{background-color:#1d4a2a!important}
+html body #dn-buy{background:#f0c04f!important;border-radius:12px!important;box-shadow:none!important}
+html body .js-quantity-input,html body .form-quantity{border-radius:12px!important}
+html body #dn-sel button{border-radius:12px!important;box-shadow:none!important}
+
+/* ---------- página de producto ---------- */
+html body #single-product{background-image:none!important}
+html body.template-product #single-product>.container>.row{border-radius:18px!important}
+
+/* ---------- landings de producto (contenido del admin con estilos en línea) ---------- */
+html body .dn-lp [style*="border-radius:26px"],html body .dn-lp [style*="border-radius: 26px"],html body .dn-lp [style*="border-radius:24px"],html body .dn-lp [style*="border-radius: 24px"],html body .dn-lp [style*="border-radius:20px"],html body .dn-lp [style*="border-radius: 20px"],html body .dn-lp [style*="border-radius:16px"],html body .dn-lp [style*="border-radius: 16px"],html body .dn-lp .dn-card,html body .dn-lp .dn-faq{border-radius:18px!important}
+html body .dn-lp [style*="border-radius:14px"],html body .dn-lp [style*="border-radius: 14px"],html body .dn-lp [style*="border-radius:10px"],html body .dn-lp [style*="border-radius: 10px"]{border-radius:12px!important}
+html body .dn-lp [style*="box-shadow"]{box-shadow:0 1px 2px rgba(16,40,26,.06),0 6px 16px -8px rgba(16,40,26,.22)!important}
+
+/* ---------- tienda: íconos de categorías en la paleta de la marca ---------- */
+html body #dn-tcat .tr a span{background:#eef3e6!important;color:#1d4a2a!important;border-radius:12px!important}
+html body #dn-tcat .tr a.cb span{background:#1d4a2a!important;color:#f0c04f!important}
+html body #dn-tcat .tr a span:after{display:none!important}
+
+/* ---------- Media: botón de WhatsApp de los episodios ---------- */
+html body .dm-wa2{background-image:none!important;background-color:rgba(255,255,255,.06)!important;border-radius:18px!important}
+
+/* ---------- celular: sin espacio muerto en las bandas de la tienda ---------- */
+@media (max-width:767px){
+ html body #dn-tlib{padding-top:24px!important;padding-bottom:24px!important;margin-top:16px!important;margin-bottom:0!important}
+ html body #dn-tme,html body #dn-tcb,html body #dn-tdt,html body #dn-tnw,html body #dn-tof{padding-top:20px!important;padding-bottom:20px!important;margin-top:16px!important}
+ html body #dn-tsucw{margin-top:16px!important}
+ html body #dn-tcat{margin-top:12px!important;margin-bottom:4px!important;padding-top:16px!important;padding-bottom:12px!important}
+}

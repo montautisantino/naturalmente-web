@@ -64,7 +64,7 @@ def fix_shadow(m):
 
 def small_font(px):
     v = float(px)
-    if 9 <= v <= 10.5: return '11.5'
+    if 9 <= v <= 11.5: return "12"
     if v == 11: return '12'
     return px
 
