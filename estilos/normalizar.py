@@ -82,7 +82,7 @@ def run(src):
     return s
 
 if __name__ == '__main__':
-    files = [f for f in sorted(glob.glob('src/*.js')) if not f.endswith(('42-feed-pulido.js','43-sistema.js','44-movimiento.js'))]
+    files = [f for f in sorted(glob.glob('src/*.js')) if not f.endswith(('42-feed-pulido.js','43-sistema.js','44-movimiento.js','45-notas-equipo.js'))]
     for f in files:
         a = open(f, encoding='utf8').read()
         b = run(a)

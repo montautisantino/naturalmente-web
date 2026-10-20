@@ -8,7 +8,10 @@ var ID='1qrT32OXed3bPESBFqYxXbhhtxI_wInRjb3N2D_5IHAg',K='dnSh3',TTL=5*60e3;
 var OK=['dieteticasnaturalmente@gmail.com','santinomontauti02@gmail.com'];
 var need=d.body.classList.contains('template-home')||!!d.querySelector('.dn-media');
 var c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(e){}
-var S={data:c&&c.d||null,done:0,cbs:[],ready:function(f){if(S.done)f(S.data);else S.cbs.push(f)}};W.dnSheet=S;
+/* notas del equipo que viajan con el código de la web (lista liviana; el texto se baja al abrir la nota) */
+var EQ=W.dnNotasEquipo||[],BASE=(function(){var m=CS&&CS.src&&/^(https:\/\/.+\/)dist\/dn\.min\.js/.exec(CS.src);return m?m[1]:''})(),EQS={};EQ.forEach(function(n){EQS[n.s]=1});
+function eq(D){if(!EQ.length)return D;D=D||{dato:[],mito:[],yuyo:[],ficha:[],tip:[],video:[],nota:[]};D.nota=D.nota||[];var h={};D.nota.forEach(function(n){h[n.s]=1});EQ.forEach(function(n){if(!h[n.s])D.nota.push(n)});D.nota.sort(function(a,b){return(+b.ts||0)-(+a.ts||0)});return D}
+var S={data:eq(c&&c.d||null),done:0,cbs:[],ready:function(f){if(S.done)f(S.data);else S.cbs.push(f)}};W.dnSheet=S;
 var CV='https://cdn.jsdelivr.net/gh/montautisantino/naturalmente-web@f573e17d4855fc1df454703d150736732f82c70e/covers/';
 var MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function slug(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70)}
@@ -45,6 +48,7 @@ D.video.sort(function(a,b){return b.ts-a.ts});D.nota.sort(function(a,b){return b
 function notas(j,D){if(!j||!j.table)return;j.table.rows.forEach(function(r){var v=function(i){var c=r.c[i];return c&&c.v!=null?String(c.v).trim():''};if(!/^s/i.test(v(0))||!v(1)||!v(6))return;
 D.nota.push({s:v(6),t:v(1),c:v(2),b:v(3),i:okImg(v(4))?v(4):cover(v(2)),f:v(5),m:+v(7)||0,x:'',lz:1,ts:0})})}
 S.texto=function(s,cb){var k='dnNt:'+s,c=null;try{c=sessionStorage.getItem(k)}catch(e){}if(c)return cb(c);
+if(EQS[s]&&BASE){fetch(BASE+'contenido/notas/'+s+'.txt').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){cb('')});return}
 get('Notas',"select I where G = '"+String(s).replace(/'/g,'')+"'").then(function(j){var t=j&&j.table.rows[0]&&j.table.rows[0].c[0]&&j.table.rows[0].c[0].v||'';t=String(t).replace(/[⁠￼​]/g,'');try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){cb('')})};
 /* videos nuevos también en la lista corta que usa el inicio */
 function apply(){var V=S.data&&S.data.video;if(!V||!V.length||!W.dnEPL)return;var have={};W.dnEPL.forEach(function(x){have[x.y]=1});
@@ -54,5 +58,5 @@ if(need){[].forEach.call(d.querySelectorAll('img[src*="/covers/"]'),swap);if(W.M
 function fin(){S.done=1;var f=S.cbs;S.cbs=[];f.forEach(function(x){try{x(S.data)}catch(e){}})}
 if(!need||(c&&Date.now()-c.t<TTL)){fin();return}
 function get(sh,q){return fetch('https://docs.google.com/spreadsheets/d/'+ID+'/gviz/tq?tqx=out:json&headers=1&sheet='+encodeURIComponent(sh)+(q?'&tq='+encodeURIComponent(q):'')).then(function(r){return r.text()}).then(function(t){return JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1))})}
-Promise.all([get('Base'),get('Respuestas').catch(function(){return null}),get('Notas','select A,B,C,D,E,F,G,H').catch(function(){return null})]).then(function(T){var D=parse(T.slice(0,2));notas(T[2],D);var n=0;for(var k in D)n+=D[k].length;if(n){S.data=D;try{localStorage.setItem(K,JSON.stringify({t:Date.now(),d:D}))}catch(e){}apply()}fin()}).catch(fin);
+Promise.all([get('Base'),get('Respuestas').catch(function(){return null}),get('Notas','select A,B,C,D,E,F,G,H').catch(function(){return null})]).then(function(T){var D=parse(T.slice(0,2));notas(T[2],D);D=eq(D);var n=0;for(var k in D)n+=D[k].length;if(n){S.data=D;try{localStorage.setItem(K,JSON.stringify({t:Date.now(),d:D}))}catch(e){}apply()}fin()}).catch(fin);
 }();
