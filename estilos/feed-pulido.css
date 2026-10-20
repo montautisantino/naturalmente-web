@@ -1,0 +1,119 @@
+/* Naturalmente Feed: sistema visual unificado (fuente legible; se compila a src/42-feed-pulido.js)
+   Radios:   6 etiquetas · 12 botones, imágenes y cajas internas · 18 tarjetas · pill · círculo
+   Sombras:  tarjeta clara = 1 nivel suave · botones sin sombra · fondos oscuros sin sombra
+   Fondos:   planos, alternando crema / arena / salvia / dorado claro / verde bosque
+*/
+:root{--fp-paper:#fbf8f1;--fp-sand:#f5efe1;--fp-sage:#edf3e6;--fp-goldl:#fbf0d4;--fp-gold:#f0c04f;--fp-forest:#15301f;--fp-ink:#16261b;--fp-green:#1d4a2a;--fp-line:rgba(22,38,27,.09);--fp-sh:0 1px 2px rgba(16,40,26,.05),0 8px 20px -10px rgba(16,40,26,.18)}
+
+/* ---------- fondos planos por sección ---------- */
+B #hb-sub,B #hb-eps,B #hb-feed,B .js-section-products-sale.section-featured-home{background:var(--fp-paper)!important}
+B #hb-not,B #hb-guia,B #dn-ig{background:var(--fp-sand)!important}
+B #hb-dato,B #hb-yuyo,B #hb-qzc,B #hb-fich{background:var(--fp-sage)!important}
+B #hb-nov,B #hb-lib{background:var(--fp-goldl)!important}
+B .js-section-products-featured.section-featured-home{background:#f6e3a8!important}
+B #hb-lep,B #hb-mito,B #hb-mate,B #hb-tips,B #hb-qs{background:var(--fp-forest)!important}
+B #hb-lep{margin-top:0!important}
+/* adornos fuera: ondas entre secciones, manchas de luz, signos flotantes, brillo animado */
+B .hb:before,B .hb:after,B .section-featured-home:before,B #dn-ig:before,B #hb-qs:before{display:none!important}
+B .hb-a,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
+B #hb-lep .hb-h i b{animation:none!important;box-shadow:none!important}
+
+/* ---------- MEDIA / TIENDA ---------- */
+B #dn-sub a{border-radius:12px!important;box-shadow:none!important;min-height:74px!important;gap:3px!important;font-size:19px!important;letter-spacing:.05em!important}
+B #dn-sub a.md{background:var(--fp-green)!important}
+B #dn-sub a.sh{background:var(--fp-gold)!important;color:var(--fp-ink)!important}
+B #dn-sub a small{font-size:12.5px!important;font-weight:700!important;opacity:.82!important;line-height:1.25!important}
+B #dn-sub a:hover svg{transform:none!important}
+
+/* ---------- tarjetas ---------- */
+B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc,B .section-featured-home .js-item-container,B #hb-mate .rs .c,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
+B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
+B #hb-guia .c{border-top-width:3px!important}
+/* tarjetas sobre fondo oscuro: sin sombra, borde tenue */
+B #dn-lep,B #hb-mito .mc,B #hb-tips .k,B #hb-mate .c,B #hb-qs .s,B #hb-feed .fc.t-mito{border-radius:18px!important;box-shadow:none!important;background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.12)!important}
+B #hb-feed .fc.t-mito{background:var(--fp-forest)!important}
+B #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
+B #hb-qs .s,B #hb-mate .c{border-radius:12px!important}
+
+/* ---------- imágenes y cajas internas ---------- */
+B #hb-nov img,B #hb-not img,B #hb-eps .th,B #hb-lib .cv,B #hb-feed img,B #dn-ig iframe,B .section-featured-home .js-product-item-image-container-private,B #dn-lep span:not([class]){border-radius:12px!important;box-shadow:none!important}
+B #hb-fich .cu,B #hb-feed .cu,B #hb-guia .ic,B #hb-dato .bl{border-radius:12px!important;box-shadow:none!important}
+B #hb-dato .bl{background:var(--fp-gold)!important}
+
+/* ---------- botones ---------- */
+B #hb-dato .ot,B #hb-nov .go,B #hb-lib .ad,B #hb-qs .hi,B .section-featured-home .js-addtocart,B #dn-ig a[href*="instagram"]{border-radius:12px!important;box-shadow:none!important;background:var(--fp-green)!important;background-image:none!important;color:#fff!important;text-transform:none!important;letter-spacing:0!important;border:0!important}
+B #hb-qs .hi{background:var(--fp-gold)!important;color:var(--fp-ink)!important}
+B #dn-ig a[href*="instagram"]{border-radius:999px!important}
+B #hb-qzc .bt{background:var(--fp-gold)!important;box-shadow:none!important;color:var(--fp-ink)!important}
+B #hb-yuyo .cd button,B #hb-mito button,B #hb-mate .op button,B #hb-feed .fc button{border-radius:12px!important;box-shadow:none!important}
+B #hb-lib .pv,B #hb-lib .nx,B #hb-fich .pv,B #hb-fich .nx,B #hb-tips .pv,B #hb-tips .nx{border-radius:12px!important;box-shadow:none!important}
+B #hb-lib .pv,B #hb-lib .nx,B #hb-fich .pv,B #hb-fich .nx{background:#fff!important;border:1px solid var(--fp-line)!important}
+B #dn-ig button{box-shadow:0 1px 4px rgba(0,0,0,.18)!important}
+B .section-featured-home .dn-fh{box-shadow:0 1px 3px rgba(16,40,26,.14)!important}
+
+/* ---------- etiquetas ---------- */
+B #hb-nov .bd,B #hb-lib .tg,B #hb-lib .pf{border-radius:6px!important;box-shadow:none!important}
+B #hb-lib p+div span,B #hb-lib .hb-ch span{border-radius:999px!important}
+
+/* ---------- títulos de sección (mismo estilo en las propias y las de Tiendanube) ---------- */
+B .hb h2 em{font-style:normal!important}
+B .section-featured-home h2.section-title{text-transform:none!important;font-family:Archivo,Arial,sans-serif!important;font-weight:900!important;letter-spacing:-.015em!important}
+
+/* ---------- celular: escala tipográfica, legibilidad y ritmo ---------- */
+@media (max-width:767px){
+ /* ritmo vertical: secciones 40px, bloques compactos 28px; margen lateral 16px */
+ B #hb-lep,B #hb-yuyo,B #hb-lib,B #hb-not,B #hb-mito,B #hb-eps,B #hb-guia,B #hb-fich,B #hb-mate,B #hb-tips,B #dn-ig,B #hb-feed,B #hb-qs,B .section-featured-home{padding-top:40px!important;padding-bottom:40px!important}
+ B #hb-dato,B #hb-qzc{padding-top:28px!important;padding-bottom:28px!important}
+ B #hb-sub{padding-bottom:20px!important}
+ B #hb-sub #dn-sub,B #hb-lep #dn-lep{margin-left:16px!important;margin-right:16px!important}
+
+ /* volanta */
+ B .hb i:has(+h2),B #hb-qs .k{font-size:12px!important;font-weight:800!important;letter-spacing:.08em!important;line-height:1.3!important;margin-bottom:6px!important;display:inline-flex!important}
+ B #hb-qs .k{padding:0!important;background:none!important;color:var(--fp-gold)!important}
+ /* título de sección */
+ B .hb h2,B .section-featured-home h2.section-title{font-size:26px!important;line-height:1.12!important;letter-spacing:-.015em!important}
+ B .section-featured-home h2.section-title{margin-bottom:16px!important}
+ /* bajadas */
+ B #hb-lib .hb-h p,B #hb-lib h2+p,B #hb-guia .sb,B #hb-mate .sb,B #hb-feed .fh p,B #hb-qs .qi>p,B .section-newsletter-home p{font-size:15px!important;line-height:1.5!important}
+
+ /* índice: chips con altura táctil */
+ B #hb-idx a{min-height:38px!important;display:inline-flex!important;align-items:center!important;font-size:14px!important;padding-left:15px!important;padding-right:15px!important}
+
+ /* novedad */
+ B #hb-nov .bd{font-size:11px!important}
+ B #hb-nov em,B #hb-not em{font-size:12px!important;letter-spacing:.05em!important}
+ B #hb-nov b,B #hb-not b{font-size:16px!important;line-height:1.28!important}
+ B #hb-nov .go{font-size:14px!important;min-height:40px!important;display:inline-flex!important;align-items:center!important}
+
+ /* textos de tarjeta */
+ B #hb-dato .tx{font-size:18px!important;line-height:1.3!important}
+ B #hb-dato .n,B #hb-yuyo .n,B #hb-mito .n,B #hb-eps small,B #hb-fich .ct,B #hb-tips .ct{font-size:13px!important}
+ B #hb-dato .ot{font-size:14.5px!important;min-height:44px!important}
+ B #hb-yuyo .q,B #hb-mito .q{font-size:19px!important;line-height:1.3!important}
+ B #hb-yuyo .cd button,B #hb-mito button,B #hb-mate .op button{font-size:16px!important;min-height:48px!important}
+ B #dn-lep strong{font-size:19px!important}
+ B #hb-eps strong{font-size:16px!important;line-height:1.3!important}
+ B #hb-guia .c b{font-size:18px!important}
+ B #hb-guia .c small{font-size:14.5px!important;line-height:1.45!important}
+ B #hb-guia li{font-size:15px!important;line-height:1.5!important}
+ B #hb-guia .tp{font-size:14.5px!important}
+ B #hb-fich h3{font-size:22px!important}
+ B #hb-fich dt,B #hb-fich dd,B #hb-feed dt,B #hb-feed dd{font-size:15px!important}
+ B #hb-fich .cu,B #hb-feed .cu{font-size:14px!important;line-height:1.45!important}
+ B #hb-fich .sc,B #hb-feed .sc{font-size:14px!important}
+ B #hb-mate .c b{font-size:16px!important}
+ B #hb-mate .c small{font-size:14px!important}
+ B #hb-tips .k p{font-size:16px!important;line-height:1.45!important}
+ B #hb-feed .tg{font-size:12px!important}
+ B #hb-qs .s small{font-size:12.5px!important}
+ B #hb-lib .tg,B #hb-lib .pf{font-size:11px!important}
+ B #hb-lib .bk p,B #hb-lib .bk .ds{font-size:14.5px!important;line-height:1.45!important}
+ /* ayudas de deslizar y "ver todos" */
+ B .hb .hn,B #hb-lib .hi,B #hb-eps .hn span{font-size:13.5px!important}
+ B #hb-not .hb-h a,B #hb-not h2+a,B #hb-eps a:not([class]):not(.dn-ep),B #hb-guia .lk,B #hb-lib .vm{font-size:14px!important}
+
+ /* productos: nombre legible, precio claro, botón cómodo */
+ B .section-featured-home .item-name{font-size:14px!important;line-height:1.35!important;opacity:1!important;color:var(--fp-ink)!important}
+ B .section-featured-home .js-addtocart{font-size:14.5px!important;min-height:42px!important;font-weight:800!important}
+ B .section-featured-home .label-offer-percentage,B .section-featured-home .label-offer-percentage-text,B .section-featured-home .js-stock-label{font-size:11px!important}
+}
