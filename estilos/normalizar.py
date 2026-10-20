@@ -72,6 +72,7 @@ def run(src):
     s = src
     s = re.sub(r'border-radius:((?:\d+(?:\.\d+)?px ?){1,4})', fix_radius, s)
     for _ in range(3): s = GLOW.sub('', s)
+    s = re.sub(r'radial-gradient\([^()]*#[0-9a-fA-F]{3,6} \d+%,transparent \d+%\),\s*', '', s)
     s = OPAQUE.sub(solid, s)
     s = SHADOW.sub(fix_shadow, s)
     s = re.sub(r'font-size:(\d+(?:\.\d+)?)px', lambda m: 'font-size:' + small_font(m.group(1)) + 'px', s)
@@ -81,7 +82,7 @@ def run(src):
     return s
 
 if __name__ == '__main__':
-    files = [f for f in sorted(glob.glob('src/*.js')) if not f.endswith('42-feed-pulido.js')]
+    files = [f for f in sorted(glob.glob('src/*.js')) if not f.endswith(('42-feed-pulido.js','43-sistema.js'))]
     for f in files:
         a = open(f, encoding='utf8').read()
         b = run(a)
