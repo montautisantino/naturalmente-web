@@ -31,7 +31,7 @@ B #dn-sub a small{font-size:12.5px!important;font-weight:700!important;opacity:.
 B #dn-sub a:hover svg{transform:none!important}
 
 /* ---------- tarjetas ---------- */
-B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip),B .section-featured-home .js-item-container,B #hb-mate .rs .c,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
+B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip),B .section-featured-home .js-item-container,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip):not(.t-dato):not(.t-yuyo),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
 B #hb-guia .c.a{border-top:4px solid #7fbf6a!important}
 B #hb-guia .c.b{border-top:4px solid #c98a35!important}
