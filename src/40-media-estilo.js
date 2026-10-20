@@ -32,4 +32,6 @@ M+'a.dn-shr{background:rgba(255,255,255,.1)!important;color:#fff!important;borde
 /* barra de secciones de Media: activo en blanco */
 S+'#dnh .r3 nav a.on{background:#fff!important;color:#10281a!important;box-shadow:none!important}'+S+'#dn-sbar.mdx .mt a.on{background:#fff!important;color:#10281a!important}';
 var st=d.createElement('style');st.id='dn-mx-css';st.textContent=css;d.head.appendChild(st);
+/* textos escritos en mayúsculas en los datos ("ESCRITOS", "LIBRO DIGITAL") pasan a mayúscula inicial */
+function sc(){[].forEach.call(d.querySelectorAll('.dn-media .nt-k b,.dn-media .dx-eye,.dn-media small,.dn-media em,.dn-media .dn-gc i,.dn-media .dm-badge,.dn-media .dx-badge,.dn-kit small,.dn-mvi small'),function(e){[].forEach.call(e.childNodes,function(n){if(n.nodeType!==3)return;var t=n.textContent;if(/[A-ZÁÉÍÓÚÑ]{4}/.test(t)&&t===t.toUpperCase())n.textContent=t.charAt(0)+t.slice(1).toLowerCase().replace(/ pdf\b/,' PDF')})})}sc();setTimeout(sc,1500);setTimeout(sc,4000);setTimeout(sc,9000);
 }();
