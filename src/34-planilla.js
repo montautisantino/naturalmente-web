@@ -50,7 +50,8 @@ D.video.sort(function(a,b){return b.ts-a.ts});D.nota.sort(function(a,b){return b
 function notas(j,D){if(!j||!j.table)return;j.table.rows.forEach(function(r){var v=function(i){var c=r.c[i];return c&&c.v!=null?String(c.v).trim():''};if(!/^s/i.test(v(0))||!v(1)||!v(6))return;
 D.nota.push({s:v(6),t:v(1),c:v(2),b:v(3),i:okImg(v(4))?v(4):cover(v(2)),f:v(5),m:+v(7)||0,x:'',lz:1,ts:0})})}
 S.texto=function(s,cb){var k='dnNt:'+s,c=null;try{c=sessionStorage.getItem(k)}catch(e){}if(c)return cb(c);
-if(EQS[s]&&BASE){fetch(BASE+'contenido/notas/'+s+'.txt').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){cb('')});return}
+if(EQS[s]&&BASE){/* si un servidor de jsDelivr falla, prueba los otros dos (igual que el código de la web) */var HS=[BASE].concat(['cdn','fastly','gcore'].map(function(h){return BASE.replace(/^https:\/\/[^\/]+/,'https://'+h+'.jsdelivr.net')}).filter(function(u){return u!==BASE}));
+(function go(i){if(i>=HS.length)return cb('');fetch(HS[i]+'contenido/notas/'+s+'.txt').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){go(i+1)})})(0);return}
 get('Notas',"select I where G = '"+String(s).replace(/'/g,'')+"'").then(function(j){var t=j&&j.table.rows[0]&&j.table.rows[0].c[0]&&j.table.rows[0].c[0].v||'';t=String(t).replace(/[⁠￼​]/g,'');try{sessionStorage.setItem(k,t)}catch(e){}cb(t)}).catch(function(){cb('')})};
 /* videos nuevos también en la lista corta que usa el inicio */
 function apply(){var V=S.data&&S.data.video;if(!V||!V.length||!W.dnEPL)return;var have={};W.dnEPL.forEach(function(x){have[x.y]=1});

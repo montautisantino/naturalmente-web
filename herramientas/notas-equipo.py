@@ -66,5 +66,5 @@ for s, t, b, i in todas:
 sl = [x[0] for x in pl if x[0] not in vistos]
 with open(os.path.join(R, 'src', '45-notas-equipo.js'), 'a', encoding='utf8') as f:
     f.write('/* notas que tienen página para compartir con foto (las del equipo + estas de la planilla) */\n'
-            'window.dnCompartir={b:' + json.dumps(SHARE) + ',on:0,s:' + json.dumps(sl) + '};\n')
+            'window.dnCompartir={b:' + json.dumps(SHARE) + ',on:1,s:' + json.dumps(sl) + '};\n')
 print(len(todas), 'páginas para compartir')
