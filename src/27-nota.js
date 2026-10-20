@@ -74,7 +74,7 @@ R.insertAdjacentHTML('afterbegin',h);var A=R.querySelector('.nt');
 var pg=d.createElement('div');pg.id='nt-pg';d.body.appendChild(pg);var bd=A.querySelector('.nt-bd');
 function prog(){var r=bd.getBoundingClientRect(),t=r.height-innerHeight*.6;pg.style.width=Math.max(0,Math.min(100,(-r.top+innerHeight*.2)/(t>0?t:1)*100))+'%'}W.addEventListener('scroll',prog,{passive:true});prog();
 /* copiar link */
-var cp=A.querySelector('.cp');cp&&cp.addEventListener('click',function(){var done=function(){cp.querySelector('span').textContent='¡Copiado!';setTimeout(function(){cp.querySelector('span').textContent='Copiar link'},1800)};try{navigator.clipboard.writeText(url).then(done,done)}catch(e){done()}});
+var cp=A.querySelector('.cp');cp&&cp.addEventListener('click',function(){var done=function(){cp.querySelector('span').textContent='¡Copiado!';setTimeout(function(){cp.querySelector('span').textContent='Copiar link'},1800)};try{navigator.clipboard.writeText(W.dnShareUrl?W.dnShareUrl(url):url).then(done,done)}catch(e){done()}});
 /* citas: abrir referencias y resaltar */
 A.addEventListener('click',function(e){var a=e.target.closest('.nt-c');if(!a)return;e.preventDefault();var li=d.getElementById('ref-'+a.getAttribute('data-r'));if(!li)return;var dt=li.closest('details');if(dt)dt.open=true;li.scrollIntoView({behavior:'smooth',block:'center'});li.classList.add('hl');setTimeout(function(){li.classList.remove('hl')},2200)});
 /* productos mencionados (datos en vivo, se cargan al acercarse) */
