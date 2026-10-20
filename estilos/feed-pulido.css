@@ -32,7 +32,7 @@ B #dn-sub a:hover svg{transform:none!important}
 
 /* ---------- tarjetas ---------- */
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip),B .section-featured-home .js-item-container,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
-B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip):not(.t-dato):not(.t-yuyo),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
+B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito):not(.t-tip):not(.t-dato):not(.t-yuyo):not(.t-glos),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
 B #hb-guia .c.a{border-top:4px solid #7fbf6a!important}
 B #hb-guia .c.b{border-top:4px solid #c98a35!important}
 B #hb-dato .dw .pb,B #hb-dato .pb{left:24px!important;right:24px!important;width:auto!important;bottom:8px!important;height:3px!important;max-height:3px!important;border-radius:999px!important}
@@ -43,6 +43,8 @@ B #hb-mate .c{box-shadow:none!important}
 B #hb-feed .fc.t-mito,B #hb-feed .fc.t-tip{background:var(--fp-forest)!important}
 B #hb-feed .fc.t-dato{background:var(--fp-goldl)!important}
 B #hb-feed .fc.t-yuyo{background:var(--fp-sage)!important}
+B #hb-feed .fc.t-glos{background:var(--fp-goldl)!important}
+B #hb-feed .fc.t-guia:not(.t-mito):not(.t-tip){border-top:4px solid #c98a12!important}
 B #hb-fich .k,B #hb-feed .fc.t-ficha:not(.t-mito):not(.t-tip){border-top:4px solid #3f7d3a!important}
 B #hb-qzc #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
 B #hb-qs .s,B #hb-qs .so,B #hb-mate .c{border-radius:12px!important}
