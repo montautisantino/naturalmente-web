@@ -125,7 +125,7 @@ if((isC&&!isLanding)||isS){var kc='';if(isS){var q=(location.search.match(/[?&]q
 if(kc&&!inCart(BK[kc]))wait('.js-product-table',function(t){if(d.querySelector('.dn-gc-w.ct'))return;var w=d.createElement('div');w.className='dn-gc-w ct';w.appendChild(card(BK[kc],isS?'Para aprender más sobre lo que buscás':'¿Querés aprender a usarlos?'));t.parentNode.insertBefore(w,t)})}
 /* sugerencias del buscador (las arma el módulo del buscador) */
 W.dnLibSx=function(q){var k=topic(q),g=BK[k];if(!g||inCart(g))return'';var o=PC[g.s];if(!o)price(g).catch(function(){});
-return'<a class="r gd" href="'+url(g)+'"><img src="'+img(g)+'" alt=""><span style="flex:1;min-width:0;margin:0"><em>LIBRO DIGITAL · PDF</em><b>'+esc(g.t)+'</b><span>'+(o?esc(o.p):'Ver el libro →')+'</span></span></a>'};
+return'<a class="r gd" href="'+url(g)+'"><img src="'+img(g)+'" alt=""><span style="flex:1;min-width:0;margin:0"><em>Libro digital · PDF</em><b>'+esc(g.t)+'</b><span>'+(o?esc(o.p):'Ver el libro →')+'</span></span></a>'};
 /* episodios de Naturalmente Media */
 if(d.querySelector('.dn-media'))wait('.dn-media.dm-epi .dx-prods',function(p){if(d.querySelector('.dn-media .dn-gc'))return;var tx=d.title+' '+((d.querySelector('.dx-topics')||{}).textContent||'');var k=topic(tx)||'boti',g=BK[k];if(inCart(g))return;var w=d.createElement('div');w.className='dn-gc-w dx';w.appendChild(card(g,'Si te gustó el video','dk'));p.parentNode.insertBefore(w,p.nextSibling)},15000);
 /* carrito: un libro según lo que hay adentro */
