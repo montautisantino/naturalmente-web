@@ -33,7 +33,8 @@ B #dn-sub a:hover svg{transform:none!important}
 /* ---------- tarjetas ---------- */
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc,B .section-featured-home .js-item-container,B #hb-mate .rs .c,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
-B #hb-guia .c{border-top-width:3px!important}
+B #hb-guia .c.a{border-top:4px solid #7fbf6a!important}
+B #hb-guia .c.b{border-top:4px solid #c98a35!important}
 B #hb-dato .pb{left:24px!important;right:24px!important;width:auto!important;bottom:10px!important;height:3px!important;border-radius:999px!important}
 B #hb-dato .cd:after,B #hb-dato .cd:before{display:none!important}
 /* tarjetas sobre fondo oscuro: sin sombra, borde tenue */
