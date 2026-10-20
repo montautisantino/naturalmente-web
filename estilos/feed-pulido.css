@@ -22,6 +22,7 @@ B #hb-lep .hb-h i b{animation:none!important;box-shadow:none!important}
 B #dn-sub a{border-radius:12px!important;box-shadow:none!important;min-height:74px!important;gap:3px!important;font-size:19px!important;letter-spacing:.05em!important}
 B #dn-sub a.md{background:var(--fp-green)!important}
 B #dn-sub a.sh{background:var(--fp-gold)!important;color:var(--fp-ink)!important}
+B #dn-sub a .t{font-size:19px!important;letter-spacing:.05em!important}
 B #dn-sub a small{font-size:12.5px!important;font-weight:700!important;opacity:.82!important;line-height:1.25!important}
 B #dn-sub a:hover svg{transform:none!important}
 
@@ -29,6 +30,8 @@ B #dn-sub a:hover svg{transform:none!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc,B .section-featured-home .js-item-container,B #hb-mate .rs .c,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
 B #hb-guia .c{border-top-width:3px!important}
+B #hb-dato .cd{overflow:hidden!important}
+B #hb-dato .cd:after,B #hb-dato .cd:before{display:none!important}
 /* tarjetas sobre fondo oscuro: sin sombra, borde tenue */
 B #dn-lep,B #hb-mito .mc,B #hb-tips .k,B #hb-mate .c,B #hb-qs .s,B #hb-feed .fc.t-mito{border-radius:18px!important;box-shadow:none!important;background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.12)!important}
 B #hb-feed .fc.t-mito{background:var(--fp-forest)!important}
@@ -86,6 +89,7 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
  B #hb-nov .go{font-size:14px!important;min-height:40px!important;display:inline-flex!important;align-items:center!important}
 
  /* textos de tarjeta */
+ B #hb-dato .k{font-size:12px!important;letter-spacing:.08em!important}
  B #hb-dato .tx{font-size:18px!important;line-height:1.3!important}
  B #hb-dato .n,B #hb-yuyo .n,B #hb-mito .n,B #hb-eps small,B #hb-fich .ct,B #hb-tips .ct{font-size:13px!important}
  B #hb-dato .ot{font-size:14.5px!important;min-height:44px!important}
