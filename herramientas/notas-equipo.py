@@ -14,7 +14,7 @@ def slug(t):
     t = unicodedata.normalize('NFD', str(t or '').lower())
     t = ''.join(c for c in t if not unicodedata.combining(c))
     t = re.sub(r'[^a-z0-9]+', '-', t).strip('-')
-    return t[:70]
+    return t[:70].strip('-')
 
 src = json.load(open(os.path.join(R, 'contenido', 'notas-equipo.json'), encoding='utf8'))
 os.makedirs(os.path.join(R, 'contenido', 'notas'), exist_ok=True)
