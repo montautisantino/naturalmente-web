@@ -15,11 +15,11 @@ B #hb-lep,B #hb-mito,B #hb-mate,B #hb-tips,B #hb-qs{background:var(--fp-forest)!
 B #hb-lep{margin-top:0!important}
 /* adornos fuera: ondas entre secciones, manchas de luz, signos flotantes, brillo animado */
 B .hb:before,B .hb:after,B .section-featured-home:before,B #dn-ig:before,B #hb-qs:before{display:none!important}
-B .hb-a,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
+B .hb-a,B .hb-lf,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
 B #hb-lep .hb-h i b{animation:none!important;box-shadow:none!important}
 
 /* ---------- MEDIA / TIENDA ---------- */
-B #dn-sub a{border-radius:12px!important;box-shadow:none!important;min-height:74px!important;gap:3px!important;font-size:19px!important;letter-spacing:.05em!important}
+B #dn-sub a{border-radius:12px!important;justify-content:flex-start!important;padding-top:13px!important;box-shadow:none!important;min-height:74px!important;gap:3px!important;font-size:19px!important;letter-spacing:.05em!important}
 B #dn-sub a.md{background:var(--fp-green)!important}
 B #dn-sub a.sh{background:var(--fp-gold)!important;color:var(--fp-ink)!important}
 B #dn-sub a .t{font-size:19px!important;letter-spacing:.05em!important}
@@ -30,16 +30,16 @@ B #dn-sub a:hover svg{transform:none!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc,B .section-featured-home .js-item-container,B #hb-mate .rs .c,B #dn-ig>div{border-radius:18px!important;box-shadow:var(--fp-sh)!important;border:1px solid var(--fp-line)!important}
 B #hb-dato .cd,B #hb-yuyo .cd,B #hb-lib .bk,B #hb-guia .c,B #hb-fich .k,B #hb-feed .fc:not(.t-mito),B .section-featured-home .js-item-container,B #dn-ig>div{background:#fff!important}
 B #hb-guia .c{border-top-width:3px!important}
-B #hb-dato .cd{overflow:hidden!important}
+B #hb-dato .pb{left:24px!important;right:24px!important;width:auto!important;bottom:10px!important;height:3px!important;border-radius:999px!important}
 B #hb-dato .cd:after,B #hb-dato .cd:before{display:none!important}
 /* tarjetas sobre fondo oscuro: sin sombra, borde tenue */
-B #dn-lep,B #hb-mito .mc,B #hb-tips .k,B #hb-mate .c,B #hb-qs .s,B #hb-feed .fc.t-mito{border-radius:18px!important;box-shadow:none!important;background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.12)!important}
+B #hb-lep #dn-lep,B #hb-mito .mc,B #hb-tips .k,B #hb-mate .c,B #hb-qs .s,B #hb-feed .fc.t-mito{border-radius:18px!important;box-shadow:none!important;background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.12)!important}
 B #hb-feed .fc.t-mito{background:var(--fp-forest)!important}
-B #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
+B #hb-qzc #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
 B #hb-qs .s,B #hb-mate .c{border-radius:12px!important}
 
 /* ---------- imágenes y cajas internas ---------- */
-B #hb-nov img,B #hb-not img,B #hb-eps .th,B #hb-lib .cv,B #hb-feed img,B #dn-ig iframe,B .section-featured-home .js-product-item-image-container-private,B #dn-lep span:not([class]){border-radius:12px!important;box-shadow:none!important}
+B #hb-nov img,B #hb-not img,B #hb-eps .th,B #hb-lib .cv,B #hb-feed img,B #dn-ig iframe,B .section-featured-home .js-product-item-image-container-private,B #hb-lep #dn-lep span:not([class]){border-radius:12px!important;box-shadow:none!important}
 B #hb-fich .cu,B #hb-feed .cu,B #hb-guia .ic,B #hb-dato .bl{border-radius:12px!important;box-shadow:none!important}
 B #hb-dato .bl{background:var(--fp-gold)!important}
 
@@ -60,6 +60,7 @@ B #hb-lib p+div span,B #hb-lib .hb-ch span{border-radius:999px!important}
 
 /* ---------- títulos de sección (mismo estilo en las propias y las de Tiendanube) ---------- */
 B .hb h2 em{font-style:normal!important}
+B :is(#hb-lep,#hb-yuyo,#hb-lib,#hb-not,#hb-mito,#hb-eps,#hb-guia,#hb-fich,#hb-mate,#hb-tips,#hb-feed,#hb-qs) i:has(+h2){background:none!important;border:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
 B .section-featured-home h2.section-title{text-transform:none!important;font-family:Archivo,Arial,sans-serif!important;font-weight:900!important;letter-spacing:-.015em!important}
 
 /* ---------- celular: escala tipográfica, legibilidad y ritmo ---------- */
@@ -71,10 +72,10 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
  B #hb-sub #dn-sub,B #hb-lep #dn-lep{margin-left:16px!important;margin-right:16px!important}
 
  /* volanta */
- B .hb i:has(+h2),B #hb-qs .k{font-size:12px!important;font-weight:800!important;letter-spacing:.08em!important;line-height:1.3!important;margin-bottom:6px!important;display:inline-flex!important}
+ B :is(#hb-lep,#hb-yuyo,#hb-lib,#hb-not,#hb-mito,#hb-eps,#hb-guia,#hb-fich,#hb-mate,#hb-tips,#hb-feed,#hb-qs) i:has(+h2),B #hb-qs .k{font-size:12px!important;font-weight:800!important;letter-spacing:.08em!important;line-height:1.3!important;margin-bottom:6px!important;display:inline-flex!important}
  B #hb-qs .k{padding:0!important;background:none!important;color:var(--fp-gold)!important}
  /* título de sección */
- B .hb h2,B .section-featured-home h2.section-title{font-size:26px!important;line-height:1.12!important;letter-spacing:-.015em!important}
+ B :is(#hb-lep,#hb-yuyo,#hb-lib,#hb-not,#hb-mito,#hb-eps,#hb-guia,#hb-fich,#hb-mate,#hb-tips,#hb-feed,#hb-qs) h2,B .section-featured-home h2.section-title{font-size:26px!important;line-height:1.12!important;letter-spacing:-.015em!important}
  B .section-featured-home h2.section-title{margin-bottom:16px!important}
  /* bajadas */
  B #hb-lib .hb-h p,B #hb-lib h2+p,B #hb-guia .sb,B #hb-mate .sb,B #hb-feed .fh p,B #hb-qs .qi>p,B .section-newsletter-home p{font-size:15px!important;line-height:1.5!important}
@@ -84,6 +85,7 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
 
  /* novedad */
  B #hb-nov .bd{font-size:11px!important}
+ B #hb-not .mr{font-size:12px!important;letter-spacing:.06em!important}
  B #hb-nov em,B #hb-not em{font-size:12px!important;letter-spacing:.05em!important}
  B #hb-nov b,B #hb-not b{font-size:16px!important;line-height:1.28!important}
  B #hb-nov .go{font-size:14px!important;min-height:40px!important;display:inline-flex!important;align-items:center!important}
