@@ -15,7 +15,7 @@ B #hb-lep,B #hb-mito,B #hb-mate,B #hb-tips,B #hb-qs{background:var(--fp-forest)!
 B #hb-lep{margin-top:0!important}
 /* adornos fuera: ondas entre secciones, manchas de luz, signos flotantes, brillo animado */
 B .hb:before,B .hb:after,B .section-featured-home:before,B #dn-ig:before,B #hb-qs:before{display:none!important}
-B .hb-a,B .hb-lf,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
+B .hb-a,B .hb-lf,B #hb-qzc .sp,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
 B #hb-lep .hb-h i b{animation:none!important;box-shadow:none!important}
 
 /* índice fijo: línea fina en vez de sombra difusa */
