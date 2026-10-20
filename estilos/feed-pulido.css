@@ -45,7 +45,7 @@ B #hb-feed .fc.t-dato{background:var(--fp-goldl)!important}
 B #hb-feed .fc.t-yuyo{background:var(--fp-sage)!important}
 B #hb-fich .k,B #hb-feed .fc.t-ficha:not(.t-mito):not(.t-tip){border-top:4px solid #3f7d3a!important}
 B #hb-qzc #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
-B #hb-qs .s,B #hb-mate .c{border-radius:12px!important}
+B #hb-qs .s,B #hb-qs .so,B #hb-mate .c{border-radius:12px!important}
 
 /* ---------- imágenes y cajas internas ---------- */
 B #hb-nov img,B #hb-not img,B #hb-eps .th,B #hb-lib .cv,B #hb-feed img,B #dn-ig iframe,B .section-featured-home .js-product-item-image-container-private,B #hb-lep #dn-lep span:not([class]){border-radius:12px!important;box-shadow:none!important}
@@ -122,6 +122,7 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
  B #hb-feed .tg{font-size:12px!important;letter-spacing:.08em!important}
  B #hb-feed .fc u{font-size:14px!important}
  B #hb-qs .s small{font-size:12.5px!important}
+ B #hb-qs .hi{font-size:14.5px!important;min-height:44px!important}
  B #hb-lib .tg,B #hb-lib .pf{font-size:11px!important}
  B #hb-lib .bk p,B #hb-lib .bk .ds{font-size:14.5px!important;line-height:1.45!important}
  /* ayudas de deslizar y "ver todos" */
