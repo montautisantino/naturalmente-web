@@ -35,9 +35,10 @@ if(HOME)css+=
 /* diseño editorial variado en el feed */
 'html body #hb-feed .fc{animation:none!important}'+
 'html body #hb-feed .t-nota.cmp .nxh{display:flex!important;gap:12px;align-items:stretch;padding:12px}html body #hb-feed .t-nota.cmp .im{flex:0 0 104px;width:104px;aspect-ratio:auto;min-height:96px;border-radius:12px;overflow:hidden}html body #hb-feed .t-nota.cmp .bd{padding:2px 0 0;flex:1;min-width:0}html body #hb-feed .t-nota.cmp .bd b{font-size:15.5px}'+
-'html body #hb-feed .t-mito>p{position:relative;padding-left:26px;font-size:20px!important;line-height:1.32!important}html body #hb-feed .t-mito>p:before{content:"“";position:absolute;left:-2px;top:-10px;font:900 48px/1 Georgia,serif;color:#f0c04f}'+
+'html body #hb-feed .t-mito>p{font-size:21px!important;line-height:1.3!important;letter-spacing:-.01em}'+
 'html body #hb-feed .t-guia ol{list-style:none;padding:0!important;counter-reset:g}html body #hb-feed .t-guia li{position:relative;padding-left:40px;min-height:28px;counter-increment:g}html body #hb-feed .t-guia li:before{content:counter(g);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;background:#f0c04f;color:#16261b;font:900 14px/28px Archivo,Arial,sans-serif;text-align:center}'+
 'html body #hb-feed .t-glos h3{font-size:30px!important;letter-spacing:-.02em!important;margin:4px 0 8px!important}'+
+'html body #hb-feed .t-glos p{font:500 16px/1.55 Figtree,Arial,sans-serif!important;color:#2b3a28!important}'+
 /* carga elegante: siluetas en vez de puntitos */
 'html body #hb-feed .fs{display:block!important;padding:0!important}html body #hb-feed .fs span{display:none!important}html body #hb-feed .fs:before,html body #hb-feed .fs:after{content:"";display:block;height:120px;margin:0 0 12px;border-radius:18px;background:linear-gradient(90deg,#efe9dc 0%,#f7f3ea 50%,#efe9dc 100%);background-size:200% 100%;animation:dnSk 1.3s linear infinite}html body #hb-feed .fs:after{height:84px}@keyframes dnSk{to{background-position:-200% 0}}html body #hb-feed.end .fs{display:none!important}'+
 /* contador de lectura */
