@@ -43,7 +43,7 @@ B #hb-mate .c{box-shadow:none!important}
 B #hb-feed .fc.t-mito,B #hb-feed .fc.t-tip{background:var(--fp-forest)!important}
 B #hb-feed .fc.t-dato{background:var(--fp-goldl)!important}
 B #hb-feed .fc.t-yuyo{background:var(--fp-sage)!important}
-B #hb-fich .k,B #hb-feed .fc.t-ficha{border-top:4px solid #3f7d3a!important}
+B #hb-fich .k,B #hb-feed .fc.t-ficha:not(.t-mito):not(.t-tip){border-top:4px solid #3f7d3a!important}
 B #hb-qzc #dn-qzc{border-radius:18px!important;box-shadow:none!important;background:var(--fp-forest)!important}
 B #hb-qs .s,B #hb-mate .c{border-radius:12px!important}
 
@@ -119,7 +119,8 @@ B .section-featured-home h2.section-title{text-transform:none!important;font-fam
  B #hb-mate .c b{font-size:16px!important}
  B #hb-mate .c small{font-size:14px!important}
  B #hb-tips .k p{font-size:16px!important;line-height:1.45!important}
- B #hb-feed .tg{font-size:12px!important}
+ B #hb-feed .tg{font-size:12px!important;letter-spacing:.08em!important}
+ B #hb-feed .fc u{font-size:14px!important}
  B #hb-qs .s small{font-size:12.5px!important}
  B #hb-lib .tg,B #hb-lib .pf{font-size:11px!important}
  B #hb-lib .bk p,B #hb-lib .bk .ds{font-size:14.5px!important;line-height:1.45!important}
