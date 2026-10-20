@@ -18,6 +18,10 @@ B .hb:before,B .hb:after,B .section-featured-home:before,B #dn-ig:before,B #hb-q
 B .hb-a,B .hb-lf,B #hb-lib .gl,B #hb-lib .bk .sh,B #dn-sub a:after{display:none!important}
 B #hb-lep .hb-h i b{animation:none!important;box-shadow:none!important}
 
+/* índice fijo: línea fina en vez de sombra difusa */
+B #hb-idx.st,B #hb-idx{box-shadow:none!important}
+B #hb-idx.st{border-bottom:1px solid var(--fp-line)!important}
+
 /* ---------- MEDIA / TIENDA ---------- */
 B #dn-sub a{border-radius:12px!important;justify-content:flex-start!important;padding-top:13px!important;box-shadow:none!important;min-height:74px!important;gap:3px!important;font-size:19px!important;letter-spacing:.05em!important}
 B #dn-sub a.md{background:var(--fp-green)!important}
