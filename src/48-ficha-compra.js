@@ -88,5 +88,5 @@ as.innerHTML='<div><i>ASESORAMIENTO</i><h3>¿Tenés dudas? Hablá con un asesor<
 var lp=SP.querySelector('.dn-lp')||d.querySelector('.dn-lp'),ds=SP.querySelector('[data-store="product-description"], .user-content, .product-description');
 var ref=lp||ds;if(ref&&ref.parentNode){ref.parentNode.insertBefore(as,ref.nextSibling)}else{var c=SP.querySelector('.container');if(c)c.appendChild(as)}
 /* productos vistos: para "Lo que viste hace poco" en la tienda (solo en este celular) */
-try{var mi=d.querySelector('meta[property="og:image"]'),VV=JSON.parse(localStorage.getItem('dnVistos')||'[]'),uu=location.pathname,me={u:uu,n:name,i:mi&&mi.content||'',p:PD?PD.textContent.trim().replace(/,00$/,''):''};VV=[me].concat(VV.filter(function(x){return x&&x.u!==uu})).slice(0,12);localStorage.setItem('dnVistos',JSON.stringify(VV))}catch(e){}
+try{var mi=d.querySelector('meta[property="og:image"]'),VV=JSON.parse(localStorage.getItem('dnVistos')||'[]'),uu=location.pathname,me={u:uu,n:name,i:(mi&&mi.content||'').replace(/^http:/,'https:').replace(/^\/\//,'https://'),p:PD?PD.textContent.trim().replace(/,00$/,''):''};VV=[me].concat(VV.filter(function(x){return x&&x.u!==uu})).slice(0,12);localStorage.setItem('dnVistos',JSON.stringify(VV))}catch(e){}
 }();

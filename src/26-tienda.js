@@ -195,7 +195,7 @@ var bc=band('dn-tcb','dn-b2','gift','PROGRAMAS DE 30 DÍAS','Combos recomendados
 get('/combos/?sort_by=best-selling').then(function(h){fill(bc,items(h).slice(0,12))}).catch(function(){bc.remove()});
 /* lo que viste hace poco (se guarda al abrir cada producto, solo en este celular) */
 (function(){var V=[];try{V=JSON.parse(localStorage.getItem('dnVistos')||'[]')}catch(e){}V=V.filter(function(x){return x&&x.u&&x.n});if(V.length<2)return;
-var vs=d.createElement('section');vs.id='dn-tvis';vs.innerHTML='<div class="dn-hd"><div><i>PARA RETOMAR</i><h2>Lo que viste hace poco</h2></div></div><div class="rw">'+V.slice(0,10).map(function(x){return'<a href="'+x.u+'">'+(x.i?'<img loading="lazy" alt="" src="'+x.i+'">':'<span></span>')+'<b></b><em>'+(x.p||'')+'</em></a>'}).join('')+'</div>';
+var vs=d.createElement('section');vs.id='dn-tvis';vs.innerHTML='<div class="dn-hd"><div><i>PARA RETOMAR</i><h2>Lo que viste hace poco</h2></div></div><div class="rw">'+V.slice(0,10).map(function(x){return'<a href="'+x.u+'">'+(x.i?'<img loading="lazy" alt="" src="'+String(x.i).replace(/^http:/,'https:')+'">':'<span></span>')+'<b></b><em>'+(x.p||'')+'</em></a>'}).join('')+'</div>';
 [].forEach.call(vs.querySelectorAll('b'),function(b,i){b.textContent=V[i].n});var tc=d.getElementById('dn-tcat');if(tc&&tc.nextSibling)tc.parentNode.insertBefore(vs,tc.nextSibling);else ins(vs)})();
 var bf=band('dn-tfree','','box','ENVÍO GRATIS DESDE '+$(FREE),'Sumá para el envío gratis');
 var pb=d.createElement('div');pb.className='pb';pb.innerHTML='<p></p><div class="t"><i></i></div>';bf.querySelector('.hd-w').appendChild(pb);
