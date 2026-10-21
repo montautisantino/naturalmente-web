@@ -309,9 +309,9 @@ var cur='',ltp=-1,ph=null,fx=false;function spy(){var tp=bars();if(tp!==ltp){s.s
 /* la fila de secciones no se corre mientras se baja (temblaba): cuando el scroll se detiene, si la activa no se ve entera, se acomoda una sola vez y suave */
 var pa=null,tq=0;function settle(){var a=pa;if(!a||!a.parentNode)return;var L=a.offsetLeft-12,R=a.offsetLeft+a.offsetWidth+12;if(L>=r.scrollLeft&&R<=r.scrollLeft+r.clientWidth)return;r.scrollTo({left:Math.max(0,a.offsetLeft-r.clientWidth/2+a.offsetWidth/2),behavior:'smooth'})}
 var raf=0,until=0;function loop(){spy();if(Date.now()<until)raf=requestAnimationFrame(loop);else raf=0}function kick(){until=Date.now()+450;if(!raf)raf=requestAnimationFrame(loop);clearTimeout(tq);tq=setTimeout(settle,220)}
-addEventListener('scroll',kick,{passive:true});addEventListener('resize',kick);
+/* fila de secciones del Feed: quitada a pedido (en el celular temblaba al bajar). Para volver a ponerla, restaurar estas dos líneas. */
 s.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;var t=d.getElementById(a.getAttribute('href').slice(1));if(!t)return;e.preventDefault();var sb=d.getElementById('dn-sbar'),off=(sb?sb.offsetHeight:60)+s.offsetHeight+10;scrollTo({top:t.getBoundingClientRect().top+scrollY-off,behavior:'smooth'})});
-box.appendChild(s);setTimeout(function(){draw();kick()},0);setTimeout(draw,1500);setTimeout(draw,4000);if(window.dnSheet)dnSheet.ready(function(){setTimeout(draw,300)})})();
+})();
 /* carruseles al azar de fichas de plantas y tips (toman su parte del contenido mezclado; vuelven al primero al terminar) */
 function CARR(id,eb,ti,cls,items,draw){if(d.getElementById(id)||!items.length)return;var s=d.createElement('section');s.id=id;s.className='hb hb-car '+cls;
 s.innerHTML='<div class="ch"><i>'+eb+'</i><h2>'+ti+'</h2><div class="cn"><span class="ct"></span><button type="button" class="pv" aria-label="Anterior">‹</button><button type="button" class="nx" aria-label="Siguiente">›</button></div><p class="hn">Deslizá para ver más <b>→</b> · cambian en cada visita</p></div><div class="cr">'+items.map(draw).join('')+'</div>';
