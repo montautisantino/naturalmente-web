@@ -57,3 +57,6 @@ html body #dn-ig a[href*="instagram"]{background:#1d4a2a!important;background-im
  html body #dn-tcat{margin-top:12px!important;margin-bottom:4px!important;padding-top:16px!important;padding-bottom:12px!important}
 }
 @media (prefers-reduced-motion:reduce){html body.template-product #single-product #product_form .js-addtocart,html body.template-product #single-product #product_form .btn-add-to-cart,html body.template-product #single-product .dn-cta,html body #dn-buy{animation:none!important}}
+
+/* iPhone: el desenfoque de fondo en barras fijas deja zonas en blanco al volver a subir */
+html body .js-head-main{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
