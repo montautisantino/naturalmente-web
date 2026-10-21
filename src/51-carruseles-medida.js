@@ -7,6 +7,12 @@
 var MOB=Math.min(screen.width||9999,screen.height||9999)<768;
 /* nada puede ensanchar la página hacia los costados (eso hace que el navegador crea que la pantalla es más ancha) */
 var st=d.createElement('style');st.textContent='html,body{overflow-x:clip}'+(MOB?'#single-product .js-swiper-product,#single-product .js-swiper-product>.swiper-wrapper{width:100%!important;max-width:100%!important}#single-product .js-swiper-product .js-product-slide{width:100%!important;max-width:100%!important;flex-shrink:0!important}#single-product .js-product-slide-link{display:block!important;width:100%!important}':'');d.head.appendChild(st);
+/* foto del producto en celular: tamaño fijo, cuadrada y a todo el ancho, pase lo que pase con la pantalla */
+if(MOB){var gs=d.createElement('style');gs.textContent='.dn-galp{width:100%!important;max-width:100%!important;flex:0 0 100%!important;min-width:0}'+
+'#single-product .js-swiper-product{width:100%!important;max-width:100%!important;overflow:hidden!important}'+
+'#single-product .js-swiper-product .js-product-slide-link{display:block!important;position:relative!important;width:100%!important;height:0!important;padding-bottom:100%!important}'+
+'#single-product .js-swiper-product .js-product-slide-img,#single-product .js-swiper-product .product-slider-image{position:absolute!important;top:0!important;left:0!important;right:auto!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;transform:none!important}';d.head.appendChild(gs);
+var tag=function(){var g=d.querySelector('#single-product .js-swiper-product');if(!g)return;for(var e=g.parentElement;e&&e.id!=='single-product';e=e.parentElement){if(/(^|\s)col(-|\s|$)/.test(e.className))e.classList.add('dn-galp')}};tag();setTimeout(tag,800);setTimeout(tag,3000)}
 function each(f){[].forEach.call(d.querySelectorAll('.swiper-container,.swiper'),function(el){var s=el.swiper;if(s&&!s.destroyed)f(el,s)})}
 function lock(){if(!MOB)return;each(function(el,s){if(s.__dnLk)return;s.__dnLk={v:s.params.slidesPerView,g:s.params.slidesPerGroup,b:s.params.spaceBetween};s.params.breakpoints=null;s.originalParams&&(s.originalParams.breakpoints=null)})}
 function fix(){lock();each(function(el,s){if(!el.offsetParent)return;var k=s.__dnLk,ch=0;
