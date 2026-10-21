@@ -31,7 +31,7 @@ function add(it,btn){if(btn.disabled||btn.classList.contains('ok'))return;btn.di
 function done(ok){if(f.parentNode)f.parentNode.removeChild(f);btn.disabled=false;if(ok){btn.classList.add('ok');btn.textContent='✓ Agregado';setTimeout(draw,600)}else btn.textContent='+ Agregar'}
 try{LS.addToCartEnhanced(jQueryNuvem(f),'Agregar','Agregando...','No hay más stock de este producto.',!1,function(){done(1)},function(){done(0)})}catch(e){f.submit()}}
 var box=null;
-function draw(){var t=total(),f=FREE-t;if(!(t>0)||f<=0){if(box)box.style.display='none';return}
+function draw(){var t=total(),f=FREE-t;var de=d.getElementById('dn-cdesp');if(de)de.style.display=t>0?'':'none';if(!(t>0)||f<=0){if(box)box.style.display='none';return}
 load().then(function(L){var ic=inCart(),S=L.filter(function(x){return!ic[x.id]}).slice(0,8);if(S.length<2){if(box)box.style.display='none';return}
 if(!box){box=d.createElement('div');box.id='dn-cx';box.className='js-visible-on-cart-filled';var fr=M.querySelector('.js-ship-free-rest'),ref=fr&&fr.closest('.js-visible-on-cart-filled')||M.querySelector('.js-ajax-cart-list');if(!ref)return;ref.parentNode.insertBefore(box,ref.nextSibling);
 box.addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(!b)return;e.preventDefault();e.stopPropagation();var it=S2[b.getAttribute('data-i')];if(it)add(it,b)},true)}
