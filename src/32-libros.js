@@ -13,6 +13,8 @@ var G=[
 {k:'ferm',s:'fermentos-caseros-1136l',id:364341204,t:'Fermentos Caseros',tg:'Fermentación',i:'74f610f2-3d78-4508-a14b-60bd58896805-e98e1a4ba1aa88165a17881815828610',h:'8 fermentos paso a paso: kombucha, kéfir, chucrut, masa madre y más.'},
 {k:'keto',s:'mini-guia-keto-hierbas',id:283268907,t:'Mini guía keto + hierbas',tg:'Keto',i:'1840a308-0650-4d71-a513-99a60b7e1e18-9637bdc39da5bf9a8417833248599917',h:'Lo básico de la alimentación keto y las hierbas que la acompañan.'}];
 var BK={};G.forEach(function(g){BK[g.k]=g});
+/* pack con los 5 libros: va adelante en los carruseles (no cuenta como libro) */
+var PK={k:'pack',s:'pack-5-libros-digitales-15ow9',id:375706291,t:'Pack 5 libros digitales',tg:'Los 5 libros',i:'pack-5-libros-digitales-2ae4486914f57e9c9b17925996644165',h:'Los 5 libros en PDF juntos, más barato que comprándolos por separado.'};BK.pack=PK;
 /* tema según el texto (nombre de producto, categoría, búsqueda o episodio) */
 var RX=[['keto',/\bketo|low ?carb|eritritol|harina de almendra|\bmct\b|\bghee\b/],
 ['ferm',/kefir|kombucha|vinagre de manzana|chucrut|masa madre|ferment|scoby|kimchi|pickle/],
@@ -96,22 +98,22 @@ if('IntersectionObserver'in W)new IntersectionObserver(function(e){vis=e[0].isIn
 setInterval(function(){if(vis&&!root.__hv&&!d.hidden&&Date.now()-last>8000)step(1)},5000);
 W.addEventListener('resize',function(){var i=idx();meas();if(SW&&on())jump(SW+i*iw)});setTimeout(home,40);return{home:home}}
 /* carrusel de libros: primero el del tema, después el resto (los que no están en el carrito) */
-function card(g,lead,cls){cls=cls||'';var L=[g].concat(G.filter(function(x){return x!==g&&!inCart(x)})),w=d.createElement('div');w.className='dn-gcr '+cls;w.setAttribute('data-k',g.k);w.setAttribute('aria-roledescription','carrusel');w.setAttribute('aria-label','Libros digitales');
-var sc=cls.replace(/\bcart\b/,'').trim(),N=L.length;w.innerHTML='<div class="hd"><span>Deslizá para ver los '+N+' libros <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="tr"></div><div class="dt">'+L.map(function(){return'<i></i>'}).join('')+'</div>';
+function card(g,lead,cls){cls=cls||'';var L=[g].concat(inCart(PK)?[]:[PK]).concat(G.filter(function(x){return x!==g&&!inCart(x)})),w=d.createElement('div');w.className='dn-gcr '+cls;w.setAttribute('data-k',g.k);w.setAttribute('aria-roledescription','carrusel');w.setAttribute('aria-label','Libros digitales');
+var sc=cls.replace(/\bcart\b/,'').trim(),N=L.length,NB=L.filter(function(x){return x!==PK}).length;w.innerHTML='<div class="hd"><span>Deslizá para ver '+(NB>1?'los '+NB+' libros':'más')+(L.indexOf(PK)>-1?' y el pack':'')+' <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="tr"></div><div class="dt">'+L.map(function(){return'<i></i>'}).join('')+'</div>';
 var tr=w.querySelector('.tr'),dt=[].slice.call(w.querySelectorAll('.dt i'));
 if(N<2){tr.appendChild(slide(g,lead,sc));w.querySelector('.hd').style.display='none';w.querySelector('.dt').style.display='none';return w}
-[0,1,2].forEach(function(r){L.forEach(function(x,i){var e=slide(x,i?'Más libros digitales':lead,sc);if(r!==1){e.classList.add('cl');e.setAttribute('aria-hidden','true')}tr.appendChild(e)})});
+[0,1,2].forEach(function(r){L.forEach(function(x,i){var e=slide(x,x===PK?'Llevate los 5 juntos':i?'Más libros digitales':lead,sc);if(r!==1){e.classList.add('cl');e.setAttribute('aria-hidden','true')}tr.appendChild(e)})});
 loop(w,tr,N,w.querySelector('.pv'),w.querySelector('.nx'),function(i){dt.forEach(function(e,j){e.className=j===i?'on':''})});return w}
 function wait(sel,fn,ms){var t0=Date.now();(function p(){var e=d.querySelector(sel);if(e)return fn(e);if(Date.now()-t0<(ms||12000))setTimeout(p,250)})()}
 var path=location.pathname,isP=/\btemplate-product\b/.test(B.className),isC=/\btemplate-category\b/.test(B.className),isS=/\btemplate-search\b/.test(B.className),isHome=B.classList.contains('template-home'),isLanding=/^\/productos\/?$/.test(path);
 /* sección destacada */
-function section(id,cls){var GS=G.slice();for(var q=GS.length-1;q>0;q--){var z=Math.floor(Math.random()*(q+1)),t=GS[q];GS[q]=GS[z];GS[z]=t}var s=d.createElement('section');s.id=id;s.className='dn-lib '+(cls||'');s.setAttribute('aria-label','Libros digitales');s.setAttribute('aria-roledescription','carrusel');
+function section(id,cls){var GS=G.slice();for(var q=GS.length-1;q>0;q--){var z=Math.floor(Math.random()*(q+1)),t=GS[q];GS[q]=GS[z];GS[z]=t}GS.unshift(PK);var s=d.createElement('section');s.id=id;s.className='dn-lib '+(cls||'');s.setAttribute('aria-label','Libros digitales');s.setAttribute('aria-roledescription','carrusel');
 s.innerHTML='<span class="gl g1"></span><span class="gl g2"></span><div class="in"><div class="hd"><i>'+BKI+'LIBROS DIGITALES</i><h2>Aprendé a hacerlo <em>en casa</em></h2><p>Guías prácticas en PDF de Dietéticas Naturalmente, para leer en el celu, la compu o la tablet.</p><div class="chs"><span>Formato PDF</span><span>Celu, compu o tablet</span><span>Pago seguro</span></div></div>'+
-'<div class="nv"><span class="hi">Deslizá para ver los '+G.length+' libros <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="rw">'+
+'<div class="nv"><span class="hi">Deslizá para ver los '+G.length+' libros y el pack <b>→</b></span><button type="button" class="pv" aria-label="Libro anterior">‹</button><button type="button" class="nx" aria-label="Libro siguiente">›</button></div><div class="rw">'+
 [0,1,2].map(function(r){return GS.map(function(g){return'<article class="bk'+(r!==1?' cl" aria-hidden="true':'')+'" data-k="'+g.k+'"><a class="cv" href="'+url(g)+'"><img src="'+img(g)+'" alt="'+esc(g.t)+'" loading="lazy"><span class="tg">'+esc(g.tg)+'</span><span class="pf">PDF</span><span class="sh"></span></a><h3><a href="'+url(g)+'">'+esc(g.t)+'</a></h3><p>'+esc(g.h)+'</p><a class="vm" href="'+url(g)+'">Ver qué trae →</a><div class="ft"><strong class="pr"></strong><button type="button" class="ad" data-dnlib-add="'+g.k+'">'+CART+'Agregar</button></div></article>'}).join('')}).join('')+
 '</div><div class="pg"><b></b></div></div>';
 var rw=s.querySelector('.rw'),pv=s.querySelector('.pv'),nx=s.querySelector('.nx'),pb=s.querySelector('.pg b');
-var LP=loop(s,rw,G.length,pv,nx,function(i){pb.style.width=Math.round((i+1)/G.length*100)+'%'});
+var LP=loop(s,rw,GS.length,pv,nx,function(i){pb.style.width=Math.round((i+1)/GS.length*100)+'%'});
 var go=function(){if(s.__go)return;s.__go=1;s.classList.add('on');[].forEach.call(s.querySelectorAll('.bk'),function(b){fillPrice(BK[b.getAttribute('data-k')],b)});
 };
 if('IntersectionObserver'in W){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go()}},{rootMargin:'0px 0px 200px 0px'});io.observe(s)}else go();setTimeout(go,8000);return s}
