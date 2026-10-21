@@ -39,6 +39,8 @@ d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest(
 var BKI='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 8h7"/></svg>';
 var CART='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>';
 var st=d.createElement('style');st.id='dn-lib-css';st.textContent=
+/* el pack ya trae su título en la foto */
+'.dn-lib .bk[data-k=pack] .tg,.dn-lib .bk[data-k=pack] .pf{display:none!important}'+
 /* tarjeta chica */
 '.dn-gc{position:relative;display:flex;gap:14px;align-items:stretch;margin:18px 0;padding:12px;border-radius:18px;background:#fef4de;border:1px solid #efd9a6;box-shadow:0 1px 2px rgba(16,40,26,.06),0 6px 16px -8px rgba(16,40,26,.22);color:#1d2a1f;text-align:left;overflow:hidden;animation:dnGcIn .5s ease both}'+
 '.dn-gc:after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:none;pointer-events:none}'+
