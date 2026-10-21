@@ -156,7 +156,9 @@ function V(x){try{return JSON.parse(x.querySelector('[data-variants]').getAttrib
 function ok(x){var v=V(x);return x.getAttribute('data-product-id')&&v.available!==false}
 function items(doc,sel){return[].slice.call(doc.querySelectorAll((sel||'.js-product-table')+' .js-item-product[data-product-id]')).filter(ok)}
 function isCombo(x){return/^\s*combo/i.test((x.querySelector('.js-item-name')||{}).textContent||'')}
-function get(u){return fetch(u,{credentials:'same-origin'}).then(function(r){return r.text()}).then(function(t){return new DOMParser().parseFromString(t,'text/html')})}
+/* páginas que se traen por detrás: se guarda solo la parte con productos, 30 min en este celular (menos datos y más rápido) */
+function get(u){var K='dnTG:'+u,P=function(t){return new DOMParser().parseFromString(t,'text/html')};try{var c=JSON.parse(sessionStorage.getItem(K)||'null');if(c&&Date.now()-c.t<18e5)return Promise.resolve(P(c.h))}catch(e){}
+return fetch(u,{credentials:'same-origin'}).then(function(r){return r.text()}).then(function(t){var doc=P(t);try{var h=[].map.call(doc.querySelectorAll('.js-product-table,[data-store="home-products-featured"],[data-store="home-products-sale"]'),function(x){return x.outerHTML}).join('');if(h)sessionStorage.setItem(K,JSON.stringify({t:Date.now(),h:h}))}catch(e){}return doc})}
 /* 3. secciones: estilos, envío gratis, ranking, (libros), confianza, sucursales, destacados/nuevos, ofertas */
 var UI=function(id,w,h){return'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+w+'&h='+h+'&q=60'};
 var xs=d.createElement('style');xs.textContent=

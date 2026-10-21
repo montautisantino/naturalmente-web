@@ -14,7 +14,10 @@ if(!/add_to_cart=/.test(body)){fail&&fail();return}
 var fm=d.createElement('form');fm.method='post';fm.action='/comprar/';fm.style.display='none';new URLSearchParams(body).forEach(function(v,k){var i=d.createElement('input');i.type='hidden';i.name=k;i.value=v;fm.appendChild(i)});d.body.appendChild(fm);try{HTMLFormElement.prototype.submit.call(fm)}catch(e){fail&&fail()}}
 function wrap(){var L=W.LS;if(!L||typeof L.addToCartEnhanced!=='function'||L.addToCartEnhanced.__dn)return!!(L&&L.addToCartEnhanced&&L.addToCartEnhanced.__dn);
 var orig=L.addToCartEnhanced;var w=function(form,a,b,c,e,ok,err){var done=0,args=[].slice.call(arguments);
-var fb=function(){if(done)return;done=1;direct(form,function(){typeof err==='function'&&err.apply(this,arguments)})};
+var fb=function(){if(done)return;done=1;var E=function(){typeof err==='function'&&err.apply(this,arguments)};
+/* si el problema es el stock, no se fuerza: el tema avisa que no hay más */
+try{var pf=d.querySelector('#single-product form.js-product-form'),vs=JSON.parse((d.querySelector('#single-product [data-variants]')||{}).getAttribute('data-variants')||'[]'),q=+((pf&&pf.querySelector('[name=quantity]'))||{}).value||1;if(vs.length===1&&(vs[0].available===false||(typeof vs[0].stock==='number'&&vs[0].stock<q)))return E()}catch(x){}
+direct(form,E)};
 args[5]=function(){done=1;return typeof ok==='function'?ok.apply(this,arguments):undefined};
 args[6]=function(){fb()};
 try{return orig.apply(this,args)}catch(x){fb()}};w.__dn=1;L.addToCartEnhanced=w;return true}
