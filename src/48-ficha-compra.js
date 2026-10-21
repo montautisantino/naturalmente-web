@@ -31,7 +31,7 @@ var st=d.createElement('style');st.textContent=
 '@media(min-width:768px){#dn-ase{flex-direction:row;align-items:center;justify-content:space-between;padding:26px 30px}#dn-ase a{align-self:center}#dn-fbar .p{font-size:20px}}'+
 '@media(prefers-reduced-motion:reduce){#dn-fbar{transition:none}#dn-fbar button,#dn-fbar button:after,#dn-fbar button i{animation:none!important}}'+
 /* fila compacta: precio + vendidos en la misma línea; stock y pago seguro juntos */
-'#single-product .dn-prow{display:flex!important;align-items:center;flex-wrap:wrap;gap:6px 8px}#single-product .dn-prow #dn-vtas{margin:0 0 0 auto;padding:4px 8px;font-size:12px;gap:4px;white-space:nowrap}#single-product .dn-prow #dn-vtas svg{width:13px;height:13px}#single-product .price-container .js-price-container{margin-bottom:6px!important}'+
+'#single-product .dn-prow{display:flex!important;align-items:center;flex-wrap:wrap;gap:6px 8px}#dn-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}#dn-tags #dn-vtas{margin:0;padding:4px 10px;font-size:12px;gap:5px;white-space:nowrap}#dn-tags #dn-vtas svg{width:13px;height:13px}#single-product .price-container .js-price-container{margin-bottom:6px!important}'+
 '#single-product .price-container .dn-pstk{display:inline-flex!important;margin:0 16px 8px 0!important;vertical-align:middle}#single-product .price-container .dn-pstk+#dn-cuo{display:inline-flex;margin:0 0 8px}#single-product .price-container .js-free-shipping-minimum-message{margin-top:4px!important}';
 d.head.appendChild(st);
 var price=function(){return num(PD&&PD.textContent)};
@@ -47,7 +47,7 @@ var sc=d.querySelector('script[src*="/dist/dn-producto.min.js"]'),BASE=sc?sc.src
 var hd=(location.pathname.match(/\/productos\/([^\/]+)/)||[])[1];
 function shown(n){return n>=1000?Math.floor(n/100)*100:n>=100?Math.floor(n/10)*10:n>=20?Math.floor(n/5)*5:n}
 if(BASE&&hd)fetch(BASE+'contenido/ventas.json').then(function(r){return r.json()}).then(function(V){var n=+(V.v||V)[hd]||0;if(n<10||d.getElementById('dn-vtas'))return;
-var e=d.createElement('div');e.id='dn-vtas';e.innerHTML=IC.fire+'<span>+'+shown(n).toLocaleString('es-AR')+' vendidos</span>';var row=pc&&pc.querySelector('.dn-prow');if(row)row.appendChild(e);else{var h1=SP.querySelector('h1');var at=pc||(h1&&h1.parentNode);if(at)at.parentNode.insertBefore(e,at)}}).catch(function(){});
+var e=d.createElement('div');e.id='dn-vtas';e.innerHTML=IC.fire+'<span>+'+shown(n).toLocaleString('es-AR')+' vendidos</span>';var tg=d.getElementById('dn-tags');if(!tg){tg=d.createElement('div');tg.id='dn-tags';var pa=d.getElementById('dn-pa'),h1=SP.querySelector('h1');var ref=pa||h1;if(ref)ref.parentNode.insertBefore(tg,ref.nextSibling)}tg.insertBefore(e,tg.firstChild)}).catch(function(){});
 /* "Pago seguro" al lado de "En stock" (ese aviso lo arma otro módulo, puede llegar después) */
 var pt=0;(function place(){var k=SP.querySelector('.price-container .dn-pstk'),c=d.getElementById('dn-cuo');if(k&&c){if(k.nextElementSibling!==c)k.parentNode.insertBefore(c,k.nextSibling)}else if(++pt<20)setTimeout(place,250)})();
 
