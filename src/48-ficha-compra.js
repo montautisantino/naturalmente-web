@@ -67,6 +67,11 @@ var on=past&&!atEnd&&ok()&&!d.querySelector('#dn-shs,#dn-subp,.modal.show,[role=
 /* pegada al borde real de la pantalla: en iPhone la pantalla visible cambia de alto cuando Safari achica su barra */
 var VV=W.visualViewport;function pos(){if(!VV)return;var g=Math.round(innerHeight-(VV.offsetTop+VV.height));fb.style.bottom=(Math.abs(g)>1&&Math.abs(g)<200?g:0)+'px'}
 if(VV){VV.addEventListener('resize',pos);VV.addEventListener('scroll',pos)}
+/* diagnóstico temporal (?dnd=1): medidas de la pantalla para ajustar la barra en celulares */
+if(/[?&]dnd=1/.test(location.search)){var dg=d.createElement('div');dg.style.cssText='position:fixed;top:130px;left:8px;right:8px;z-index:99999;background:rgba(0,0,0,.82);color:#fff;font:12px/1.4 monospace;padding:8px;border-radius:8px;pointer-events:none;white-space:pre-wrap';d.body.appendChild(dg);
+var mk=function(u){var e=d.createElement('div');e.style.cssText='position:fixed;top:0;left:-9px;width:1px;visibility:hidden;height:100'+u;d.body.appendChild(e);return e},MD=mk('dvh'),ML=mk('lvh'),MS=mk('svh'),MV=mk('vh');
+var rep=function(){var r=fb.getBoundingClientRect();dg.textContent='ua '+navigator.userAgent.replace(/^.*?\) /,'').slice(0,60)+'\ninner '+innerWidth+'x'+innerHeight+' cli '+d.documentElement.clientHeight+'\nvv '+(VV?Math.round(VV.width)+'x'+Math.round(VV.height)+' top '+Math.round(VV.offsetTop)+' pt '+Math.round(VV.pageTop):'-')+'\nvh '+MV.offsetHeight+' dvh '+MD.offsetHeight+' lvh '+ML.offsetHeight+' svh '+MS.offsetHeight+'\nscreen '+screen.width+'x'+screen.height+' dpr '+devicePixelRatio+'\nbar top '+Math.round(r.top)+' bottom '+Math.round(r.bottom)+' style.bottom '+fb.style.bottom+'\nscroll '+Math.round(scrollY)+' se '+(d.scrollingElement&&d.scrollingElement.tagName)+' bodyOv '+getComputedStyle(d.body).overflowY+' htmlOv '+getComputedStyle(d.documentElement).overflowY};
+addEventListener('scroll',rep,{passive:true,capture:true});if(VV){VV.addEventListener('resize',rep);VV.addEventListener('scroll',rep)}setInterval(rep,500)}
 var tk=0;addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;upd();pos()})}},{passive:true,capture:true});addEventListener('resize',upd);setInterval(upd,1500);upd();
 
 /* --- hablá con un asesor --- */
