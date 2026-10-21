@@ -57,7 +57,7 @@ d.addEventListener('scroll',kick,{passive:true,capture:true});addEventListener('
 /* nunca dejar algo invisible: si por algo no se dispara, a los 2,5 s se revisa igual y al salir de la página todo queda visible */
 setInterval(function(){if(pend.length)check()},1500);
 
-var SEL=HOME?'.js-home-sections-container > .hb:not(#hb-sub):not(#hb-idx):not(#hb-nov),#hb-feed .fc,#dn-not .nr,.section-featured-home .js-item-product':
+var SEL=HOME?'.js-home-sections-container > .hb:not(#hb-sub):not(#hb-idx):not(#hb-nov),#hb-feed .fc,#dn-not .nr':
 MEDIA?'.nvk,.dmx-n,.dmx-c,.dm-ep,.dm-prog-head,.dmx-hd,.dn-mvb,.dn-kit':
 LIST?'.dn-band,#dn-tcat,#dn-tsucw,#dn-tlib,.js-product-table > .js-item-product':'';
 if(SEL&&!PROD){var go=function(){scan(SEL)};setTimeout(go,60);setTimeout(go,1200);setTimeout(go,3500);
