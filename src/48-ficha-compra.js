@@ -57,7 +57,8 @@ var img=(SP.querySelector('.js-product-slide-img, .product-slider-image, img')||
 var fb=d.createElement('div');fb.id='dn-fbar';fb.setAttribute('aria-hidden','true');
 fb.innerHTML='<div class="in">'+(img?'<img alt="" src="'+img+'">':'')+'<span class="tx"><span class="n"></span><span class="p"></span><span class="c"></span></span><button type="button">COMPRAR <i>→</i></button></div>';
 fb.querySelector('.n').textContent=name;d.body.appendChild(fb);
-function bar(){var p=price();fb.querySelector('.p').textContent=p?$(p):'';fb.querySelector('.c').textContent=p?(CU?CU+' cuotas sin interés de '+$(p/CU):'Pago seguro'):''}bar();
+var QI=F&&F.querySelector('input[name=quantity]');if(QI){QI.addEventListener('input',function(){bar()});QI.addEventListener('change',function(){bar()})}
+function bar(){var p=price()*Math.max(1,QI&&+QI.value||1);fb.querySelector('.p').textContent=p?$(p):'';fb.querySelector('.c').textContent=p?(CU?CU+' cuotas sin interés de '+$(p/CU):'Pago seguro'):''}bar();
 fb.querySelector('button').addEventListener('click',function(){var b=BUY();if(!b||b.disabled||/sin stock|no disponible/i.test(b.textContent||b.value||'')){var t=d.getElementById('dn-sel')||F;if(t)t.scrollIntoView({behavior:'smooth',block:'center'});return}
 /* si hay variantes para elegir, mejor que las vea antes de comprar */
 if(F&&F.querySelector('.js-product-variants select, .js-product-variants .btn-variant')&&!d.getElementById('dn-sel')){F.scrollIntoView({behavior:'smooth',block:'center'});return}b.click()});
