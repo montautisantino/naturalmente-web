@@ -10,7 +10,8 @@ function direct(form,fail){var body='';
 try{var s=form&&typeof form.serialize==='function'&&form.serialize();if(s&&typeof s!=='string'&&s.append)body=new URLSearchParams(s).toString();else if(typeof s==='string')body=s}catch(e){}
 if(!/add_to_cart=/.test(body)){var f=el(form);if(!f||f.tagName!=='FORM')f=d.querySelector('#single-product form.js-product-form');try{body=f?new URLSearchParams(new FormData(f)).toString():''}catch(e){body=''}}
 if(!/add_to_cart=/.test(body)){fail&&fail();return}
-fetch('/comprar/',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-Requested-With':'XMLHttpRequest','Accept':'application/json'},body:body}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}if(j&&j.success===false)throw 0;location.href='/comprar/'}).catch(function(){fail&&fail()})}
+/* envío como formulario común (navegación), no por fetch: así el navegador de la app guarda bien el carrito */
+var fm=d.createElement('form');fm.method='post';fm.action='/comprar/';fm.style.display='none';new URLSearchParams(body).forEach(function(v,k){var i=d.createElement('input');i.type='hidden';i.name=k;i.value=v;fm.appendChild(i)});d.body.appendChild(fm);try{HTMLFormElement.prototype.submit.call(fm)}catch(e){fail&&fail()}}
 function wrap(){var L=W.LS;if(!L||typeof L.addToCartEnhanced!=='function'||L.addToCartEnhanced.__dn)return!!(L&&L.addToCartEnhanced&&L.addToCartEnhanced.__dn);
 var orig=L.addToCartEnhanced;var w=function(form,a,b,c,e,ok,err){var done=0,args=[].slice.call(arguments);
 var fb=function(){if(done)return;done=1;direct(form,function(){typeof err==='function'&&err.apply(this,arguments)})};
