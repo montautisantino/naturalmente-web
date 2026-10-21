@@ -53,7 +53,7 @@ if(!box){box=d.createElement('div');box.id='dn-cx';box.className='js-visible-on-
 box.addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(!b)return;e.preventDefault();e.stopPropagation();var it=S2[b.getAttribute('data-i')];if(it)add(it,b)},true)}
 S2=S;box.style.display='';box.innerHTML='<p>Te faltan <b>'+$(f)+'</b> para el envío gratis. '+(R.j?'Lo que más se lleva junto con lo tuyo:':'Sumá algo de todos los días:')+'</p><div class="r">'+S.map(function(x,k){return'<div class="i">'+(x.i?'<a href="'+esc(x.h)+'"><img loading="lazy" alt="" src="'+esc(x.i)+'"></a>':'')+'<b>'+esc(x.n)+'</b><em>'+$(x.p)+'</em><button type="button" data-i="'+k+'">+ Agregar</button></div>'}).join('')+'</div>'}).catch(function(){})}
 var S2=[];
-var te=M.querySelector('.js-ajax-cart-total'),tm=0,later=function(){clearTimeout(tm);tm=setTimeout(draw,250)};
+var te=M.querySelector('.js-ajax-cart-total'),tm=0,tm2=0,later=function(){clearTimeout(tm);clearTimeout(tm2);tm=setTimeout(draw,250);tm2=setTimeout(draw,1500)};
 if(te&&W.MutationObserver)new MutationObserver(later).observe(te,{childList:true,characterData:true,subtree:true});
 var cl=M.querySelector('.js-ajax-cart-list');if(cl&&W.MutationObserver)new MutationObserver(later).observe(cl,{childList:true});
 draw();
