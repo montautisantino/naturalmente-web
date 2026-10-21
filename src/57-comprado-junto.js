@@ -21,8 +21,8 @@ bx.innerHTML='<h3>Los que compran este producto también llevan</h3><p>Según lo
 f.parentNode.insertBefore(bx,f.nextSibling);
 bx.addEventListener('click',function(e){var b=e.target.closest('button[data-k]');if(!b)return;e.preventDefault();e.stopPropagation();var it=L[b.getAttribute('data-k')];if(!it||b.disabled||b.classList.contains('ok'))return;b.disabled=true;b.textContent='Agregando…';
 W.__dnAddId(it.id,function(){b.disabled=false;b.classList.add('ok');b.textContent='✓ Agregado';setTimeout(function(){var t=d.querySelector('.js-head-main [data-toggle="#modal-cart"]')||d.querySelector('[data-toggle="#modal-cart"]');var m=d.getElementById('modal-cart');if(t&&m&&!m.classList.contains('modal-show'))t.click()},350)},function(){b.disabled=false;b.textContent='+ Agregar'})})}).catch(function(){})}
-/* se arma cuando el cliente se acerca a esa parte (no suma carga al abrir la ficha) */
+/* se arma cuando el cliente se acerca a esa parte, o a los 3 s si el navegador no avisa */
 function arm(){var f=d.querySelector('#single-product form.js-product-form');if(!f||!W.__dnCat){return setTimeout(arm,400)}
-if(!W.IntersectionObserver)return go();var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();go()}},{rootMargin:'600px 0px'});io.observe(f)}
+var t=setTimeout(go,3000);if(!W.IntersectionObserver)return;var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();clearTimeout(t);go()}},{rootMargin:'600px 0px'});io.observe(f)}
 var n=0;(function w(){if(W.__dnCat&&d.querySelector('#single-product form.js-product-form'))arm();else if(++n<40)setTimeout(w,250)})();
 }();
