@@ -71,7 +71,7 @@ var on=past&&!atEnd&&ok()&&!d.querySelector('#dn-shs,#dn-subp,.modal.show,[role=
 /* iPhone: sin "viewport-fit=cover" el navegador deja la franja del indicador de inicio fuera de la pantalla útil y la
    barra queda flotando arriba de esa franja (se ve la página por debajo). Con cover, la barra llega al borde y su
    relleno inferior (safe-area) mantiene el contenido arriba del indicador. */
-var vm=d.querySelector('meta[name=viewport]');if(vm&&!/viewport-fit/.test(vm.content))vm.setAttribute('content',vm.content+', viewport-fit=cover');
+/* (no se cambia el viewport en vivo: en los navegadores de Instagram/WhatsApp achicaba la galería de fotos) */
 /* pegada al borde real de la pantalla: en iPhone la pantalla visible cambia de alto cuando Safari achica su barra */
 var VV=W.visualViewport;function pos(){if(!VV)return;var g=Math.round(innerHeight-(VV.offsetTop+VV.height));fb.style.bottom=(Math.abs(g)>1&&Math.abs(g)<200?g:0)+'px'}
 if(VV){VV.addEventListener('resize',pos);VV.addEventListener('scroll',pos)}
