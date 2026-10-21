@@ -53,7 +53,7 @@ var pt=0;(function place(){var k=SP.querySelector('.price-container .dn-pstk'),c
 
 /* --- barra de compra fija --- */
 var BUY=function(){return d.getElementById('dn-buy')||[].filter.call(F?F.querySelectorAll('.js-addtocart:not(.js-addtocart-placeholder)'):[],function(x){return x.offsetParent})[0]};
-var img=(SP.querySelector('.js-product-slide-img, .product-slider-image, img')||{}).currentSrc||(SP.querySelector('img')||{}).src||'';
+var img=(function(){var m=d.querySelector('meta[property="og:image"]'),u=m&&m.content||'';if(!u){var x=SP.querySelector('.js-product-slide-img, .product-slider-image');u=x&&(x.currentSrc||x.src)||''}if(/^data:/.test(u))u='';return u.replace(/^http:/,'https:').replace(/^\/\//,'https://')})();
 var fb=d.createElement('div');fb.id='dn-fbar';fb.setAttribute('aria-hidden','true');
 fb.innerHTML='<div class="in">'+(img?'<img alt="" src="'+img+'">':'')+'<span class="tx"><span class="n"></span><span class="p"></span><span class="c"></span></span><button type="button">COMPRAR <i>→</i></button></div>';
 fb.querySelector('.n').textContent=name;d.body.appendChild(fb);
