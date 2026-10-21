@@ -21,7 +21,7 @@ addEventListener('load',fix);
 var RN=d.getElementById('related-products-notification');
 if(RN){var cs=d.createElement('style');cs.textContent=
 '#related-products-notification .dn-seg{display:block;width:100%;margin-top:10px;min-height:46px;border:0;border-radius:999px;background:#eef3e8;color:#1d4a2a;font:800 14px/1 Archivo,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}'+
-'#related-products-notification .swiper-slide{height:auto!important;display:flex}#related-products-notification .swiper-slide>.js-item-product,#related-products-notification .js-item-product{display:flex;flex-direction:column}#related-products-notification .js-item-product .js-item-container{display:flex;flex-direction:column;flex:1}#related-products-notification .js-item-product .item-description{display:flex;flex-direction:column;flex:1}'+
+'#related-products-notification .swiper-slide{height:auto!important;display:flex}#related-products-notification .swiper-slide>.js-item-product,#related-products-notification .js-item-product{display:flex;flex-direction:column}#related-products-notification .js-item-product .js-item-container{display:flex;flex-direction:column;flex:1}#related-products-notification .js-item-product .item-description{min-height:0!important}'+
 '#related-products-notification .dn-rpa{display:flex;align-items:center;justify-content:center;width:100%;margin-top:auto;height:38px;border:0;border-radius:999px;background:#1d4a2a;color:#fff!important;font:800 12px/1 Archivo,Arial,sans-serif;letter-spacing:.02em;text-transform:uppercase;text-decoration:none!important;cursor:pointer;white-space:nowrap}#related-products-notification .dn-rpa.v{background:#fff;color:#1d4a2a!important;border:1.5px solid #1d4a2a}#related-products-notification .dn-rpa.ok{background:#3f7d3a}#related-products-notification .dn-rpa[disabled]{opacity:.7}'+
 '#related-products-notification .dn-rpw{padding:8px 10px 10px;margin-top:auto}';d.head.appendChild(cs);
 var deco=function(){if(!RN.classList.contains('modal-show'))return;
@@ -30,10 +30,14 @@ if(vc&&!RN.querySelector('.dn-seg')){var sb=d.createElement('button');sb.type='b
 var its=[].slice.call(RN.querySelectorAll('.js-item-product[data-product-id]')).filter(function(x){return!x.querySelector('.dn-rpw')});if(!its.length)return;
 var ids=its.map(function(x){return x.getAttribute('data-product-id')});
 var put=function(C){its.forEach(function(x){if(x.querySelector('.dn-rpw'))return;var id=x.getAttribute('data-product-id'),c=C&&C[id],a=x.querySelector('a[href*="/productos/"]'),w=d.createElement('div');w.className='dn-rpw';
-if(c&&c.ok){w.innerHTML='<button type="button" class="dn-rpa" data-id="'+id+'">Agregar</button>'}else{w.innerHTML='<a class="dn-rpa v" href="'+(a?a.getAttribute('href'):'#')+'">Ver producto</a>'}
+var hr=a?a.getAttribute('href'):'#';if(!c||c.ok){w.innerHTML='<button type="button" class="dn-rpa" data-id="'+id+'"'+(c?'':' data-chk="'+hr.replace(/"/g,'')+'"')+'>Agregar</button>'}else{w.innerHTML='<a class="dn-rpa v" href="'+hr+'">Ver producto</a>'}
 (x.querySelector('.js-item-container')||x).appendChild(w)})};
 if(W.__dnCat)W.__dnCat(ids).then(put).catch(function(){put(null)});else put(null)};
 RN.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('button.dn-rpa[data-id]');if(!b)return;e.preventDefault();e.stopPropagation();if(b.disabled||b.classList.contains('ok'))return;b.disabled=true;b.textContent='Agregando…';
-var id=b.getAttribute('data-id');W.__dnAddId(id,function(){[].forEach.call(RN.querySelectorAll('button.dn-rpa[data-id="'+id+'"]'),function(o){o.disabled=false;o.classList.add('ok');o.textContent='✓ Agregado'})},function(){b.disabled=false;b.textContent='Agregar'})},true);
+var id=b.getAttribute('data-id'),chk=b.getAttribute('data-chk');
+var go=function(){W.__dnAddId(id,function(){[].forEach.call(RN.querySelectorAll('button.dn-rpa[data-id="'+id+'"]'),function(o){o.disabled=false;o.classList.add('ok');o.textContent='✓ Agregado'})},function(){b.disabled=false;b.textContent='Agregar'})};
+/* si no se sabe si tiene variantes, se mira la ficha: con una sola variante y stock se agrega; si no, se va a la ficha a elegir */
+if(!chk)return go();fetch(chk,{credentials:'same-origin'}).then(function(r){return r.text()}).then(function(h){var v=null;try{var e=new DOMParser().parseFromString(h,'text/html').querySelector('#single-product[data-variants],#single-product [data-variants]');v=JSON.parse(e.getAttribute('data-variants'))}catch(x){}
+if(v&&v.length===1&&v[0].available!==false)go();else location.href=chk}).catch(function(){location.href=chk})},true);
 var dq=0;new MutationObserver(function(){clearTimeout(dq);dq=setTimeout(deco,150)}).observe(RN,{attributes:true,attributeFilter:['class'],childList:true,subtree:true})}
 }();
