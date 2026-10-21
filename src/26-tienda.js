@@ -176,17 +176,27 @@ var xs=d.createElement('style');xs.textContent=
 '#dn-tconf{position:relative;margin:22px 12px 0;padding:20px 16px 16px;border-radius:18px;overflow:hidden;color:#fff;background:#15301f center/cover no-repeat;box-shadow:0 1px 2px rgba(16,40,26,.06),0 6px 16px -8px rgba(16,40,26,.22)}#dn-tconf:before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(13,38,22,.93),rgba(13,38,22,.8))}#dn-tconf>*{position:relative}'+
 '#dn-tconf i{display:block;font-style:normal;font-size:12px;font-weight:800;letter-spacing:.08em;color:#f4c95d;margin:0 0 4px}#dn-tconf h2{margin:0 0 14px;font:900 22px/1.15 Archivo,Arial,sans-serif;color:#fff;text-transform:none}#dn-tconf h2:before,#dn-tconf h2:after{display:none!important}'+
 '#dn-tconf .g{display:grid;grid-template-columns:1fr 1fr;gap:8px}#dn-tconf .g div{padding:12px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}#dn-tconf .g b{display:block;font:900 20px/1.1 Archivo,Arial,sans-serif;color:#f4c95d}#dn-tconf .g small{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:#e6efe0}'+
+/* vistos */
+'#dn-tvis{margin:20px 0 0}#dn-tvis .dn-hd{padding:0 14px;margin:0 0 10px}#dn-tvis .dn-hd i{color:#3f7d3a}#dn-tvis .dn-hd h2{color:#13261a}#dn-tvis .rw{display:flex;gap:10px;overflow-x:auto;padding:2px 14px 8px;scrollbar-width:none;scroll-snap-type:x mandatory}#dn-tvis .rw::-webkit-scrollbar{display:none}'+
+'#dn-tvis a{flex:0 0 132px;scroll-snap-align:start;display:block;padding:8px;border-radius:18px;background:#fff;border:1px solid #e6ede0;box-shadow:0 1px 2px rgba(16,40,26,.06),0 6px 16px -8px rgba(16,40,26,.22);text-decoration:none!important}#dn-tvis img,#dn-tvis a>span{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:#f4f1e4}#dn-tvis b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:7px 0 3px;color:#16261b;font-size:12.5px;line-height:1.25}#dn-tvis em{font-style:normal;font:900 14px/1 Archivo,Arial,sans-serif;color:#1d4a2a}'+
 /* destacados / nuevos con pestañas */
 '#dn-ttab .tb{display:flex;gap:6px;padding:0 14px 4px}#dn-ttab .hd-w .dn-hd{margin-bottom:10px}#dn-ttab .tb button{flex:0 0 auto;padding:9px 14px;border-radius:999px;border:1.5px solid #dbe3d4;background:#fff;color:#1d4a2a;font:800 13.5px/1 Archivo,Arial,sans-serif;cursor:pointer}#dn-ttab .tb button.on{background:#1d4a2a;border-color:#1d4a2a;color:#fff}#dn-ttab .pn[hidden]{display:none!important}#dn-ttab .pn .dn-hd{display:none}'+
 '@media(min-width:768px){#dn-test,#dn-tconf{max-width:1116px;margin-left:auto;margin-right:auto}#dn-test .g{grid-template-columns:repeat(5,1fr)}#dn-test a.cb{grid-column:span 5}#dn-tfree>.in,#dn-tme .pod{max-width:1140px;margin-left:auto;margin-right:auto}#dn-tme .pod{grid-template-columns:repeat(3,1fr)}#dn-tconf .g{grid-template-columns:repeat(4,1fr)}}';
 d.head.appendChild(xs);
 /* comprar por estilo (fotos libres de Unsplash) */
 var ES=[['Sin TACC','/celiaco/','1549590143-d5855148a9d5'],['Vegano','/vegano/','1775181180462-18b20da9340e'],['Keto','/search/?q=keto','1542990253-a781e04c0082'],['Para el mate','/yerbas/','1609541994821-d909982e2f1b'],['Repostería','/search/?q=reposteria','1610725664285-7c57e6eeac3f'],['Desayuno','/search/?q=desayuno','1658402218013-18ccf3336bb5'],['Snacks','/chocolates-barritas-snacks-y-varios/','1515543904379-3d757afe72e4'],['Infusiones y hierbas','/herboristeria/','1618130070080-91f4d55a2383'],['Frutos secos','/frutos-secos/','1564988208558-9270de7c5848']];
-var te=d.createElement('section');te.id='dn-test';te.innerHTML='<div class="dn-hd"><div><i>ELEGÍ POR</i><h2>Tu forma de comer</h2></div></div><div class="g"><a class="cb" href="/combos/" style="background-image:url('+UI('1784870520485-c4cbb26bcaac',900,300)+')"><span>'+SV(I.gift,24)+'</span><div><strong>Combos</strong><small>Programas de 30 días, todo en un pedido</small></div><em>Ver →</em></a>'+ES.map(function(x){return'<a href="'+x[1]+'" style="background-image:url('+UI(x[2],400,400)+')"><b>'+x[0]+'</b></a>'}).join('')+'</div>';
-var tcat=d.getElementById('dn-tcat');if(tcat)tcat.parentNode.insertBefore(te,tcat);else ins(te);
+var te=d.createElement('section');te.id='dn-test';te.innerHTML='<div class="dn-hd"><div><i>ELEGÍ POR</i><h2>Tu forma de comer</h2></div></div><div class="g">'+ES.map(function(x){return'<a href="'+x[1]+'" style="background-image:url('+UI(x[2],400,400)+')"><b>'+x[0]+'</b></a>'}).join('')+'</div>';
+
 /* sumá para el envío gratis */
 var num=function(t){return parseFloat(String(t||'').replace(/[^\d,]/g,'').replace(',','.'))||0},$=function(n){return'$'+Math.round(n).toLocaleString('es-AR')};
 var FREE=(function(){var m=(B.textContent.match(/env[ií]o gratis (?:desde|superando los) \$\s*([\d.]+)/i)||[])[1];return m?num(m):65000})();
+/* combos recomendados: lo primero de la tienda */
+var bc=band('dn-tcb','dn-b2','gift','PROGRAMAS DE 30 DÍAS','Combos recomendados','/combos/','Ver combos');var tcar=d.getElementById('dn-tcar');if(tcar)tcar.parentNode.insertBefore(bc,tcar);
+get('/combos/?sort_by=best-selling').then(function(h){fill(bc,items(h).slice(0,12))}).catch(function(){bc.remove()});
+/* lo que viste hace poco (se guarda al abrir cada producto, solo en este celular) */
+(function(){var V=[];try{V=JSON.parse(localStorage.getItem('dnVistos')||'[]')}catch(e){}V=V.filter(function(x){return x&&x.u&&x.n});if(V.length<2)return;
+var vs=d.createElement('section');vs.id='dn-tvis';vs.innerHTML='<div class="dn-hd"><div><i>PARA RETOMAR</i><h2>Lo que viste hace poco</h2></div></div><div class="rw">'+V.slice(0,10).map(function(x){return'<a href="'+x.u+'">'+(x.i?'<img loading="lazy" alt="" src="'+x.i+'">':'<span></span>')+'<b></b><em>'+(x.p||'')+'</em></a>'}).join('')+'</div>';
+[].forEach.call(vs.querySelectorAll('b'),function(b,i){b.textContent=V[i].n});var tc=d.getElementById('dn-tcat');if(tc&&tc.nextSibling)tc.parentNode.insertBefore(vs,tc.nextSibling);else ins(vs)})();
 var bf=band('dn-tfree','','box','ENVÍO GRATIS DESDE '+$(FREE),'Sumá para el envío gratis');
 var pb=d.createElement('div');pb.className='pb';pb.innerHTML='<p></p><div class="t"><i></i></div>';bf.querySelector('.hd-w').appendChild(pb);
 function cartT(){var e=d.querySelector('.js-ajax-cart-total');var t=e?num(e.textContent):0;if(!t&&W.LS&&LS.cart&&LS.cart.subtotal)t=LS.cart.subtotal/100;return t}
@@ -197,6 +207,8 @@ var b1=band('dn-tme','dn-b1','fire','RANKING DE VENTAS','Los más elegidos','#dn
 /* confianza (datos reales: reseñas de Google de las 3 sucursales, seguidores, sucursales) */
 var SU=[['Ezeiza Centro','Paso de la Patria 349, Ezeiza','4,7',13],['Tristán Suárez','Gaddini 301, Tristán Suárez','4,8',17],['Carlos Spegazzini','25 de Mayo 207, Carlos Spegazzini','4,7',50]];
 var nRes=SU.reduce(function(a,x){return a+x[3]},0);
+var bs=band('dn-tsup','dn-b4','leaf','LO MÁS VENDIDO EN','Suplementos','/suplementos/','Ver todos');
+ins(te);
 var cf=d.createElement('section');cf.id='dn-tconf';cf.style.backgroundImage='url('+UI('1758745464235-ccb8c1253074',900,600)+')';
 cf.innerHTML='<i>POR QUÉ COMPRAR ACÁ</i><h2>Una dietética de verdad, con locales y gente atrás</h2><div class="g"><div><b>★ 4,7</b><small>en Google · '+nRes+' reseñas de nuestras sucursales</small></div><div><b>+600 mil</b><small>nos siguen en Instagram</small></div><div><b>3 locales</b><small>Ezeiza, Tristán Suárez y Spegazzini</small></div><div><b>Todo el país</b><small>envíos con seguimiento</small></div></div>';ins(cf);
 var sw=d.createElement('div');sw.id='dn-tsucw';var sc=d.createElement('button');sc.type='button';sc.id='dn-tsuc';sc.setAttribute('aria-expanded','false');sc.setAttribute('aria-controls','dn-tsucp');sc.innerHTML='<i>'+SV(I.pin,20)+'</i><div><b>3 sucursales en Ezeiza</b><small>'+SV(I.star,12)+'4,7 en Google · Ezeiza, Tristán Suárez y Spegazzini</small></div><em><span>Ver</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></em>';
@@ -213,12 +225,14 @@ var tbar=d.createElement('div');tbar.className='tb';tbar.setAttribute('role','ta
 function panel(id){var p=d.createElement('div');p.className='pn';p.id=id;p.innerHTML='<div class="dn-skr"><span></span><span></span><span></span><span></span><span></span></div>';bt.querySelector('.in').appendChild(p);return p}
 var b3=panel('dn-tdt'),b4=panel('dn-tnw');b4.hidden=true;
 tbar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;[].forEach.call(tbar.children,function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-selected',on?'true':'false');d.getElementById(x.getAttribute('data-p')).hidden=!on})});
+var bfs=band('dn-tfs','dn-b2','leaf','LO MÁS VENDIDO EN','Frutos secos','/frutos-secos/','Ver todos');
+var bhe=band('dn-ther','dn-b1','leaf','LO MÁS VENDIDO EN','Herboristería','/herboristeria/','Ver todos');
 var b5=band('dn-tof','dn-b5','tag','APROVECHÁ','Productos en oferta');
 ins(all);
 /* en las pestañas, el carrusel va dentro del panel (fill busca .dn-skr y agrega flechas al .in más cercano) */
 function fillP(p,list,dec){var sk=p.querySelector('.dn-skr');if(!list||list.length<3){p.innerHTML='<p style="padding:0 14px;color:#53624f">Pronto vas a ver productos acá.</p>';return}var rw=d.createElement('div');rw.className='rw';list.forEach(function(x,i){var c=prep(x);if(dec)dec(c,i,x);rw.appendChild(c)});sk.parentNode.replaceChild(rw,sk);W.dnCards&&W.dnCards(rw)}
 /* ranking: 3 primeros en podio, del 4 al 10 en fila */
-var R=items(d).slice(0,10);
+var R=items(d).filter(function(x){return!isCombo(x)}).slice(0,10);
 (function(){if(R.length<3){b1.remove();return}var pod=d.createElement('div');pod.className='pod';pod.innerHTML=R.slice(0,3).map(function(x,i){var a=x.querySelector('a[href*="/productos/"]'),im=x.querySelector('img'),src=im&&(im.getAttribute('data-srcset')||im.getAttribute('srcset')||im.getAttribute('data-src')||im.getAttribute('src')||''),nm=(x.querySelector('.js-item-name')||{}).textContent||'',pr=(x.querySelector('.js-price-display')||{}).textContent||'';src=(src.split(',').map(function(s){return s.trim().split(' ')[0]}).filter(function(s){return/\/\//.test(s)&&!/^data:/.test(s)})[1]||src.split(' ')[0]||'');if(/^\/\//.test(src))src='https:'+src;return'<a class="'+(i?'':'r1')+'" href="'+(a?a.getAttribute('href'):'#')+'"><em>'+(i+1)+'</em>'+(src&&!/^data:/.test(src)?'<img loading="lazy" alt="" src="'+src+'">':'')+'<div><b></b><span>'+pr.trim()+'</span><small>'+(i?'#'+(i+1)+' en ventas':'El más vendido de la tienda')+'</small></div></a>'}).join('');
 [].forEach.call(pod.querySelectorAll('b'),function(b,i){b.textContent=((R[i].querySelector('.js-item-name')||{}).textContent||'').trim()});
 var sk=b1.querySelector('.dn-skr');sk.parentNode.insertBefore(pod,sk);var sub=d.createElement('div');sub.className='sub';sub.textContent='DEL 4 AL 10';sk.parentNode.insertBefore(sub,sk);
@@ -227,6 +241,8 @@ fill(b1,R.slice(3,10),function(c,i){var im=c.querySelector('.js-item-image-paddi
 var seen={};R.forEach(function(x){seen[x.getAttribute('data-product-id')]=1});
 function cheap(list){return list.filter(function(x){var v=V(x),p=v.price_number;return p&&p<=6000&&!seen[x.getAttribute('data-product-id')]&&!isCombo(x)})}
 var ch=cheap(items(d));if(ch.length>=8){fill(bf,ch.slice(0,12))}else{get('/productos/page/2/').then(function(h){fill(bf,ch.concat(cheap(items(h))).slice(0,12))}).catch(function(){fill(bf,ch)})}
+/* rubros: más vendidos de cada categoría (sin repetir el ranking) */
+[[bs,'/suplementos/'],[bfs,'/frutos-secos/'],[bhe,'/herboristeria/']].forEach(function(z){get(z[1]+'?sort_by=best-selling').then(function(h){fill(z[0],items(h).filter(function(x){return!seen[x.getAttribute('data-product-id')]}).slice(0,12))}).catch(function(){z[0].remove()})});
 /* destacados: la misma lista que elige la tienda en el inicio (sin combos) */
 get('/').then(function(h){var dt=items(h,'[data-store="home-products-sale"]').filter(function(x){return!isCombo(x)&&!seen[x.getAttribute('data-product-id')]});if(dt.length<3)dt=items(h,'[data-store="home-products-featured"]');fillP(b3,dt.slice(0,12))}).catch(function(){fillP(b3,[])});
 /* nuevos */
