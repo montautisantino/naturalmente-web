@@ -1,4 +1,4 @@
-/* Ficha: "Los que compran este producto también llevan". Sale de los pedidos reales (mapa de pares en 54) y muestra
+/* Ficha: "Los que compran este producto también llevan", debajo de la descripción. Sale de los pedidos reales (mapa de pares en 54) y muestra
    precio, foto y stock del momento. Si con los dos se llega al envío gratis, se avisa (es la cuenta real con el precio). */
 !function(){var d=document,W=window;if(W.__dnJunto)return;W.__dnJunto=1;
 var esc=function(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})},$=function(n){return'$'+Math.round(n).toLocaleString('es-AR')};
@@ -14,11 +14,11 @@ var st=d.createElement('style');st.textContent=
 '#dn-junto .i a.n{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:6px 0 3px;font:700 12.5px/1.25 Figtree,Arial,sans-serif;color:#16261b!important;text-decoration:none!important;min-height:31px}'+
 '#dn-junto .i em{display:block;font-style:normal;font:900 14px/1 Archivo,Arial,sans-serif;color:#1d4a2a;margin:0 0 6px}#dn-junto .i small{display:block;margin:0 0 7px;padding:3px 6px;border-radius:6px;background:#e6efdc;color:#1d4a2a;font:800 10.5px/1.2 Figtree,Arial,sans-serif}'+
 '#dn-junto .i button{margin-top:auto;width:100%;height:34px;border:0;border-radius:10px;background:#1d4a2a;color:#fff;font:800 12.5px/1 Archivo,Arial,sans-serif;cursor:pointer}#dn-junto .i button.ok{background:#3f7d3a}#dn-junto .i button[disabled]{opacity:.7}'+
-'@media(min-width:768px){#dn-junto .r{overflow:visible}#dn-junto .i{flex:1 1 0;max-width:190px}}';
+'#dn-junto.dn-jd{margin:4px 0 22px}'+'@media(min-width:768px){#dn-junto .r{overflow:visible}#dn-junto .i{flex:1 1 0;max-width:190px}}';
 d.head.appendChild(st);
 var bx=d.createElement('div');bx.id='dn-junto';
 bx.innerHTML='<h3>Los que compran este producto también llevan</h3><p>Según los pedidos de nuestra tienda.</p><div class="r">'+L.map(function(x,k){var fr=me&&me<FREE&&me+x.p>=FREE;return'<div class="i"><a href="'+esc(x.h)+'">'+(x.i?'<img loading="lazy" alt="" src="'+esc(x.i)+'">':'')+'</a><a class="n" href="'+esc(x.h)+'">'+esc(x.n)+'</a><em>'+$(x.p)+'</em>'+(fr?'<small>Con los dos, envío gratis</small>':'')+'<button type="button" data-k="'+k+'">+ Agregar</button></div>'}).join('')+'</div>';
-f.parentNode.insertBefore(bx,f.nextSibling);
+/* debajo de la descripción (si no hay, debajo del botón de compra) */var ds=d.querySelector('#single-product [data-store^="product-description"] .user-content')||d.querySelector('#single-product [data-store^="product-description"]');if(ds){bx.classList.add('dn-jd');ds.parentNode.insertBefore(bx,ds.nextSibling)}else f.parentNode.insertBefore(bx,f.nextSibling);
 /* al tocar "Agregar": pregunta si lo lleva junto con el producto de esta ficha (y si con los dos llega al envío gratis) */
 var meName=(((d.querySelector('#single-product h1')||{}).textContent||'este producto').trim().split(/\s[-–]\s/)[0].replace(/\s*\(.*?\)\s*/g,' ').trim());
 var openCart=function(){setTimeout(function(){var t=d.querySelector('.js-head-main [data-toggle="#modal-cart"]')||d.querySelector('[data-toggle="#modal-cart"]');var m=d.getElementById('modal-cart');if(t&&m&&!m.classList.contains('modal-show'))t.click()},350)};
