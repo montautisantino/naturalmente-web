@@ -64,7 +64,10 @@ if(F&&F.querySelector('.js-product-variants select, .js-product-variants .btn-va
 var vis=1,ok=function(){var b=BUY();return!!(b&&!b.disabled&&!/sin stock|no disponible/i.test(b.textContent||b.value||''))};
 function upd(){var b=BUY();if(!b){fb.classList.remove('on');B.classList.remove('dn-fbon');return}var r=b.getBoundingClientRect(),past=r.bottom<0,ft=d.querySelector('footer'),fr=ft&&ft.getBoundingClientRect(),atEnd=fr&&fr.top<innerHeight-40;
 var on=past&&!atEnd&&ok()&&!d.querySelector('#dn-shs,#dn-subp,.modal.show,[role=dialog][aria-modal=true]');fb.classList.toggle('on',on);fb.setAttribute('aria-hidden',on?'false':'true');B.classList.toggle('dn-fbon',on)}
-var tk=0;addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;upd()})}},{passive:true,capture:true});addEventListener('resize',upd);setInterval(upd,1500);upd();
+/* pegada al borde real de la pantalla: en iPhone la pantalla visible cambia de alto cuando Safari achica su barra */
+var VV=W.visualViewport;function pos(){if(!VV)return;var g=Math.round(innerHeight-(VV.offsetTop+VV.height));fb.style.bottom=(Math.abs(g)>1&&Math.abs(g)<200?g:0)+'px'}
+if(VV){VV.addEventListener('resize',pos);VV.addEventListener('scroll',pos)}
+var tk=0;addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;upd();pos()})}},{passive:true,capture:true});addEventListener('resize',upd);setInterval(upd,1500);upd();
 
 /* --- hablá con un asesor --- */
 var as=d.createElement('section');as.id='dn-ase';
