@@ -177,7 +177,7 @@ var xs=d.createElement('style');xs.textContent=
 '#dn-tconf i{display:block;font-style:normal;font-size:12px;font-weight:800;letter-spacing:.08em;color:#f4c95d;margin:0 0 4px}#dn-tconf h2{margin:0 0 14px;font:900 22px/1.15 Archivo,Arial,sans-serif;color:#fff;text-transform:none}#dn-tconf h2:before,#dn-tconf h2:after{display:none!important}'+
 '#dn-tconf .g{display:grid;grid-template-columns:1fr 1fr;gap:8px}#dn-tconf .g div{padding:12px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}#dn-tconf .g b{display:block;font:900 20px/1.1 Archivo,Arial,sans-serif;color:#f4c95d}#dn-tconf .g small{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:#e6efe0}'+
 /* destacados / nuevos con pestañas */
-'#dn-ttab .tb{display:flex;gap:6px;padding:0 14px 12px}#dn-ttab .tb button{flex:0 0 auto;padding:9px 14px;border-radius:999px;border:1.5px solid #dbe3d4;background:#fff;color:#1d4a2a;font:800 13.5px/1 Archivo,Arial,sans-serif;cursor:pointer}#dn-ttab .tb button.on{background:#1d4a2a;border-color:#1d4a2a;color:#fff}#dn-ttab .pn[hidden]{display:none!important}#dn-ttab .pn .dn-hd{display:none}'+
+'#dn-ttab .tb{display:flex;gap:6px;padding:0 14px 4px}#dn-ttab .hd-w .dn-hd{margin-bottom:10px}#dn-ttab .tb button{flex:0 0 auto;padding:9px 14px;border-radius:999px;border:1.5px solid #dbe3d4;background:#fff;color:#1d4a2a;font:800 13.5px/1 Archivo,Arial,sans-serif;cursor:pointer}#dn-ttab .tb button.on{background:#1d4a2a;border-color:#1d4a2a;color:#fff}#dn-ttab .pn[hidden]{display:none!important}#dn-ttab .pn .dn-hd{display:none}'+
 '@media(min-width:768px){#dn-test,#dn-tconf{max-width:1116px;margin-left:auto;margin-right:auto}#dn-test .g{grid-template-columns:repeat(5,1fr)}#dn-test a.cb{grid-column:span 5}#dn-tfree>.in,#dn-tme .pod{max-width:1140px;margin-left:auto;margin-right:auto}#dn-tme .pod{grid-template-columns:repeat(3,1fr)}#dn-tconf .g{grid-template-columns:repeat(4,1fr)}}';
 d.head.appendChild(xs);
 /* comprar por estilo (fotos libres de Unsplash) */
@@ -228,7 +228,7 @@ var seen={};R.forEach(function(x){seen[x.getAttribute('data-product-id')]=1});
 function cheap(list){return list.filter(function(x){var v=V(x),p=v.price_number;return p&&p<=6000&&!seen[x.getAttribute('data-product-id')]&&!isCombo(x)})}
 var ch=cheap(items(d));if(ch.length>=8){fill(bf,ch.slice(0,12))}else{get('/productos/page/2/').then(function(h){fill(bf,ch.concat(cheap(items(h))).slice(0,12))}).catch(function(){fill(bf,ch)})}
 /* destacados: la misma lista que elige la tienda en el inicio (sin combos) */
-get('/').then(function(h){var dt=items(h,'[data-store="home-products-sale"]').filter(function(x){return!isCombo(x)});if(dt.length<3)dt=items(h,'[data-store="home-products-featured"]');fillP(b3,dt.slice(0,12))}).catch(function(){fillP(b3,[])});
+get('/').then(function(h){var dt=items(h,'[data-store="home-products-sale"]').filter(function(x){return!isCombo(x)&&!seen[x.getAttribute('data-product-id')]});if(dt.length<3)dt=items(h,'[data-store="home-products-featured"]');fillP(b3,dt.slice(0,12))}).catch(function(){fillP(b3,[])});
 /* nuevos */
 get('/productos/?sort_by=created-descending').then(function(h){fillP(b4,items(h).slice(0,12),function(c){var im=c.querySelector('.js-item-image-padding')||c.querySelector('.item-image');if(im){var n=d.createElement('span');n.className='dn-nw';n.textContent='NUEVO';im.appendChild(n)}})}).catch(function(){fillP(b4,[])});
 /* ofertas: productos con precio promocional (se buscan en las primeras páginas del catálogo) */
