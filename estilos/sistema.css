@@ -62,4 +62,7 @@ html body #dn-ig a[href*="instagram"]{background:#1d4a2a!important;background-im
 html body .js-head-main{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 
 /* el tema esconde tarjetas (data-transition) hasta que su detector las marca como visibles; en navegadores de apps y en las secciones propias de la tienda no las marca nunca: siempre visibles */
-html body [data-transition]{opacity:1!important;transform:none!important}html body [data-transition=fade-in-image] img:not(.item-image-secondary){opacity:1!important}
+html body [data-transition]{opacity:1!important;transform:none!important;transition:none!important}html body [data-transition=fade-in-image] img:not(.item-image-secondary){opacity:1!important}
+/* nada que arranque invisible y dependa de una animación o de detectar el scroll: en los navegadores de Instagram/WhatsApp a veces no corren y el contenido queda escondido */
+html body .dn-rv0,html body .dn-rv,html body .hb-rv,html body #hb-nov{opacity:1!important;transform:none!important}
+html body #dn-tcat .tr a,html body .dn-lib .bk,html body #dn-loc .dl-c,html body #dn-ch .cc a,html body .dn-chi,html body .dn-gc,html body #hb-feed .fc{animation:none!important;opacity:1!important}
