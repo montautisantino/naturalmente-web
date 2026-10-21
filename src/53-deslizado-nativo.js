@@ -15,7 +15,12 @@ var st=d.createElement('style');st.textContent=
 d.head.appendChild(st);
 /* imágenes que esperaban al carrusel del tema para cargarse */
 function wake(c){[].forEach.call(c.querySelectorAll('img[data-src],img[data-srcset],source[data-srcset]'),function(i){var r=i.getBoundingClientRect();if(r.left>innerWidth*2.2||r.right<-innerWidth)return;if(i.classList.contains('lazyloaded')&&i.getAttribute('src')&&!/^data:/.test(i.getAttribute('src')))return;if(i.getAttribute('data-srcset'))i.setAttribute('srcset',i.getAttribute('data-srcset'));if(i.getAttribute('data-src'))i.setAttribute('src',i.getAttribute('data-src'));i.classList.remove('swiper-lazy');i.classList.add('lazyloaded')})}
-function conv(el,kind){if(el.swiper&&!el.swiper.destroyed){try{el.swiper.destroy(true,true)}catch(e){}}
+function conv(el,kind){var sw=el.swiper;if(sw&&!sw.destroyed&&!sw.__dnOff){sw.__dnOff=1;
+/* se desarma sin borrar el objeto: el tema lo sigue usando (por ejemplo, al elegir otra variante mueve la galería);
+   esos movimientos se pasan al deslizado nativo en vez de romper */
+try{sw.destroy(false,true)}catch(e){}
+var wr0=el.querySelector(':scope>.swiper-wrapper');var nat=function(i){try{if(wr0)wr0.scrollTo({left:Math.max(0,+i||0)*wr0.clientWidth,behavior:'smooth'})}catch(e){}return true};
+['slideTo','slideToLoop'].forEach(function(k){sw[k]=nat});['slideNext','slidePrev','update','updateSize','updateSlides','updateProgress','updateSlidesClasses','loopFix','setTranslate','setTransition'].forEach(function(k){sw[k]=function(){return true}});sw.destroyed=false}
 el.classList.remove('swiper-container-initialized','swiper-container-horizontal');
 var wr=el.querySelector(':scope>.swiper-wrapper');if(!wr)return;wr.removeAttribute('style');
 [].forEach.call(wr.querySelectorAll(':scope>.swiper-slide'),function(s){s.style.removeProperty('transform');s.style.removeProperty('margin-right');if(kind==='p'){s.style.removeProperty('width')}});
