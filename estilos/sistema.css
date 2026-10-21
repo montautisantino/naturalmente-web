@@ -66,3 +66,5 @@ html body [data-transition]{opacity:1!important;transform:none!important;transit
 /* nada que arranque invisible y dependa de una animación o de detectar el scroll: en los navegadores de Instagram/WhatsApp a veces no corren y el contenido queda escondido */
 html body .dn-rv0,html body .dn-rv,html body .hb-rv,html body #hb-nov{opacity:1!important;transform:none!important}
 html body #dn-tcat .tr a,html body .dn-lib .bk,html body #dn-loc .dl-c,html body #dn-ch .cc a,html body .dn-chi,html body .dn-gc,html body #hb-feed .fc{animation:none!important;opacity:1!important}
+/* ficha: menos espacio entre la foto y el título (los puntitos de la galería, compactos; si no hay, no ocupan lugar) */
+html body #single-product .js-swiper-product-pagination{padding:10px 0 2px!important}html body #single-product .js-swiper-product-pagination:empty{display:none!important}
