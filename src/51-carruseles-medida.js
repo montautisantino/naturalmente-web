@@ -6,7 +6,7 @@
 !function(){var W=window,d=document;if(W.__dnSwFix)return;W.__dnSwFix=1;
 var MOB=Math.min(screen.width||9999,screen.height||9999)<768;
 /* nada puede ensanchar la página hacia los costados (eso hace que el navegador crea que la pantalla es más ancha) */
-var st=d.createElement('style');st.textContent='html,body{overflow-x:clip}';d.head.appendChild(st);
+var st=d.createElement('style');st.textContent='html,body{overflow-x:clip}'+(MOB?'#single-product .js-swiper-product,#single-product .js-swiper-product>.swiper-wrapper{width:100%!important;max-width:100%!important}#single-product .js-swiper-product .js-product-slide{width:100%!important;max-width:100%!important;flex-shrink:0!important}#single-product .js-product-slide-link{display:block!important;width:100%!important}':'');d.head.appendChild(st);
 function each(f){[].forEach.call(d.querySelectorAll('.swiper-container,.swiper'),function(el){var s=el.swiper;if(s&&!s.destroyed)f(el,s)})}
 function lock(){if(!MOB)return;each(function(el,s){if(s.__dnLk)return;s.__dnLk={v:s.params.slidesPerView,g:s.params.slidesPerGroup,b:s.params.spaceBetween};s.params.breakpoints=null;s.originalParams&&(s.originalParams.breakpoints=null)})}
 function fix(){lock();each(function(el,s){if(!el.offsetParent)return;var k=s.__dnLk,ch=0;
