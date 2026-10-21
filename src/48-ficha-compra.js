@@ -64,6 +64,10 @@ if(F&&F.querySelector('.js-product-variants select, .js-product-variants .btn-va
 var vis=1,ok=function(){var b=BUY();return!!(b&&!b.disabled&&!/sin stock|no disponible/i.test(b.textContent||b.value||''))};
 function upd(){var b=BUY();if(!b){fb.classList.remove('on');B.classList.remove('dn-fbon');return}var r=b.getBoundingClientRect(),past=r.bottom<0,ft=d.querySelector('footer'),fr=ft&&ft.getBoundingClientRect(),atEnd=fr&&fr.top<innerHeight-40;
 var on=past&&!atEnd&&ok()&&!d.querySelector('#dn-shs,#dn-subp,.modal.show,[role=dialog][aria-modal=true]');fb.classList.toggle('on',on);fb.setAttribute('aria-hidden',on?'false':'true');B.classList.toggle('dn-fbon',on)}
+/* iPhone: sin "viewport-fit=cover" el navegador deja la franja del indicador de inicio fuera de la pantalla útil y la
+   barra queda flotando arriba de esa franja (se ve la página por debajo). Con cover, la barra llega al borde y su
+   relleno inferior (safe-area) mantiene el contenido arriba del indicador. */
+var vm=d.querySelector('meta[name=viewport]');if(vm&&!/viewport-fit/.test(vm.content))vm.setAttribute('content',vm.content+', viewport-fit=cover');
 /* pegada al borde real de la pantalla: en iPhone la pantalla visible cambia de alto cuando Safari achica su barra */
 var VV=W.visualViewport;function pos(){if(!VV)return;var g=Math.round(innerHeight-(VV.offsetTop+VV.height));fb.style.bottom=(Math.abs(g)>1&&Math.abs(g)<200?g:0)+'px'}
 if(VV){VV.addEventListener('resize',pos);VV.addEventListener('scroll',pos)}
