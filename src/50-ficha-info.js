@@ -20,6 +20,6 @@ fetch(BASE+'contenido/fichas.json').then(function(r){return r.json()}).then(func
 var T=[];if(J.top&&J.top[hd])T.push('<span class="top">'+IC.star+'El más vendido en '+J.top[hd]+'</span>');
 if(/sin tacc|libre de gluten/.test(nz))T.push('<span>'+IC.leaf+'Sin TACC</span>');if(/organic/.test(nz))T.push('<span>'+IC.leaf+'Orgánico</span>');
 if(/vegan/.test(nz)||(J.veg||[]).indexOf(hd)>=0)T.push('<span>'+IC.leaf+'Vegano</span>');if(/sin azucar/.test(nz))T.push('<span>'+IC.leaf+'Sin azúcar</span>');
-if(T.length&&at&&!d.getElementById('dn-tags')){var t=d.createElement('div');t.id='dn-tags';t.innerHTML=T.join('');at.parentNode.insertBefore(t,at)}
+if(T.length&&!d.getElementById('dn-tags')){var t=d.createElement('div');t.id='dn-tags';t.innerHTML=T.join('');var pa=d.getElementById('dn-pa'),vis=[].filter.call(d.querySelectorAll('#single-product .price-container'),function(x){return x.offsetParent})[0]||at;if(pa)pa.parentNode.insertBefore(t,pa.nextSibling);else if(vis)vis.parentNode.insertBefore(t,vis)}
 }).catch(function(){});
 }();
