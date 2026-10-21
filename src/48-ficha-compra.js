@@ -62,7 +62,10 @@ function bar(){var p=price()*Math.max(1,QI&&+QI.value||1);fb.querySelector('.p')
 fb.querySelector('button').addEventListener('click',function(){var b=BUY();if(!b||b.disabled||/sin stock|no disponible/i.test(b.textContent||b.value||'')){var t=d.getElementById('dn-sel')||F;if(t)t.scrollIntoView({behavior:'smooth',block:'center'});return}
 /* si hay variantes para elegir, mejor que las vea antes de comprar */
 if(F&&F.querySelector('.js-product-variants select, .js-product-variants .btn-variant')&&!d.getElementById('dn-sel')){F.scrollIntoView({behavior:'smooth',block:'center'});return}b.click()});
-var vis=1,ok=function(){var b=BUY();return!!(b&&!b.disabled&&!/sin stock|no disponible/i.test(b.textContent||b.value||''))};
+/* sin stock: el botón del tema dice "Sin stock" y queda deshabilitado; ahí no se muestra "Comprar ahora" ni la barra fija */
+var NOS=function(){var t=F&&[].filter.call(F.querySelectorAll('.js-addtocart:not(.js-addtocart-placeholder)'),function(x){return x.id!=='dn-buy'})[0];return!!(t&&(t.disabled||/sin stock|no disponible/i.test(t.textContent||t.value||'')))};
+var dbs=function(){var x=d.getElementById('dn-buy');if(x)x.style.display=NOS()?'none':''};setInterval(dbs,800);dbs();
+var vis=1,ok=function(){if(NOS())return false;var b=BUY();return!!(b&&!b.disabled&&!/sin stock|no disponible/i.test(b.textContent||b.value||''))};
 function upd(){var b=BUY();if(!b){fb.classList.remove('on');B.classList.remove('dn-fbon');return}var r=b.getBoundingClientRect(),past=r.bottom<0,ft=d.querySelector('footer'),fr=ft&&ft.getBoundingClientRect(),atEnd=fr&&fr.top<innerHeight-40;
 var on=past&&!atEnd&&ok()&&!d.querySelector('#dn-shs,#dn-subp,.modal.show,[role=dialog][aria-modal=true]');fb.classList.toggle('on',on);fb.setAttribute('aria-hidden',on?'false':'true');B.classList.toggle('dn-fbon',on)}
 /* iPhone: sin "viewport-fit=cover" el navegador deja la franja del indicador de inicio fuera de la pantalla útil y la
