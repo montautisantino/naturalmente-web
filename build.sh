@@ -14,7 +14,7 @@ PEDIDO="22"
 HOME_P="45 06 07 33 25 36 42"
 MEDIA="45 03 31 04 27 35 36 39 40"
 LISTADO="00 12 21 26"
-PRODUCTO="00 14 19"
+PRODUCTO="00 14 19 48"
 # lista corta de episodios de Media (sale de src/31-episodios.js) para la tarjeta aleatoria del inicio
 node estilos/compilar.js
 node -e "var s=require('fs').readFileSync('src/31-episodios.js','utf8'),a=s.indexOf('var EP=['),b=s.indexOf('\\n];',a);var EP=eval(s.slice(a+7,b+2));require('fs').writeFileSync('build/eplist.js','/* lista generada por build.sh */\\nwindow.dnEPL='+JSON.stringify(EP.map(function(x){return{h:'/naturalmente-media/?ep='+x.s,t:x.t,n:x.src.split(' · ')[0]+' · '+x.meta[1].replace(/^\\u23f1\\s*/,''),y:x.yt}}))+';')"
