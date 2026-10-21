@@ -29,7 +29,7 @@ var st=d.createElement('style');st.textContent=
 '@media(min-width:768px){#dn-ase{flex-direction:row;align-items:center;justify-content:space-between;padding:26px 30px}#dn-ase a{align-self:center}#dn-fbar .p{font-size:20px}}'+
 '@media(prefers-reduced-motion:reduce){#dn-fbar{transition:none}#dn-fbar button,#dn-fbar button:after,#dn-fbar button i{animation:none!important}}'+
 /* fila compacta: precio + vendidos en la misma línea; stock y pago seguro juntos */
-'#single-product .dn-prow{display:flex!important;align-items:center;flex-wrap:wrap;gap:8px 12px}#single-product .dn-prow #dn-vtas{margin:0 0 0 auto}#single-product .price-container .js-price-container{margin-bottom:6px!important}'+
+'#single-product .dn-prow{display:flex!important;align-items:center;flex-wrap:wrap;gap:6px 8px}#single-product .dn-prow #dn-vtas{margin:0 0 0 auto;padding:4px 8px;font-size:12px;gap:4px;white-space:nowrap}#single-product .dn-prow #dn-vtas svg{width:13px;height:13px}#single-product .price-container .js-price-container{margin-bottom:6px!important}'+
 '#single-product .price-container .dn-pstk{display:inline-flex!important;margin:0 16px 8px 0!important;vertical-align:middle}#single-product .price-container .dn-pstk+#dn-cuo{display:inline-flex;margin:0 0 8px}#single-product .price-container .js-free-shipping-minimum-message{margin-top:4px!important}';
 d.head.appendChild(st);
 var price=function(){return num(PD&&PD.textContent)};
