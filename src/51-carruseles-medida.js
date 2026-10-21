@@ -1,13 +1,22 @@
-/* Carruseles (fotos de la ficha, combos y productos del inicio): en los navegadores que abren Instagram/WhatsApp en iPhone
-   la pantalla cambia de tamaño al bajar y subir (aparece y se esconde la barra de la app). Si el carrusel se mide en ese
-   momento queda con un ancho viejo: la foto de la ficha se ve chica o las tarjetas quedan en blanco. Acá se vuelve a medir
-   cada carrusel cuando su ancho guardado no coincide con el real. */
+/* Carruseles (fotos de la ficha, combos, productos del inicio, relacionados) en celulares.
+   En el navegador que se abre desde un link (Instagram, WhatsApp, etc.) en iPhone, al bajar y volver a subir la pantalla
+   cambia de tamaño y el carrusel se vuelve a calcular con medidas de pantalla grande: la foto de la ficha queda a un tercio
+   del ancho y las tarjetas de productos quedan en blanco. Acá, en celulares, cada carrusel se queda con la configuración
+   con la que se abrió (que se ve bien) y se vuelve a medir si quedó con un ancho viejo. */
 !function(){var W=window,d=document;if(W.__dnSwFix)return;W.__dnSwFix=1;
-function fix(){[].forEach.call(d.querySelectorAll('.swiper-container,.swiper'),function(el){var s=el.swiper;if(!s||s.destroyed||!el.offsetParent)return;var w=el.clientWidth;if(w&&Math.abs((s.width||0)-w)>2){try{s.update();if(s.params&&s.params.loop&&s.loopFix)s.loopFix();s.slideTo(s.activeIndex,0,false)}catch(e){}}})}
-var t=0;function later(){clearTimeout(t);t=setTimeout(fix,250)}
-W.addEventListener('resize',later);W.addEventListener('orientationchange',later);W.addEventListener('pageshow',later);W.addEventListener('load',later);
-if(W.visualViewport)W.visualViewport.addEventListener('resize',later);
-var st=0;W.addEventListener('scroll',function(){clearTimeout(st);st=setTimeout(fix,200)},{passive:true});
-d.addEventListener('visibilitychange',function(){if(!d.hidden)later()});
-setTimeout(fix,1500);setTimeout(fix,4000);
+var MOB=Math.min(screen.width||9999,screen.height||9999)<768;
+/* nada puede ensanchar la página hacia los costados (eso hace que el navegador crea que la pantalla es más ancha) */
+var st=d.createElement('style');st.textContent='html,body{overflow-x:clip}';d.head.appendChild(st);
+function each(f){[].forEach.call(d.querySelectorAll('.swiper-container,.swiper'),function(el){var s=el.swiper;if(s&&!s.destroyed)f(el,s)})}
+function lock(){if(!MOB)return;each(function(el,s){if(s.__dnLk)return;s.__dnLk={v:s.params.slidesPerView,g:s.params.slidesPerGroup,b:s.params.spaceBetween};s.params.breakpoints=null;s.originalParams&&(s.originalParams.breakpoints=null)})}
+function fix(){lock();each(function(el,s){if(!el.offsetParent)return;var k=s.__dnLk,ch=0;
+if(k&&(s.params.slidesPerView!==k.v||s.params.spaceBetween!==k.b)){s.params.slidesPerView=k.v;s.params.slidesPerGroup=k.g;s.params.spaceBetween=k.b;ch=1}
+var w=el.clientWidth;if(ch||(w&&Math.abs((s.width||0)-w)>2)){try{s.update();if(s.params.loop&&s.loopDestroy&&s.loopCreate&&ch){s.loopDestroy();s.loopCreate()}s.slideTo(s.params.loop?s.activeIndex:s.activeIndex,0,false)}catch(e){}}})}
+var t=0;function soon(){fix();clearTimeout(t);t=setTimeout(fix,300)}
+W.addEventListener('resize',soon);W.addEventListener('orientationchange',soon);W.addEventListener('pageshow',soon);W.addEventListener('load',soon);
+if(W.visualViewport)W.visualViewport.addEventListener('resize',soon);
+var sc=0;W.addEventListener('scroll',function(){clearTimeout(sc);sc=setTimeout(fix,150)},{passive:true});
+d.addEventListener('visibilitychange',function(){if(!d.hidden)soon()});
+/* los carruseles se arman en distintos momentos: se fijan apenas aparecen */
+var n=0,iv=setInterval(function(){lock();if(++n>40)clearInterval(iv)},250);
 }();
