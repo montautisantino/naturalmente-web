@@ -20,7 +20,7 @@ var fb=pa.querySelector('[data-dn-fav]');if(fb){var upd=function(){var on=window
 (function(){var vs=[];try{vs=JSON.parse((d.querySelector('#single-product [data-variants],.js-product-container[data-variants]')||{}).getAttribute('data-variants'))||[]}catch(e){}if(vs.length!==1)return;var s0=vs[0].stock,pc=d.querySelector('.js-price-container');if(!pc||s0===0||vs[0].available===false)return;
 var e=d.createElement('div');e.className='dn-pstk';var low=s0!=null&&s0<=10;e.innerHTML='<i class="'+(low?'l':'')+'"></i>'+(s0==null?'En stock':low?(s0===1?'<b>¡Última unidad!</b>':'<b>Quedan '+s0+' unidades</b>'):'En stock');(d.querySelector('.dn-p100')||pc).insertAdjacentElement('afterend',e)})();
 /* selector y comparador de tamaños */
-if(d.querySelector('.dn-lp')||/^\s*combo/i.test(nm))return;
+if(d.querySelector('.dn-lp:not(.dn-lpa)')||/^\s*combo/i.test(nm))return;
 function nz(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
 var RX=/(?:\b(?:x|por|de)\s*)?(\d+(?:[.,]\d+)?)\s*(kg|kilos?|grs?|gramos|g|ml|cc|lts?|l)\b/;
 function parse(n){var s=nz(n),m=s.match(RX),q,u;if(m){var v=parseFloat(m[1].replace(',','.')),k=m[2];if(/^k/.test(k)){q=v*1000;u='g'}else if(/^g/.test(k)){q=v;u='g'}else if(/^(ml|cc)$/.test(k)){q=v;u='ml'}else{q=v*1000;u='ml'}s=s.replace(m[0],' ')}else if(/\b(de|x|por) kilo\b/.test(s)){q=1000;u='g';s=s.replace(/\b(de|x|por) kilo\b/,' ')}else return null;

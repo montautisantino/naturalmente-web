@@ -2,7 +2,7 @@
    de la landing, cada una en la sección que le corresponde: "qué trae" (fórmula / componentes), "cómo se usa"
    (plan diario / modo de uso), y después el resto. La 1ª foto queda arriba, en la galería. */
 !function(){var d=document,W=window,B=d.body;if(W.__dnLF||!B.classList.contains('template-product'))return;
-function go(){var lp=d.querySelector('.dn-lp');if(!lp||W.__dnLF)return;W.__dnLF=1;
+function go(){var lp=d.querySelector('.dn-lp');if(!lp||W.__dnLF||lp.classList.contains('dn-wait'))return;W.__dnLF=1;
 var h=d.documentElement.innerHTML,i=h.indexOf('"images":['),L=[];if(i<0)return;
 (h.slice(i,i+6000).match(/"image":"[^"]+"/g)||[]).forEach(function(m){var f=m.slice(9,-1);if(L.indexOf(f)<0)L.push(f)});
 if(L.length<2)return;
