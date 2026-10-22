@@ -10,7 +10,7 @@ var LA=W.dnLA||{};var tp=LA[hd];if(!tp)return;W.__dnLA=1;
 var sc=d.querySelector('script[src*="/dist/dn-producto.min.js"]'),BASE=sc?sc.src.replace(/dist\/dn-producto\.min\.js.*$/,''):'';if(!BASE)return;
 var h1=SP.querySelector('.js-product-name')||SP.querySelector('h1'),nm=h1?h1.textContent.trim():'';
 var uc=SP.querySelector('.user-content'),h5=uc&&uc.previousElementSibling,ds=SP.querySelector('[data-store="product-description"]');
-var at=uc?(h5&&/^H5$/.test(h5.tagName)?h5:uc):ds;if(!at||!at.parentNode)return;
+var at=uc?(h5&&/^H5$/.test(h5.tagName)?h5:uc):(ds||SP.querySelector('[data-nubesdk-slot="after_product_description"]'));/* sin descripción: donde iría la descripción */if(!at||!at.parentNode)return;
 var E=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})};
 var $=function(n){return'$'+Math.round(n).toLocaleString('es-AR')};
 var SV=function(p,w){return'<svg viewBox="0 0 24 24" width="'+(w||20)+'" height="'+(w||20)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'};
