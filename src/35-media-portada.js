@@ -1,6 +1,6 @@
 /* Naturalmente Media: portada más prolija + páginas propias para "Videos" y "Escritos".
-   - /naturalmente-media/            portada: videos por programa (sin tarjetas "Muy pronto") y una selección de
-                                      notas con un adelanto que se despliega.
+   - /naturalmente-media/            portada (24/10/2026): destacado, seguí leyendo y guardadas, para hoy, videos,
+                                      lo que usamos en las notas, explorá por tema y notas para leer (sin pestañas).
    - /naturalmente-media/?videos     todos los videos, con filtro por programa (?videos&p=Programa)
    - /naturalmente-media/?escritos   todas las notas, con buscador y filtro por categoría
    Los datos los junta el módulo 31 (videos y notas de la página + los cargados por formulario). */
@@ -68,25 +68,89 @@ bt.addEventListener('click',function(){var on=a.classList.toggle('on');bt.setAtt
 if(!on){ex.style.maxHeight='0px';return}ex.style.maxHeight=inn.scrollHeight+40+'px';if(loaded)return;loaded=1;excerpt(n.u,function(ps){inn.innerHTML=(ps.length?ps.map(function(p){return'<p>'+esc(p)+'</p>'}).join(''):'')+'<a class="go" href="'+esc(n.u)+'">Seguir leyendo →</a>';if(a.classList.contains('on'))ex.style.maxHeight=inn.scrollHeight+40+'px'})});return a}
 function sh(A){for(var i=A.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=A[i];A[i]=A[j];A[j]=t}return A}
 var view=/[?&]videos(&|=|$)/.test(qs)?'v':/[?&]escritos(&|=|$)/.test(qs)?'e':'';
-/* ---------- portada de Media ---------- */
+/* ---------- portada de Media (24/10/2026: primero las notas, que son casi todo el contenido) ----------
+   Orden: cabecera · destacado (la nota más nueva) · seguí leyendo y guardadas (quedan en el celular de cada uno,
+   las anota el módulo 64 en cada nota) · para hoy (una nota distinta cada día) · videos (una fila, los más nuevos)
+   y programas · lo que usamos en las notas (productos, se cargan al acercarse) · explorá por tema (filtra la lista
+   de abajo sin cambiar de página) · notas para leer (lista con adelanto) · aviso de WhatsApp. Sin pestañas. */
 if(!view){
-/* arriba: Novedades (último video y última nota). La introducción se saca. */
-var hero=M.querySelector('.dm-hero2');if(hero)hero.style.display='none';var upS=null;
+var hero=M.querySelector('.dm-hero2');if(hero)hero.style.display='none';
+var PR=M.querySelector('#dm-programas'),LE=M.querySelector('#dm-leer');if(PR)PR.remove();if(LE)LE.style.display='none';
 var MES={enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,setiembre:8,octubre:9,noviembre:10,diciembre:11};
 var when=function(e){if(e.ts)return e.ts;var m=/(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})/i.exec(e.src||'');return m?new Date(+m[2],MES[m[1].toLowerCase()],1).getTime():0};
-var lastV=function(){var E=(W.dnMediaEP||[]).slice();if(!E.length)return null;E.sort(function(a,b){return when(b)-when(a)});var e=E[0];return{h:'/naturalmente-media/?ep='+e.s,t:e.t,p:e.p,du:String(e.meta&&e.meta[1]||'').replace(/^⏱\s*/,''),i:'https://i.ytimg.com/vi/'+e.yt+'/hqdefault.jpg',d:(e.d||[])[0]||''}};
-var NV=d.createElement('section');NV.id='dmx-nov';
-var drawNov=function(){var v=lastV(),n=notes()[0];if(!v&&!n){NV.style.display='none';return}
-NV.innerHTML='<div class="dmx-hd"><div><i>NATURALMENTE MEDIA</i><h2>Novedades</h2></div></div><div class="nv">'+
-(v?'<a class="nvk" href="'+esc(v.h)+'"><span class="im"><img alt="" class="yt" src="'+esc(v.i)+'"><span class="pl">'+IC.play+'</span></span><span class="tx"><em>Último video</em><b>'+esc(v.t)+'</b><small>'+esc(v.p)+(v.du?' · '+esc(v.du):'')+'</small></span></a>':'')+
-(n?'<a class="nvk" href="'+esc(n.u)+'"><span class="im">'+(n.i?'<img alt="" src="'+esc(n.i)+'">':'')+'</span><span class="tx"><em>Última nota</em><b>'+esc(n.t)+'</b><small>'+esc(n.c||'Escritos')+(n.m?' · '+esc(n.m):'')+'</small></span></a>':'')+'</div>'};
-drawNov();
-/* videos: sin tarjetas "Muy pronto", programas vacíos ocultos, encabezado con "Ver todos" */
-var PR=M.querySelector('#dm-programas');if(PR){[].forEach.call(PR.querySelectorAll('.dm-ep'),function(e){if(/pr[oó]ximamente|muy pronto/i.test(e.textContent)||!e.querySelector('a[href]'))e.remove()});
-[].forEach.call(PR.querySelectorAll('.dm-prog'),function(p){var n=p.querySelectorAll('.dm-ep').length,t=((p.querySelector('.dm-prog-t')||{}).textContent||'').trim();if(!n){p.style.display='none';return}var a=d.createElement('a');a.className='dmx-pa';a.href='/naturalmente-media/?videos&p='+encodeURIComponent(t);a.setAttribute('aria-label','Ver los '+n+' videos de '+t);a.innerHTML='<b>'+n+'</b> videos <span>›</span>';var hd=p.querySelector('.dm-prog-head');if(n>1)(hd||p).appendChild(a)});
-var vh=d.createElement('div');vh.className='dmx-hd sm';vh.innerHTML='<div><h2>Todos los programas</h2></div><a class="dmx-more" href="/naturalmente-media/?videos">Ver todos '+IC.play+'</a>';PR.parentNode.insertBefore(vh,PR)}
-/* notas: la lista larga se reemplaza por una selección con adelanto desplegable */
-var LE=M.querySelector('#dm-leer');var NS=d.createElement('section');NS.id='dmx-notes';
+var NB=function(u){var m=/[?&]nota=([^&#]+)/.exec(u||'');if(m&&W.dnNotaBlog){try{var b=W.dnNotaBlog(decodeURIComponent(m[1]));if(b)return b}catch(x){}}return u};
+var IMG=function(u,w,h){return String(u||'').replace(/([?&])w=\d+/,'$1w='+w).replace(/([?&])h=\d+/,'$1h='+h)};
+var LSg=function(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(x){return[]}},LSs=function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(x){}};
+var DAY=864e5,NOW=Date.now(),XI='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+var GT='max(24px,calc(50% - 558px))',FR='Fraunces,Georgia,"Times New Roman",serif',AR='Archivo,Arial,sans-serif';
+var s2=d.createElement('style');s2.id='dmx-p2-css';s2.textContent=
+'.dmx-w{padding:0 18px}.dmx-row{display:flex;gap:12px;overflow-x:auto;padding:0 18px 6px;scroll-snap-type:x mandatory;scroll-padding:0 18px;scrollbar-width:none}.dmx-row::-webkit-scrollbar{display:none}'+
+'#dmx-mast{padding-bottom:18px!important}'+
+/* destacado */
+'#dmx-hero{padding:18px 18px 2px}#dmx-hero .hx{display:block;border-radius:22px;overflow:hidden;background:#13251a;border:1px solid rgba(255,255,255,.1);text-decoration:none!important;color:#fff!important;box-shadow:0 18px 40px rgba(0,0,0,.35)}#dmx-hero .im{display:block;aspect-ratio:16/10;background:#0d1a12;overflow:hidden}#dmx-hero .im img{width:100%;height:100%;object-fit:cover;display:block}'+
+'#dmx-hero .tx{display:block;padding:16px 16px 18px}#dmx-hero small{display:block;margin:0 0 6px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.62)}#dmx-hero b{display:block;font:600 24px/1.15 '+FR+';letter-spacing:-.012em;color:#fff}#dmx-hero .d{display:block;margin-top:8px;font-size:14.5px;line-height:1.45;color:#b8c9b2}'+
+'#dmx-hero u{display:inline-block;margin-top:14px;padding:11px 16px;border-radius:12px;background:#fff;color:#10281a;text-decoration:none;font:800 14px/1 '+AR+'}'+
+/* seguí leyendo y guardadas */
+'#dmx-cont .sl{display:flex;gap:12px;align-items:center;margin-top:14px;padding:10px;border-radius:18px;background:#13251a;border:1px solid rgba(255,255,255,.12);text-decoration:none!important;color:#fff!important}#dmx-cont .sl .im{flex:0 0 64px;width:64px;height:64px;border-radius:12px;overflow:hidden;background:#0d1a12}#dmx-cont .im img{width:100%;height:100%;object-fit:cover;display:block}'+
+'#dmx-cont .sl .tx{flex:1;min-width:0}#dmx-cont small{display:block;font-size:12px;font-weight:700;color:rgba(255,255,255,.6)}#dmx-cont .sl b{display:block;margin:2px 0 7px;font:600 15.5px/1.25 '+FR+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dmx-cont .bar{display:block;height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}#dmx-cont .bar i{display:block;height:100%;border-radius:4px;background:#fff}#dmx-cont em{display:block;margin-top:6px;font-style:normal;font-size:12px;font-weight:800;color:#fff}'+
+'#dmx-cont .ct{font:800 12.5px/1 '+AR+';color:rgba(255,255,255,.6)}#dmx-cont .gc{position:relative;flex:0 0 200px;scroll-snap-align:start;border-radius:16px;overflow:hidden;background:#13251a;border:1px solid rgba(255,255,255,.08)}#dmx-cont .gc a{display:block;text-decoration:none!important;color:#fff!important}#dmx-cont .gc .im{display:block;aspect-ratio:16/9;background:#0d1a12}'+
+'#dmx-cont .gc b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding:10px 12px 12px;font:600 14px/1.3 '+FR+'}#dmx-cont .gc button{position:absolute;right:8px;top:8px;width:30px;height:30px;padding:0;border-radius:50%;border:0;background:rgba(13,26,18,.82);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}'+
+/* para hoy */
+'#dmx-hoy{padding:22px 0 0}#dmx-hoy .hy{padding:18px;border-radius:20px;background:linear-gradient(135deg,#1d4a2a,#13301f);border:1px solid rgba(255,255,255,.12)}#dmx-hoy .k{margin:0 0 8px!important;font-size:12.5px;font-weight:800;color:rgba(255,255,255,.72)}#dmx-hoy .t{display:block;font:600 21px/1.2 '+FR+';color:#fff!important;text-decoration:none!important}#dmx-hoy .d{margin:8px 0 0!important;font-size:14px;line-height:1.45;color:#c9d6c2}'+
+'#dmx-hoy .bt{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}#dmx-hoy .bt a{display:inline-flex;align-items:center;justify-content:center;padding:11px 15px;border-radius:12px;font:800 13.5px/1 '+AR+';text-decoration:none!important}#dmx-hoy .go{background:#fff;color:#10281a!important}#dmx-hoy .sh{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff!important}'+
+/* videos */
+'#dmx-vid .vc{flex:0 0 240px;scroll-snap-align:start;display:block;text-decoration:none!important;color:#fff!important}#dmx-vid .vc .im{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0d1a12}#dmx-vid .vc img{width:100%;height:100%;object-fit:cover;display:block}#dmx-vid .vc img.yt{position:absolute;left:0;top:50%;height:auto;transform:translateY(-50%)}'+
+'#dmx-vid .pl{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.9);color:#10281a;display:flex;align-items:center;justify-content:center;padding-left:3px;box-sizing:border-box}#dmx-vid small{display:block;margin:8px 0 3px;font-size:12px;font-weight:700;color:rgba(255,255,255,.6)}#dmx-vid b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:600 15px/1.25 '+FR+'}'+
+'#dmx-vid .pr{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-top:12px;padding-bottom:2px}#dmx-vid .pr::-webkit-scrollbar{display:none}#dmx-vid .pr a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#dcebd5!important;font:800 13px/1 '+AR+';text-decoration:none!important;white-space:nowrap}#dmx-vid .pr i{font-style:normal;font-size:11.5px;color:rgba(255,255,255,.55)}'+
+/* lo que usamos en las notas (lo que vende lleva el dorado) */
+'#dmx-shop .sb{margin:-6px 0 12px!important;font-size:13px;line-height:1.4;color:rgba(255,255,255,.6)}#dmx-shop .pc{flex:0 0 164px;scroll-snap-align:start;display:flex;flex-direction:column;padding:10px;border-radius:16px;background:#fff;color:#16261b}#dmx-shop .pc a{text-decoration:none!important;color:#16261b!important}#dmx-shop .pc .im{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f4f1e4}#dmx-shop .pc img{width:100%;height:100%;object-fit:cover;display:block}'+
+'#dmx-shop .pc b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px;margin:8px 0 4px;font:700 13px/1.25 '+AR+'}#dmx-shop .pc u{display:block;margin:0 0 8px;text-decoration:none;font:900 15px/1 '+AR+';color:#1d4a2a}#dmx-shop .ad{margin-top:auto;display:flex;align-items:center;justify-content:center;width:100%;height:36px;border:0;border-radius:10px;background:#f0c04f;color:#10281a!important;font:900 13px/1 '+AR+';cursor:pointer;text-decoration:none!important}#dmx-shop .ad.ok{background:#3f7d3a;color:#fff!important}#dmx-shop .ad[disabled]{opacity:.75}'+
+/* explorá por tema */
+'#dmx-temas .tg{display:grid;grid-template-columns:1fr 1fr;gap:10px}#dmx-temas .tt{position:relative;display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#13251a;text-decoration:none!important}#dmx-temas .tt img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}#dmx-temas .tt:after{content:"";position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(13,26,18,0) 28%,rgba(13,26,18,.9))}'+
+'#dmx-temas .tt span{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;display:block}#dmx-temas .tt b{display:block;font:600 18px/1.1 '+FR+';color:#fff}#dmx-temas .tt i{display:block;margin-top:3px;font-style:normal;font-size:12px;font-weight:700;color:rgba(255,255,255,.78)}#dmx-temas .tt:active img{transform:scale(1.04)}'+
+'@media(min-width:768px){.dmx-w{padding:0 48px}.dmx-row{padding:0 48px 6px;scroll-padding:0 48px}#dmx-hero{padding:26px 48px 4px}#dmx-hero .hx{display:grid;grid-template-columns:1.35fr 1fr}#dmx-hero .im{aspect-ratio:auto;min-height:340px}#dmx-hero .tx{align-self:center;padding:28px 30px 30px}#dmx-hero b{font-size:32px}#dmx-hero .d{font-size:15.5px}#dmx-temas .tg{grid-template-columns:repeat(4,1fr);gap:14px}#dmx-temas .tt:hover img{transform:scale(1.04)}}'+
+'@media(min-width:1024px){html body .dn-media .dmx-w,html body .dn-media #dmx-hero{padding-left:'+GT+';padding-right:'+GT+'}html body .dn-media .dmx-row{padding-left:'+GT+';padding-right:'+GT+';scroll-padding:0 '+GT+'}#dmx-vid .vc{flex-basis:300px}#dmx-shop .pc{flex-basis:200px}#dmx-cont .gc{flex-basis:240px}}';
+d.head.appendChild(s2);
+var sec=function(id){var x=d.createElement('section');x.id=id;return x};
+/* cabecera */
+var progs=[];V.forEach(function(v){if(v.p&&progs.indexOf(v.p)<0)progs.push(v.p)});
+var MA=sec('dmx-mast');var drawMast=function(){MA.innerHTML='<span class="gl"></span><div class="in"><p class="br"><span class="lg">Naturalmente</span><span class="md">MEDIA</span></p><p class="ds">Videos y notas del equipo de Naturalmente Media sobre hierbas, cocina y alimentación natural. Para ver y leer cuando quieras.</p><div class="sts"><span><b>'+notes().length+'</b>notas</span><span><b>'+V.length+'</b>videos</span><span><b>'+progs.length+'</b>programas</span></div></div>'};
+/* destacado: la nota más nueva */
+var HE=sec('dmx-hero'),heroU='';var drawHero=function(){var n=srt(notes(),'r')[0];if(!n){HE.style.display='none';return}HE.style.display='';heroU=n.u;var nueva=n.ts&&NOW-n.ts<10*DAY;
+HE.innerHTML='<a class="hx" href="'+esc(NB(n.u))+'"><span class="im">'+(n.i?'<img alt="" fetchpriority="high" src="'+esc(IMG(n.i,1200,750))+'">':'')+'</span><span class="tx"><small>'+(nueva?'Nueva · ':'')+esc(n.c||'Escritos')+(n.m?' · '+esc(n.m):'')+'</small><b>'+esc(n.t)+'</b>'+(n.d?'<span class="d">'+esc(n.d)+'</span>':'')+'<u>Leer la nota</u></span></a>'};
+/* seguí leyendo (nota empezada y sin terminar, últimos 30 días) y guardadas */
+var CO=sec('dmx-cont');var drawCont=function(){var L=LSg('dnNL').filter(function(x){return x&&x.u&&x.p>=8&&x.p<90&&NOW-(x.ts||0)<30*DAY})[0],G=LSg('dnNG').filter(function(x){return x&&x.u}),h='';
+if(L)h+='<div class="dmx-w"><a class="sl" href="'+esc(L.u)+'">'+(L.i?'<span class="im"><img alt="" loading="lazy" src="'+esc(IMG(L.i,240,240))+'"></span>':'')+'<span class="tx"><small>Seguí donde quedaste</small><b>'+esc(L.t)+'</b><span class="bar"><i style="width:'+Math.round(L.p)+'%"></i></span><em>'+Math.round(L.p)+'% leído · Seguir leyendo →</em></span></a></div>';
+if(G.length)h+='<div class="dmx-hd sm"><div><h2>Tus notas guardadas</h2></div><span class="ct">'+G.length+'</span></div><div class="dmx-row">'+G.slice(0,12).map(function(x){return'<div class="gc"><a href="'+esc(x.u)+'">'+(x.i?'<span class="im"><img alt="" loading="lazy" src="'+esc(IMG(x.i,480,270))+'"></span>':'')+'<b>'+esc(x.t)+'</b></a><button type="button" data-u="'+esc(x.u)+'" aria-label="Quitar de guardadas">'+XI+'</button></div>'}).join('')+'</div>';
+CO.innerHTML=h;CO.style.display=h?'':'none'};
+CO.addEventListener('click',function(e){var b=e.target.closest('button[data-u]');if(!b)return;e.preventDefault();var u=b.getAttribute('data-u');LSs('dnNG',LSg('dnNG').filter(function(x){return x&&x.u!==u}));drawCont()});
+W.addEventListener('pageshow',function(e){if(e.persisted)drawCont()});
+/* para hoy: una nota práctica distinta cada día (la misma para todos ese día) */
+var HO=sec('dmx-hoy'),DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var drawHoy=function(){var P=notes().filter(function(n){return/^(Cocina|Fermentos|Huerta|Hábitos|Alimentación|Cultura)$/.test(n.c)}).sort(function(a,b){return a.u<b.u?-1:a.u>b.u?1:0});if(P.length<2){HO.style.display='none';return}HO.style.display='';
+var t=new Date(),k=Math.floor((t.getTime()-t.getTimezoneOffset()*6e4)/DAY),n=P[k%P.length];if(n.u===heroU)n=P[(k+1)%P.length];var u=NB(n.u);
+HO.innerHTML='<div class="dmx-w"><div class="hy"><p class="k">Para hoy · '+DIAS[t.getDay()]+' '+t.getDate()+' de '+MS[t.getMonth()]+'</p><a class="t" href="'+esc(u)+'">'+esc(n.t)+'</a>'+(n.d?'<p class="d">'+esc(n.d)+'</p>':'')+'<div class="bt"><a class="go" href="'+esc(u)+'">Leer la nota</a><a class="sh" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(n.t+' — '+location.origin+u)+'">Compartir por WhatsApp</a></div></div></div>'};
+/* videos: una fila con los más nuevos + los programas */
+var VI=sec('dmx-vid'),EPI={};(W.dnMediaEP||[]).forEach(function(e){if(e&&e.s)EPI['/naturalmente-media/?ep='+e.s]=e});
+var drawVid=function(){if(!V.length){VI.style.display='none';return}var L=V.map(function(v,j){return[v,j]}).sort(function(x,y){var a=EPI[x[0].h],b=EPI[y[0].h];return((b?when(b):0)-(a?when(a):0))||x[1]-y[1]}).map(function(x){return x[0]}),pr={};V.forEach(function(v){if(v.p)pr[v.p]=(pr[v.p]||0)+1});
+VI.innerHTML='<div class="dmx-hd sm"><div><h2>Videos</h2></div><a class="dmx-more" href="/naturalmente-media/?videos">Ver todos '+IC.play+'</a></div><div class="dmx-row">'+L.slice(0,10).map(function(v){var e=EPI[v.h],du=e?String(e.meta&&e.meta[1]||'').replace(/^⏱\s*/,''):'';return'<a class="vc" href="'+esc(v.h)+'"><span class="im">'+(v.i?'<img alt="" loading="lazy"'+(/ytimg\.com/.test(v.i)?' class="yt"':'')+' src="'+esc(v.i)+'">':'')+'<span class="pl">'+IC.play+'</span></span><small>'+esc(v.p||v.n)+(du?' · '+esc(du):'')+'</small><b>'+esc(v.t)+'</b></a>'}).join('')+'</div>'+
+(progs.length>1?'<div class="dmx-w pr">'+progs.map(function(p){return'<a href="/naturalmente-media/?videos&p='+encodeURIComponent(p)+'">'+esc(p)+' <i>'+pr[p]+'</i></a>'}).join('')+'</div>':'')};
+/* lo que usamos en las notas: productos que aparecen en las notas más nuevas (se traen al acercarse; misma copia
+   que usa la nota, módulo 27: dnNP:<producto>, 15 minutos) */
+var SH=sec('dmx-shop');SH.style.display='none';var SHL=[];
+var loadP=function(s){var K='dnNP:'+s,c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(x){}if(c&&NOW-c.ts<9e5)return Promise.resolve(c);
+return fetch('/productos/'+s+'/').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var q=new DOMParser().parseFromString(t,'text/html'),v=[];try{v=JSON.parse(q.querySelector('[data-variants]').getAttribute('data-variants'))}catch(x){}
+var o={ts:Date.now(),n:((q.querySelector('h1')||{}).textContent||'').replace(/\s+/g,' ').trim(),img:((q.querySelector('meta[property="og:image"]')||{}).content||'').replace(/^http:/,'https:'),pid:(q.querySelector('form [name="add_to_cart"]')||{}).value||'',vars:v.map(function(z){return z.id}),pr:(v[0]||{}).price_number||0,av:v.some(function(z){return z.available})};try{localStorage.setItem(K,JSON.stringify(o))}catch(x){}return o}).catch(function(){return null})};
+var drawShop=function(){var Q=((W.dnSheet&&W.dnSheet.data&&W.dnSheet.data.nota)||W.dnNotasEquipo||[]).slice().sort(function(a,b){return(+b.ts||0)-(+a.ts||0)}),S=[];Q.some(function(n){(n.p||[]).forEach(function(x){if(S.length<8&&S.indexOf(x)<0)S.push(x)});return S.length>=8});if(!S.length)return;
+var R=[],i=0,run=function(){if(i>=S.length||R.length>=4)return fin();var s=S[i++];loadP(s).then(function(p){if(p&&p.av&&p.pr&&p.n)R.push({s:s,p:p});run()})};
+var fin=function(){if(R.length<2)return;SHL=R;SH.style.display='';SH.innerHTML='<div class="dmx-hd sm"><div><h2>Lo que usamos en las notas</h2></div><a class="dmx-more" href="/productos/">Tienda</a></div><p class="dmx-w sb">Productos que aparecen en las notas más nuevas.</p><div class="dmx-row">'+R.map(function(x,k){var p=x.p,one=p.vars.length===1&&p.pid;return'<div class="pc"><a href="/productos/'+esc(x.s)+'/"><span class="im">'+(p.img?'<img alt="" loading="lazy" src="'+esc(p.img.replace(/-1024-1024(\.\w+)$/,'-480-0$1'))+'">':'')+'</span><b>'+esc(p.n)+'</b><u>$'+Math.round(p.pr).toLocaleString('es-AR')+'</u></a>'+(one?'<button type="button" class="ad" data-k="'+k+'">Agregar</button>':'<a class="ad" href="/productos/'+esc(x.s)+'/">Ver producto</a>')+'</div>'}).join('')+'</div>'};run()};
+SH.addEventListener('click',function(e){var b=e.target.closest('button.ad[data-k]');if(!b||b.disabled)return;var it=SHL[+b.getAttribute('data-k')];if(!it)return;b.disabled=true;b.textContent='Agregando…';
+var ok=function(){b.textContent='✓ Agregado';b.classList.add('ok')},ko=function(){b.disabled=false;b.textContent='Agregar'};if(W.__dnAddId)W.__dnAddId(it.p.pid,ok,ko);else location.href='/productos/'+it.s+'/'});
+/* explorá por tema: cada tema con su foto (la de su nota más nueva) y la cantidad; al tocarlo filtra la lista de abajo */
+var TM=sec('dmx-temas');var drawTemas=function(){var C={},O=[];srt(notes(),'r').forEach(function(n){if(!n.c)return;if(!C[n.c]){C[n.c]={c:n.c,n:0,i:''};O.push(C[n.c])}C[n.c].n++;if(!C[n.c].i&&n.i)C[n.c].i=n.i});O=O.filter(function(x){return x.n>=3}).sort(function(a,b){return b.n-a.n});if(O.length<3){TM.style.display='none';return}TM.style.display='';
+TM.innerHTML='<div class="dmx-hd sm"><div><h2>Explorá por tema</h2></div></div><div class="dmx-w tg">'+O.map(function(x){return'<a class="tt" href="/naturalmente-media/?escritos&c='+encodeURIComponent(x.c)+'" data-c="'+esc(x.c)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(IMG(x.i,600,450))+'">':'')+'<span><b>'+esc(x.c)+'</b><i>'+x.n+' notas</i></span></a>'}).join('')+'</div>'};
+/* notas para leer: selección con adelanto desplegable, filtro por tema y orden */
+var NS=d.createElement('section');NS.id='dmx-notes';
 var NC='',NO='r',NSH=12;var drawN=function(){var A=notes();if(!A.length){NS.style.display='none';return}NS.style.display='';var cats=[];A.forEach(function(n){if(n.c&&cats.indexOf(n.c)<0)cats.push(n.c)});
 var F=srt(NC?A.filter(function(n){return n.c===NC}):A,NO);if(NSH>F.length)NSH=Math.max(12,F.length);
 NS.innerHTML='<div class="dmx-hd sm"><div><h2>Notas para leer</h2></div><a class="dmx-more" href="/naturalmente-media/?escritos'+(NC?'&c='+encodeURIComponent(NC):'')+'">Ver las '+F.length+' '+IC.book+'</a></div><div class="dmx-ch"><button type="button" data-c=""'+(NC?'':' class="on"')+'>Todas</button>'+cats.map(function(c){return'<button type="button" data-c="'+esc(c)+'"'+(c===NC?' class="on"':'')+'>'+esc(c)+'</button>'}).join('')+'</div><div class="dmx-bar"><p class="dmx-ct"></p>'+soHTML(NO)+'</div><div class="ls"></div><button type="button" class="dmx-mo">Ver más notas</button>';
@@ -95,21 +159,17 @@ var more=function(){F.slice(n0,NSH).forEach(function(n){ls.appendChild(noteCard(
 mo.addEventListener('click',function(){NSH+=12;more()});
 NS.querySelector('select').addEventListener('change',function(){NO=this.value;NSH=12;drawN()});
 NS.querySelector('.dmx-ch').addEventListener('click',function(e){var bt=e.target.closest('button');if(!bt)return;NC=bt.getAttribute('data-c');NSH=12;drawN()})};
-drawN();if(LE)LE.style.display='none';var ref=M.querySelector('.dm-wa2');if(ref)M.insertBefore(NS,ref);else M.appendChild(NS);
-/* cabecera compacta + selector Videos / Escritos */
-var nProg=PR?[].filter.call(PR.querySelectorAll('.dm-prog'),function(p){return p.style.display!=='none'}).length:0;
-var MA=d.createElement('section');MA.id='dmx-mast';
-var drawMast=function(){MA.innerHTML='<span class="gl"></span><div class="in"><p class="br"><span class="lg">Naturalmente</span><span class="md">MEDIA</span></p><p class="ds">Videos y notas del equipo de Naturalmente Media sobre hierbas, cocina y alimentación natural. Para ver y leer cuando quieras.</p><div class="sts"><span><b>'+V.length+'</b>videos</span><span><b>'+notes().length+'</b>notas</span><span><b>'+nProg+'</b>programas</span></div></div>'};drawMast();
-var TB=d.createElement('div');TB.id='dmx-tabs';TB.setAttribute('role','tablist');
-var TV=d.createElement('div');TV.id='dmx-tv';TV.setAttribute('role','tabpanel');var TE=d.createElement('div');TE.id='dmx-te';TE.setAttribute('role','tabpanel');
-if(vh)TV.appendChild(vh);if(PR)TV.appendChild(PR);TE.appendChild(NS);
-var drawTabs=function(){TB.innerHTML='<div class="seg"><span class="ind"></span><button type="button" role="tab" data-t="v">'+IC.play+'Videos <i>'+V.length+'</i></button><button type="button" role="tab" data-t="e">'+IC.book+'Escritos <i>'+notes().length+'</i></button></div>'};drawTabs();
-var tab='v';try{tab=/#escritos/.test(location.hash)?'e':/#videos/.test(location.hash)?'v':(localStorage.getItem('dnMtab')||'v')}catch(x){}
-var setTab=function(t,user){tab=t;TB.setAttribute('data-t',t);[].forEach.call(TB.querySelectorAll('button'),function(b){var on=b.getAttribute('data-t')===t;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false')});TV.hidden=t!=='v';TE.hidden=t!=='e';
-if(user){try{localStorage.setItem('dnMtab',t);history.replaceState(null,'',location.pathname+location.search+(t==='e'?'#escritos':'#videos'))}catch(x){}var y=TB.getBoundingClientRect().top+scrollY-140;if(scrollY>y)scrollTo({top:y,behavior:'smooth'})}};
-TB.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setTab(b.getAttribute('data-t'),1)});
-var first=M.firstChild;[MA,NV,TB,TV,TE].forEach(function(x){M.insertBefore(x,first)});setTab(tab);
-if(W.dnSheet&&!W.dnSheet.done)W.dnSheet.ready(function(){drawN();drawNov();drawMast();drawTabs();setTab(tab)});
+var TE=d.createElement('div');TE.id='dmx-te';TE.appendChild(NS);
+var toNotes=function(){var y=NS.getBoundingClientRect().top+scrollY-90;scrollTo({top:y,behavior:'smooth'})};
+TM.addEventListener('click',function(e){var a=e.target.closest('a[data-c]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();NC=a.getAttribute('data-c');NSH=12;drawN();toNotes()});
+/* armado */
+var all=function(){drawMast();drawHero();drawCont();drawHoy();drawVid();drawTemas();drawN()};all();
+var first=M.firstChild;[MA,HE,CO,HO,VI,SH,TM,TE].forEach(function(x){M.insertBefore(x,first)});
+if(/#escritos/.test(location.hash))setTimeout(toNotes,300);else if(/#videos/.test(location.hash))setTimeout(function(){scrollTo({top:VI.getBoundingClientRect().top+scrollY-90})},300);
+/* productos: se traen cuando la sección está por aparecer en pantalla y la página ya cargó */
+var shopGo=function(){(W.__dnIdle||function(f){f()})(drawShop)},once=0,trig=function(){if(once++)return;shopGo()};
+if(W.IntersectionObserver){var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();trig()}},{rootMargin:'700px 0px'});io.observe(TM)}else trig();
+if(W.dnSheet&&!W.dnSheet.done)W.dnSheet.ready(function(){all()});
 return}
 /* ---------- páginas propias: Videos / Escritos ---------- */
 var keep=[].filter.call(M.children,function(c){return c.matches('.dm-wa2,.dm-legal2,.dm-css,style')});
