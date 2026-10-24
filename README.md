@@ -21,4 +21,23 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 `sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
 
 
+## Diseño de computadora (desde el 24/10/2026)
+
+- `estilos/escritorio.css` + `estilos/escritorio.js` → `src/61-escritorio.js` (lo genera `estilos/compilar.js`) → parte `dist/dn-escritorio.min.js`.
+- Regla de oro: **todo** el CSS va dentro de `@media (min-width:1024px)`. `herramientas/control-escritorio.js` (lo corre `build.sh`) frena el armado si algo queda afuera, si hay comas/"or"/"not" en la condición o si el módulo 61 aparece en otra parte.
+- El núcleo descarga `dn-escritorio.min.js` **solo** si la pantalla mide 1024 px o más (cargador al final de `build/dn.js`). En el celular no se descarga nada. Las partes de cada página no cambian (comprobar que su SRI sea igual al publicado).
+- Etapa 1 (publicada 24/10, commit c5ec806): Naturalmente Media y notas del blog (`html.dnmd`). Grilla: 1192 px centrados, alineada con el encabezado.
+
+### Foto del celular (antes / después de publicar)
+`herramientas/foto-celular.js`: en el navegador en modo celular (375×812, recargar), `dnFoto('antes1')` y `dnFoto('antes2')` en cada página clave (inicio, tienda, /combos/, ficha de combo, ficha común, Media, nota, episodio, escritos) para medir el ruido; publicar; `dnFoto('despues')`. Un cambio real es una clave distinta de las DOS fotos de antes. Esperar ~6 s a que la página termine de cargar (con menos aparecen diferencias falsas). En el celular `dk` tiene que dar siempre `false`.
+
+## Publicar una versión (sello)
+1. `./build.sh`, commit y push a `main`. Calentar jsDelivr pidiendo los archivos del commit nuevo desde los 3 servidores y comprobar la huella del núcleo.
+2. Admin → Tienda online → Diseño → **Editar diseño actual** (`/admin/themes/settings/installations/3905649`) → `textarea#text-custom_seal_code`.
+3. Reemplazar en todo el valor el SHA viejo por el nuevo (aparece 2 veces) y la huella del núcleo vieja por la nueva (2 veces). Copia de respaldo en el `localStorage` del admin: `dnSealExtN` (valor completo) y `dnSealBaseN` (la primera parte, con el cargador).
+4. **Publicar cambios**. Si se queda en "Cargando tu tienda" sin guardar, recargar la página del admin y repetir. Verificar en el HTML de la tienda que figure el SHA nuevo.
+5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos).
+
+Versión publicada: 210 = `c5ec806` (núcleo `sha384-TSDyVlUYOTOhL6yWgOV2r5PE+F/1VxXT2l9Y5hUwlAxL+z4Vn3kDumYs3dHAnpPf`).
+
 Importante: en `dist/` solo van los `.min.js`. Si existiera el `.js` sin comprimir con el mismo nombre, jsDelivr puede servir su propia versión comprimida y la huella SRI no coincide (el navegador la rechaza). Los intermedios quedan en `build/` (ignorado).
