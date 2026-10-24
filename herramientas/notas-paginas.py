@@ -17,7 +17,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
 STORE = '3435959'
 API = 'https://api.tiendanube.com/2025-03/%s/' % STORE
-UA = 'Naturalmente Web (santinomontauti02@gmail.com)'
+UA = 'Naturalmente Media'  # ojo: el blog muestra este nombre como autor de cada nota
 PREF = 'escritos-'
 
 
@@ -180,3 +180,89 @@ if __name__ == '__main__':
         crear(tok, solo, maxn)
     elif cmd == 'mapa':
         mapa(tok)
+
+
+# ---------------------------------------------------------------- blog (método elegido: no toca menús)
+BLOG = '01954751-5ee3-7776-baae-1c71c6918db4'
+
+
+def posts(tok):
+    """slug de la nota -> {id, handle} de los artículos ya creados en el blog."""
+    out, pg = {}, 1
+    while True:
+        b = req(tok, 'GET', 'blogs/%s/posts?page=%d' % (BLOG, pg))
+        P = (b.get('posts') or {})
+        for x in P.get('data') or []:
+            d = (x.get('data') or [{}])[0]
+            h = d.get('handle') or ''
+            out[h] = {'id': x.get('post_id'), 'handle': h}
+        meta = P.get('meta') or {}
+        if not meta.get('nextPage'):
+            return out
+        pg += 1
+
+
+def post_de(slug, ya):
+    for h, v in ya.items():
+        if h == slug or (h.startswith(slug + '-') and re.fullmatch(r'[0-9a-f]{12}', h[len(slug) + 1:] or '')):
+            return v
+    return None
+
+
+def crear_blog(tok, solo=None, maxn=None):
+    import uuid
+    P = armar()
+    if solo:
+        P = [p for p in P if p['slug'] in solo]
+    ya = posts(tok)
+    N = {n['s']: n for n in notas()}
+    hechos = 0
+    for p in P:
+        if post_de(p['slug'], ya):
+            continue
+        if maxn is not None and hechos >= maxn:
+            break
+        n = N[p['slug']]
+        meta = {'language': 'es', 'title': p['name'], 'summary': n.get('b') or p['seo_description'],
+                'seo_title': p['seo_title'], 'seo_description': p['seo_description'], 'handle': p['slug']}
+        f = {'metadata': json.dumps(meta, ensure_ascii=False), 'content': p['content'], 'published': 'true'}
+        if n.get('i'):
+            f['thumbnail'] = n['i']
+        bd = '----dn' + uuid.uuid4().hex
+        body = b''.join(('--%s\r\nContent-Disposition: form-data; name="%s"\r\n\r\n' % (bd, k)).encode() + v.encode() + b'\r\n' for k, v in f.items()) + ('--%s--\r\n' % bd).encode()
+        r = urllib.request.Request(API + 'blogs/%s/posts' % BLOG, data=body, method='POST', headers={
+            'Authentication': 'bearer ' + tok, 'User-Agent': UA, 'Content-Type': 'multipart/form-data; boundary=' + bd})
+        try:
+            with urllib.request.urlopen(r, timeout=120) as x:
+                res = json.loads(x.read().decode())
+            print('creado', p['slug'], res.get('post_id'))
+        except Exception as e:  # nunca se reintenta: se revisa si igual se creó y, si no, se frena
+            time.sleep(5)
+            if post_de(p['slug'], posts(tok)):
+                print('creado (respondió error pero existe)', p['slug'])
+            else:
+                raise SystemExit('ERROR al crear %s: %s' % (p['slug'], str(e)[:300]))
+        hechos += 1
+        time.sleep(0.8)
+    print('nuevos', hechos)
+
+
+def mapa_blog(tok):
+    ya = posts(tok)
+    m = {}
+    for n in notas():
+        v = post_de(n['s'], ya)
+        if v:
+            m[n['s']] = '/blog/posts/' + v['handle']
+    json.dump(m, open(os.path.join(RAIZ, 'contenido', 'notas-blog.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    print('en el mapa', len(m))
+
+
+if __name__ == '__main__' and sys.argv[1:2] in (['blog'], ['mapa-blog']):
+    a = sys.argv[1:]
+    tok = open(a[a.index('--token-file') + 1]).read().strip()
+    if a[0] == 'blog':
+        crear_blog(tok, set(a[a.index('--solo') + 1].split(',')) if '--solo' in a else None,
+                   int(a[a.index('--max') + 1]) if '--max' in a else None)
+    else:
+        mapa_blog(tok)
