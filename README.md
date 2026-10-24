@@ -29,6 +29,13 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 - Etapa 1 (publicada 24/10, commit c5ec806): Naturalmente Media y notas del blog (`html.dnmd`). Grilla: 1192 px centrados, alineada con el encabezado.
 - 24/10 (fa48533), todas las páginas: sin la fila de navegación original de Tiendanube (botón "Categorías" con las categorías crudas) y buscador estirado hasta los íconos. El menú propio (☰) tiene todo.
 - Etapa 2 (24/10, aef5953): grilla de 1116 px en todo el sitio (encabezado y `.container` de la plantilla), encabezado fijo sin la barra rápida del celular, tienda y "Lo que viste hace poco" centrados, filtro de precio de las categorías como barra compacta, fichas con foto y compra lado a lado desde 1024 px.
+- Etapa 3 (24/10, 7d49ea7): el Feed (inicio) en una sola columna de 600 px, igual que en el celular (como el feed de una red social, no un "collage"). Cómo funciona (`estilos/escritorio.js`, solo en el inicio):
+  - pone `html.dk-feed` (la columna y los ajustes de CSS dependen de esa clase);
+  - dentro de `.js-home-sections-container`, las reglas propias de pantalla mediana `(min-width:768px)` se apagan y las de pantalla chica `(max-width:767px)` se copian justo después de su bloque original, dentro de `(min-width:1024px)` (mismo lugar y misma especificidad: el feed queda calculado igual que en el teléfono). Una regla solo se toca si todo lo que marca está dentro del feed, o si todavía no marca nada pero nombra una sección del feed (`#hb-…`, `#dn-not`, `#dn-sub`, `#dn-lep`, `#dn-ig`, `-home`, etc.: lista `MK`). Encabezado, pie, menú y ventanas (test, favoritos, compartir) no se tocan;
+  - los carruseles de productos de Tiendanube (Swiper) vuelven a la configuración del celular (2,25 tarjetas); sus flechas quedan a la altura del título; la newsletter en una sola columna;
+  - la fila de videos (`#hb-eps .er`) tiene flechas (con el mouse no se puede deslizar);
+  - vuelve a revisar a los 0,4/1,5/4/8/15 s y cuando cambia el feed (las secciones se arman de a poco). Si la ventana baja de 1024 px, todo vuelve a como estaba.
+  - Sección nueva en el feed: si su id empieza con `hb-` y sus estilos usan `max-width:767px` / `min-width:768px`, en la compu se ve sola como en el celular. Con otro id, agregarlo a `MK`.
 
 ### Foto del celular (antes / después de publicar)
 `herramientas/foto-celular.js`: en el navegador en modo celular (375×812, recargar), `dnFoto('antes1')` y `dnFoto('antes2')` en cada página clave (inicio, tienda, /combos/, ficha de combo, ficha común, Media, nota, episodio, escritos) para medir el ruido; publicar; `dnFoto('despues')`. Un cambio real es una clave distinta de las DOS fotos de antes. Esperar ~6 s a que la página termine de cargar (con menos aparecen diferencias falsas). En el celular `dk` tiene que dar siempre `false`.
@@ -40,6 +47,6 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 4. **Publicar cambios**. Si se queda en "Cargando tu tienda" sin guardar, recargar la página del admin y repetir. Verificar en el HTML de la tienda que figure el SHA nuevo.
 5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos).
 
-Versión publicada: 212 = `aef5953` (núcleo `sha384-0/SNeFQNrBngDIK/+bQDukCmBuTLbRwIwEasKuMetAppeWtZSYhrPQ4aCOC/MkaN`). 211 = `fa48533`, 210 = `c5ec806`, 209 = `40ed931`.
+Versión publicada: 213 = `7d49ea7` (núcleo `sha384-R71CbqjjEQFame2OJLE2osRVRoqEaV0SlP2QCp9Ei7GEFBDrMGtqiZnjYzy+a7j7`). 212 = `aef5953`, 211 = `fa48533`, 210 = `c5ec806`, 209 = `40ed931`.
 
 Importante: en `dist/` solo van los `.min.js`. Si existiera el `.js` sin comprimir con el mismo nombre, jsDelivr puede servir su propia versión comprimida y la huella SRI no coincide (el navegador la rechaza). Los intermedios quedan en `build/` (ignorado).
