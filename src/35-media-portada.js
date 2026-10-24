@@ -136,6 +136,10 @@ var temaItems=function(A){return temas(A).map(function(x){return{k:x.c,l:x.c,h:'
 var circ=function(o){return'<div class="dmx-tm'+(o.cls?' '+o.cls:'')+'" role="group" aria-label="'+esc(o.lab)+'">'+[{k:'',l:o.all,h:o.h0,im:'<i>'+IC.grid+'</i>',n:o.n0}].concat(o.items).map(function(x){return'<a href="'+esc(x.h)+'" data-k="'+esc(x.k)+'"'+(x.k===o.on?' class="on" aria-current="true"':'')+'><span class="ci"><span class="cm">'+x.im+'</span></span><b>'+esc(x.l)+'</b><small>'+x.n+'</small></a>'}).join('')+'</div>'};
 var mark=function(t,k){[].forEach.call(t.querySelectorAll('a[data-k]'),function(a){var on=a.getAttribute('data-k')===k;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})};
 var showOn=function(t){var a=t&&t.querySelector('a.on');if(!a)return;var r=a.getBoundingClientRect(),q=t.getBoundingClientRect();if(r.right>q.right-8||r.left<q.left)t.scrollLeft+=r.left-q.left-24};
+/* filas que se deslizan de costado: cuando la fila aparece en pantalla se piden todas sus fotos (el navegador no pide
+   las que quedan tapadas a la derecha hasta que se desliza, y se verían vacías un momento) */
+var eager=function(root){var L=root?[].slice.call(root.querySelectorAll('.dmx-row,.dmx-tm')):[];if(!L.length)return;var go=function(r){[].forEach.call(r.querySelectorAll('img[loading="lazy"]'),function(i){i.loading='eager'})};
+if(!W.IntersectionObserver){L.forEach(go);return}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){go(e.target);io.unobserve(e.target)}})},{rootMargin:'300px 0px'});L.forEach(function(r){io.observe(r)})};
 var tmClick=function(t,cb){t.addEventListener('click',function(e){var a=e.target.closest('a[data-k]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();cb(a.getAttribute('data-k'))})};
 /* la tapa: foto o video grande con un rótulo arriba (marca o volver) y el texto abajo */
 var cover=function(o){return'<div class="wrap">'+(o.top?'<div class="tp">'+o.top+'</div>':'')+(o.href?'<a class="bg" href="'+esc(o.href)+'"'+(o.lab?' aria-label="'+esc(o.lab)+'"':'')+'>':'<span class="bg">')+(o.img||'')+(o.play?'<span class="pl">'+IC.pl+'</span>':'')+(o.href?'</a>':'</span>')+'<div class="in">'+o.body+'</div></div>'};
@@ -183,11 +187,11 @@ NS.innerHTML='<div class="dmx-hd sm"><div><h2>Notas para leer</h2></div><a class
 ls=NS.querySelector('.ls');ct=NS.querySelector('.dmx-ct');mo=NS.querySelector('.dmx-mo');mr=NS.querySelector('.dmx-more');var tm=NS.querySelector('.dmx-tm');tm.scrollLeft=sx;
 mo.addEventListener('click',function(){NSH+=12;more()});
 NS.querySelector('select').addEventListener('change',function(){NO=this.value;NSH=12;fillN()});
-tmClick(tm,function(k){if(k===NC)return;NC=k;mark(tm,NC);NSH=12;fillN()});fillN()};
+tmClick(tm,function(k){if(k===NC)return;NC=k;mark(tm,NC);NSH=12;fillN()});fillN();eager(NS)};
 var TE=d.createElement('div');TE.id='dmx-te';TE.appendChild(NS);
 /* armado */
 drawCover();drawCont();drawVid();drawHero();drawPrg();drawHoy();drawN();
-var first=M.firstChild;[CV,CO,VI,HE,PG,HO,TE].forEach(function(x){M.insertBefore(x,first)});
+var first=M.firstChild;[CV,CO,VI,HE,PG,HO,TE].forEach(function(x){M.insertBefore(x,first)});[CO,VI,PG].forEach(eager);
 if(/#escritos/.test(location.hash))setTimeout(function(){scrollTo({top:NS.getBoundingClientRect().top+scrollY-90})},300);else if(/#videos/.test(location.hash))setTimeout(function(){scrollTo({top:VI.getBoundingClientRect().top+scrollY-90})},300);
 /* cuando llegan las notas cargadas por formulario: se rehace lo que depende de las notas (la tapa queda igual) */
 if(W.dnSheet&&!W.dnSheet.done)W.dnSheet.ready(function(){var nn=CV.querySelector('.nn');if(nn)nn.textContent=notes().length;drawHero();drawHoy();drawN()});
@@ -211,7 +215,7 @@ else{var q=dec((/[?&]q=([^&#]+)/.exec(qs)||[])[1]),cat=cn(dec((/[?&]c=([^&#]+)/.
 pg.innerHTML='<div class="dmx-cov"></div><div class="dmx-tw"></div><label class="dmx-sr">'+IC.srch+'<input type="search" placeholder="Buscar notas (ej: mate, kombucha, avena)" aria-label="Buscar notas"></label><div class="dmx-bar"><p class="dmx-ct"></p>'+soHTML(so)+'</div><div class="dmx-gr"></div><button type="button" class="dmx-mo">Ver más notas</button>';
 var cv2=pg.querySelector('.dmx-cov'),tw=pg.querySelector('.dmx-tw'),gr2=pg.querySelector('.dmx-gr'),ct2=pg.querySelector('.dmx-ct'),mo=pg.querySelector('.dmx-mo'),inp=pg.querySelector('input'),lastC=null,lastN=-1;inp.value=q;
 /* temas en círculos (se rehacen solo si cambia la cantidad de notas) */
-var drawT=function(A){var o=tw.firstChild,sx=o?o.scrollLeft:0;tw.innerHTML=circ({lab:'Temas',all:'Todas',h0:'/naturalmente-media/?escritos',n0:A.length,on:cat,items:temaItems(A)});tw.firstChild.scrollLeft=sx};
+var drawT=function(A){var o=tw.firstChild,sx=o?o.scrollLeft:0;tw.innerHTML=circ({lab:'Temas',all:'Todas',h0:'/naturalmente-media/?escritos',n0:A.length,on:cat,items:temaItems(A)});tw.firstChild.scrollLeft=sx;eager(tw)};
 /* tapa: la foto de la última nota del tema elegido */
 var drawC=function(A){var L=srt(cat?A.filter(function(n){return n.c===cat}):A,'r'),n=L[0];if(!n){cv2.innerHTML='';return}var u=NB(n.u);
 cv2.innerHTML=cover({top:BK,href:u,lab:'Leer la nota: '+n.t,img:n.i?'<img alt="" fetchpriority="high" src="'+esc(IMG(n.i,1200,675))+'">':'',body:'<h1>'+esc(cat||'Escritos')+'</h1><p class="d">'+(cat?L.length+(L.length===1?' nota':' notas')+' de nuestro equipo sobre '+esc(cat.toLowerCase())+'.':'Notas de nuestro equipo sobre hierbas, cocina, despensa y hábitos.')+'</p>'+
@@ -224,5 +228,5 @@ tmClick(tw,function(k){if(k===cat)return;cat=k;shown=12;url2(1);drawE()});var tm
 /* botón "atrás" del navegador: vuelve al tema anterior sin recargar */
 W.addEventListener('popstate',function(){var s=location.search;if(!/[?&]escritos/.test(s))return;var g=function(k){return dec((new RegExp('[?&]'+k+'=([^&#]+)').exec(s)||[])[1])};cat=cn(g('c'));q=g('q');so=g('o')||'r';if(!SOL.some(function(o){return o[0]===so}))so='r';inp.value=q;var se=pg.querySelector('.dmx-so select');if(se)se.value=so;shown=12;drawE()});mo.addEventListener('click',function(){shown+=12;drawE()});drawE();
 if(W.dnSheet&&!W.dnSheet.done)W.dnSheet.ready(drawE)}
-M.innerHTML='';M.appendChild(pg);keep.forEach(function(k){M.appendChild(k)});showOn(pg.querySelector('.dmx-tm'));scrollTo(0,0)
+M.innerHTML='';M.appendChild(pg);keep.forEach(function(k){M.appendChild(k)});showOn(pg.querySelector('.dmx-tm'));if(view==='v')eager(pg);scrollTo(0,0)
 }();
