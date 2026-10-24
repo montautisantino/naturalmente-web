@@ -60,6 +60,7 @@ html.dnmd body .dn-media .dmx-pg .dmx-tt,
 html.dnmd body .dn-media .dmx-pg .dmx-ch,
 html.dnmd body .dn-media .dmx-pg .dmx-bar,
 html.dnmd body .dn-media .dmx-pg .dmx-gr,
+html.dnmd body .dn-media .dmx-pg>.dmx-ct,
 html.dnmd body .dn-media #dmx-te .dmx-tt,
 html.dnmd body .dn-media #dmx-te .dmx-ch,
 html.dnmd body .dn-media #dmx-te .dmx-bar,
@@ -83,8 +84,9 @@ html.dnmd body .dx-sec .dx-sh,
 html.dnmd body .dx-sec .dx-rs{padding-left:0!important;padding-right:0!important}
 html.dnmd body .dx-sec .dx-arr.l{left:-23px!important}
 html.dnmd body .dx-sec .dx-arr.r{right:-23px!important}
-/* "Llevate los ingredientes" (recetas) */
-html.dnmd body .dn-media>.dn-kit{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+/* "Llevate los ingredientes" (recetas) y libros */
+html.dnmd body .dn-media>.dn-kit,
+html.dnmd body .dn-media>.dn-gc-w{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 
 /* ---------- Nota (blog): texto + columna lateral fija ---------- */
 /* el texto mantiene una medida cómoda de lectura (720 px) y a la derecha va una columna
