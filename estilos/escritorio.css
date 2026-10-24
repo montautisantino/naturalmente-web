@@ -28,7 +28,8 @@ html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link,
 html.dnmd body .js-head-main .js-nav-desktop-list>li>.nav-item-container>a.nav-list-link{color:rgba(255,255,255,.82)!important}
 html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link:hover,
 html.dnmd body .js-head-main .js-nav-desktop-list>li>.nav-item-container>a.nav-list-link:hover{color:#fff!important;background-color:rgba(255,255,255,.08)!important}
-html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link.selected{background:#f0c04f!important;color:#10281a!important}
+html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link.selected,
+html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link[href*="naturalmente-media"]{background:#f0c04f!important;color:#10281a!important}
 
 /* ---------- Portada de Media ---------- */
 html.dnmd body .dn-media #dmx-mast .in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important}
@@ -41,8 +42,8 @@ html.dnmd body .dn-media #dmx-nov .nvk:hover{border-color:rgba(244,201,93,.45)!i
 
 /* programas en grilla de 4 columnas: los que tienen 1 o 2 videos ocupan media fila
    (así no queda una tarjeta sola con toda la fila vacía) */
-html.dnmd body .dn-media #dm-programas{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:24px;row-gap:6px;grid-auto-flow:row dense}
-html.dnmd body .dn-media #dm-programas>.dm-prog{grid-column:span 4;min-width:0;margin-left:0!important;margin-right:0!important}
+html.dnmd body .dn-media #dm-programas{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:24px;row-gap:26px;grid-auto-flow:row dense}
+html.dnmd body .dn-media #dm-programas>.dm-prog{grid-column:span 4;min-width:0;margin:0!important;padding-top:22px!important;border-top:1px solid rgba(255,255,255,.08)!important}
 html.dnmd body .dn-media #dm-programas>.dm-prog:not(:has(.dm-ep:nth-child(3))){grid-column:span 2}
 html.dnmd body .dn-media #dm-programas .dm-prog-head{padding-left:0!important;padding-right:0!important}
 html.dnmd body .dn-media #dm-programas .dm-row{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px!important;overflow:visible!important;padding:0 0 8px!important;margin:0!important;scroll-snap-type:none!important}
@@ -77,13 +78,20 @@ html.dnmd body .dx-hero .dx-info{grid-column:2;max-width:none!important;margin:0
 html.dnmd body .dx-hero .dx-title{font-size:34px!important;line-height:1.12!important}
 html.dnmd body .dx-hero .dx-acts{flex-wrap:wrap}
 html.dnmd body .dx-body,
-html.dnmd body .dx-prods .dx-in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
+html.dnmd body .dx-sec .dx-in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
+html.dnmd body .dx-sec .dx-sh,
+html.dnmd body .dx-sec .dx-rs{padding-left:0!important;padding-right:0!important}
+html.dnmd body .dx-sec .dx-arr.l{left:-23px!important}
+html.dnmd body .dx-sec .dx-arr.r{right:-23px!important}
+/* "Llevate los ingredientes" (recetas) */
+html.dnmd body .dn-media>.dn-kit{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 
 /* ---------- Nota (blog): texto + columna lateral fija ---------- */
 /* el texto mantiene una medida cómoda de lectura (720 px) y a la derecha va una columna
    que acompaña al bajar: índice de la nota y productos mencionados */
 /* (la grilla de dos columnas se activa solo si la columna tiene algo: índice o productos) */
-html.dnmd body .dm-nota .nt.dk-2c{max-width:1240px!important;padding-left:24px!important;padding-right:24px!important;box-sizing:border-box;display:grid!important;grid-template-columns:minmax(0,720px) 330px;justify-content:center;column-gap:72px;align-items:start}
+html.dnmd body .dm-nota .nt.dk-2c{max-width:1240px!important;padding-left:24px!important;padding-right:24px!important;box-sizing:border-box;display:grid!important;grid-template-columns:minmax(0,1fr) 360px;column-gap:80px;align-items:start}
+@media (max-width:1199px){html.dnmd body .dm-nota .nt.dk-2c{grid-template-columns:minmax(0,1fr) 300px;column-gap:44px}}
 html.dnmd body .dm-nota .nt.dk-2c>*{grid-column:1;min-width:0}
 html.dnmd body .dm-nota .nt.dk-2c>.dk-sd{display:block;grid-column:2;grid-row:1/span 40;position:-webkit-sticky;position:sticky;top:var(--dk-top,170px);align-self:start;max-height:calc(100vh - var(--dk-top,170px) - 16px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent;padding:30px 2px 24px 0}
 html.dnmd body .dm-nota .nt.dk-on>.nt-toc{display:none!important}

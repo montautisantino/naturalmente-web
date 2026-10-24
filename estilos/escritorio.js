@@ -31,8 +31,10 @@ if(!moved.length&&W.MutationObserver){var mo=new MutationObserver(function(){var
 function top(){var H=d.querySelector('.js-head-main');A.style.setProperty('--dk-top',Math.round((H?H.getBoundingClientRect().height:150)+20)+'px')}
 top();setTimeout(top,1500);W.addEventListener('resize',top,{passive:true});
 /* índice: resalta la sección que se está leyendo */
-if(toc&&'IntersectionObserver' in W){var L={},cur=null;[].forEach.call(toc.querySelectorAll('a'),function(a){L[a.getAttribute('href').slice(1)]=a});
-var io=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;var a=L[e.target.id];if(!a||a===cur)return;if(cur)cur.classList.remove('on');cur=a;a.classList.add('on')})},{rootMargin:'-18% 0px -72% 0px'});hs.forEach(function(h){io.observe(h)})}
+if(toc){var L=[].slice.call(toc.querySelectorAll('a')),cur=-1,tk=0;
+function spy(){tk=0;if(!q.matches)return;var lim=(parseFloat(A.style.getPropertyValue('--dk-top'))||170)+innerHeight*.22,k=-1;for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<=lim)k=i;else break}
+if(k!==cur){if(cur>=0&&L[cur])L[cur].classList.remove('on');if(k>=0&&L[k])L[k].classList.add('on');cur=k}}
+W.addEventListener('scroll',function(){if(!tk){tk=1;(W.requestAnimationFrame||setTimeout)(spy)}},{passive:true});spy()}
 function chg(){if(q.matches)put();else back()}
 try{q.addEventListener('change',chg)}catch(e){try{q.addListener(chg)}catch(e2){}}
 });
