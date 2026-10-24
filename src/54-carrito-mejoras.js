@@ -26,7 +26,13 @@ try{LS.addToCartEnhanced(jQueryNuvem(f),'Agregar','Agregando...','No hay más st
    se ve lo agregado. Devuelve una promesa que falla si no se pudo agregar. */
 W.dnCartAdd=function(id,q){return fetch('/comprar/',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-Requested-With':'XMLHttpRequest'},body:'add_to_cart='+encodeURIComponent(String(id).replace(/\D/g,''))+'&quantity='+(q||1)+'&add_to_cart_enhanced=1'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(!j||j.success===false)throw 0;
 try{LS.updateCartEnhanced(j.cart,null,function(){},j.html_cart_items,j.html_notification_related_products,j.html_notification_cross_selling)}catch(e){var n=0;try{j.cart.products.forEach(function(p){n+=+p.quantity||0})}catch(x){}[].forEach.call(d.querySelectorAll('.js-cart-widget-amount'),function(b){b.textContent=n})}
-try{LS.refreshTotals(j)}catch(e){}try{LS.freeShippingLabelUpdate(j.free_shipping,true)}catch(e){}return j})};
+try{LS.refreshTotals(j)}catch(e){}try{LS.freeShippingLabelUpdate(j.free_shipping,true)}catch(e){}
+/* lo mismo que hace el tema después de agregar: mostrar el carrito lleno, recalcular el envío (para que el Total incluya lo nuevo)
+   y avisar "agregado al carrito" (píxel de Meta y estadísticas) */
+var Q=W.jQueryNuvem||W.jQuery;try{Q('.js-empty-ajax-cart').hide();Q('.js-visible-on-cart-filled').show()}catch(e){}
+try{if(LS.updateCartShipping)LS.updateCartShipping();else if(Q('.js-shipping-calculator-with-zipcode').length&&Q('#cart-shipping-container .js-shipping-input').val()){Q('#cart-shipping-container').show();LS.calculateShippingOnCart({})}else LS.updateShippingOnAddToCart({})}catch(e){}
+try{LS.trigger(LS.events.productAddedToCart,{cart:j.cart,cart_item:j.item,quantity_added:j.quantity_added,social_event_id_suffix:j.social_event_id_suffix})}catch(e){}
+return j})};
 var M=d.getElementById('modal-cart');if(!M)return;
 var esc=function(s){return String(s).replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})};
 var st=d.createElement('style');st.textContent=
