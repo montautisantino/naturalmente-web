@@ -15,8 +15,12 @@ HOME_P="45 06 07 33 25 36 42"
 MEDIA="45 03 31 04 27 35 36 39 40"
 LISTADO="00 12 21 26"
 PRODUCTO="00 LA 59 14 19 48 49 50 52 56 57"
+# parte de computadora: solo se descarga en pantallas de 1024 px o más (ver estilos/escritorio.css)
+ESCRITORIO="61"
 # lista corta de episodios de Media (sale de src/31-episodios.js) para la tarjeta aleatoria del inicio
 node estilos/compilar.js
+# control automático: nada del diseño de computadora puede quedar afuera de @media (min-width:1024px)
+node herramientas/control-escritorio.js
 # notas publicadas en el blog de Tiendanube (sale de contenido/notas-blog.json): slug -> id corto
 node -e "var m=JSON.parse(require('fs').readFileSync('contenido/notas-blog.json','utf8')),o={};Object.keys(m).forEach(function(s){var x=m[s].slice(('/blog/posts/'+s+'-').length);if(/^[0-9a-f]{12}$/.test(x))o[s]=x});require('fs').writeFileSync('build/nblist.js','/* lista generada por build.sh */\\nwindow.dnNB='+JSON.stringify(o)+';')"
 # lista de productos con landing automática (sale de contenido/lp/*.json; "tipo": c = combo, s = suplemento)
@@ -31,6 +35,9 @@ for p in home media listado producto cuenta pedido; do
   $T build/dn-$p.js -c passes=2 -m -o dist/dn-$p.min.js
   MAP="$MAP$p:'$(sri dist/dn-$p.min.js)',"
 done
+{ echo "/* Dieteticas Naturalmente - parte: escritorio (solo computadora, 1024 px o más) */"; echo "!function(){if(window.__dn_escritorio)return;window.__dn_escritorio=1;"; cat_mods "$ESCRITORIO"; echo "}();"; } > build/dn-escritorio.js
+$T build/dn-escritorio.js -c passes=2 -m -o dist/dn-escritorio.min.js
+DKSRI=$(sri dist/dn-escritorio.min.js)
 {
   echo "/* Dieteticas Naturalmente - nucleo (todas las paginas). Se carga desde Tiendanube. */"
   echo "!function(){if(window.__dnExt)return;window.__dnExt=1;var CS=document.currentScript;"
@@ -41,9 +48,15 @@ try{!function(){var d=document,B=d.body,M={${MAP%,}},src=CS&&CS.src;if(!src)retu
 var k=B.classList.contains('template-home')?'home':(B.classList.contains('template-category')||B.classList.contains('template-search'))?'listado':B.classList.contains('template-product')?'producto':/\btemplate-account/.test(B.className)?'cuenta':/^\/donde-esta-mi-pedido\/?$/.test(location.pathname)?'pedido':d.querySelector('.dn-media')?'media':'';if(!k)return;
 var H=[m[1]].concat(['https://cdn.jsdelivr.net','https://fastly.jsdelivr.net','https://gcore.jsdelivr.net'].filter(function(h){return h!==m[1]})),i=0;
 function L(){if(window['__dn_'+k]||i>=H.length)return;var e=d.createElement('script');e.src=H[i++]+m[2]+'dn-'+k+'.min.js';e.integrity=M[k];e.crossOrigin='anonymous';e.onerror=L;d.head.appendChild(e)}L()}()}catch(e){}
+/* cargador de la parte de computadora: SOLO si la pantalla mide 1024 px o más (en el celular no se descarga nada) */
+try{!function(){var d=document,W=window,src=CS&&CS.src;if(!src||!W.matchMedia)return;var m=src.match(/^(https:\/\/[^\/]+)(.*\/)dn\.min\.js/);if(!m)return;var q=W.matchMedia('(min-width:1024px)'),H=[m[1]].concat(['https://cdn.jsdelivr.net','https://fastly.jsdelivr.net','https://gcore.jsdelivr.net'].filter(function(h){return h!==m[1]})),i=0,on=0;
+function go(){if(on||!q.matches)return;on=1;L()}
+function L(){if(W.__dn_escritorio||i>=H.length)return;var e=d.createElement('script');e.src=H[i++]+m[2]+'dn-escritorio.min.js';e.integrity='${DKSRI}';e.crossOrigin='anonymous';e.onerror=L;d.head.appendChild(e)}
+go();if(!on){try{q.addEventListener('change',go)}catch(e){try{q.addListener(go)}catch(e2){}}}}()}catch(e){}
 JS
   echo "}();"
 } > build/dn.js
 $T build/dn.js -c passes=2 -m -o dist/dn.min.js
+node herramientas/control-escritorio.js --final
 wc -c dist/*.min.js
 echo "SRI nucleo: $(sri dist/dn.min.js)"
