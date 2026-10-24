@@ -12,9 +12,9 @@ var st=d.createElement('style');st.textContent='.nt-ac{flex-wrap:wrap}.nt-ac .sv
 var b=d.createElement('button');b.type='button';b.className='sv';var on=function(){return LSg('dnNG').some(function(x){return x&&x.u===u})};
 var paint=function(){var o=on();b.classList.toggle('on',o);b.setAttribute('aria-pressed',o?'true':'false');b.innerHTML=IC(o)+'<span>'+(o?'Guardada':'Guardar')+'</span>'};
 b.addEventListener('click',function(){var G=LSg('dnNG').filter(function(x){return x&&x.u!==u});if(!on())G.unshift({u:u,t:t,i:im,c:c,ts:Date.now()});LSs('dnNG',G.slice(0,30));paint()});paint();ac.appendChild(b);
-/* hasta dónde se leyó (misma cuenta que la barra de progreso de la nota) */
+/* hasta dónde se leyó: qué parte del texto ya pasó por la mitad de la pantalla */
 var mx=0,last=0,dirty=0;
-var rd=function(){var r=bd.getBoundingClientRect(),h=r.height-innerHeight*.6,p=Math.max(0,Math.min(100,(-r.top+innerHeight*.2)/(h>0?h:1)*100));if(p>mx){mx=p;dirty=1}};
+var rd=function(){var r=bd.getBoundingClientRect(),p=Math.max(0,Math.min(100,(innerHeight*.5-r.top)/(r.height||1)*100));if(p>mx){mx=p;dirty=1}};
 var save=function(){if(!dirty||mx<3)return;dirty=0;var L=LSg('dnNL').filter(function(x){return x&&x.u!==u});L.unshift({u:u,t:t,i:im,c:c,p:Math.round(mx),ts:Date.now()});LSs('dnNL',L.slice(0,12))};
 W.addEventListener('scroll',function(){rd();var n=Date.now();if(n-last>2000){last=n;save()}},{passive:true});
 W.addEventListener('pagehide',save);d.addEventListener('visibilitychange',function(){if(d.visibilityState==='hidden')save()});rd();
