@@ -27,6 +27,7 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 - Regla de oro: **todo** el CSS va dentro de `@media (min-width:1024px)`. `herramientas/control-escritorio.js` (lo corre `build.sh`) frena el armado si algo queda afuera, si hay comas/"or"/"not" en la condición o si el módulo 61 aparece en otra parte.
 - El núcleo descarga `dn-escritorio.min.js` **solo** si la pantalla mide 1024 px o más (cargador al final de `build/dn.js`). En el celular no se descarga nada. Las partes de cada página no cambian (comprobar que su SRI sea igual al publicado).
 - Etapa 1 (publicada 24/10, commit c5ec806): Naturalmente Media y notas del blog (`html.dnmd`). Grilla: 1192 px centrados, alineada con el encabezado.
+- 24/10 (fa48533), todas las páginas: sin la fila de navegación original de Tiendanube (botón "Categorías" con las categorías crudas) y buscador estirado hasta los íconos. El menú propio (☰) tiene todo.
 
 ### Foto del celular (antes / después de publicar)
 `herramientas/foto-celular.js`: en el navegador en modo celular (375×812, recargar), `dnFoto('antes1')` y `dnFoto('antes2')` en cada página clave (inicio, tienda, /combos/, ficha de combo, ficha común, Media, nota, episodio, escritos) para medir el ruido; publicar; `dnFoto('despues')`. Un cambio real es una clave distinta de las DOS fotos de antes. Esperar ~6 s a que la página termine de cargar (con menos aparecen diferencias falsas). En el celular `dk` tiene que dar siempre `false`.
@@ -38,6 +39,6 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 4. **Publicar cambios**. Si se queda en "Cargando tu tienda" sin guardar, recargar la página del admin y repetir. Verificar en el HTML de la tienda que figure el SHA nuevo.
 5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos).
 
-Versión publicada: 210 = `c5ec806` (núcleo `sha384-TSDyVlUYOTOhL6yWgOV2r5PE+F/1VxXT2l9Y5hUwlAxL+z4Vn3kDumYs3dHAnpPf`).
+Versión publicada: 211 = `fa48533` (núcleo `sha384-Ickq2aKd+g/yPTFcZC07RIY8nZ26NiyGS10Uxr0NLAMbE9ddEZ1TtjRk7pUi61pv`). 210 = `c5ec806`, 209 = `40ed931`.
 
 Importante: en `dist/` solo van los `.min.js`. Si existiera el `.js` sin comprimir con el mismo nombre, jsDelivr puede servir su propia versión comprimida y la huella SRI no coincide (el navegador la rechaza). Los intermedios quedan en `build/` (ignorado).
