@@ -98,7 +98,8 @@ if __name__ == '__main__':
     p = req(tok, 'GET', 'pages/%d' % PAGINA)
     if not isinstance(p, dict) or p.get('_error') or (p.get('handle') or {}).get('es') != 'naturalmente-media':
         raise SystemExit('No pude leer la página de Media: %s' % str(p)[:300])
-    actual = (p.get('content') or {}).get('es') or ''
+    # Tiendanube guarda el contenido con saltos de línea \r\n: se compara y se arma todo con \n
+    actual = ((p.get('content') or {}).get('es') or '').replace('\r\n', '\n')
     nuevo, total, ncat, sin = armar(actual)
     os.makedirs(os.path.join(RAIZ, 'build'), exist_ok=True)
     open(os.path.join(RAIZ, 'build', 'media-pagina.html'), 'w', encoding='utf-8').write(nuevo)
@@ -111,13 +112,16 @@ if __name__ == '__main__':
         print('vista previa en build/media-pagina.html (no se publicó nada)')
         sys.exit(0)
     open(os.path.join(RAIZ, 'build', 'media-pagina-antes-%d.html' % int(time.time())), 'w', encoding='utf-8').write(actual)
-    # Se manda la página entera como la devuelve la API (mismos campos), cambiando solo el contenido.
-    cuerpo = {k: p[k] for k in ('name', 'handle', 'seo_title', 'seo_description', 'published') if k in p}
-    cuerpo['content'] = dict(p.get('content') or {}, es=nuevo)
+    # La API (2025-03) solo acepta el mismo formato que al crear la página (page.i18n.es_AR); con los campos sueltos
+    # responde 500 sin cambiar nada. Se mandan todos los datos como están, cambiando solo el contenido.
+    g = lambda k: (p.get(k) or {}).get('es')
+    cuerpo = {'page': {'publish': bool(p.get('published')), 'i18n': {'es_AR': {
+        'title': g('name'), 'content': nuevo, 'seo_handle': g('handle'),
+        'seo_title': g('seo_title'), 'seo_description': g('seo_description')}}}}
     r = req(tok, 'PUT', 'pages/%d' % PAGINA, cuerpo)
     if isinstance(r, dict) and r.get('_error'):
         raise SystemExit('La API respondió error (no se cambió nada o hay que revisar): %s' % r)
     time.sleep(2)
     v = req(tok, 'GET', 'pages/%d' % PAGINA)
-    ok = (v.get('content') or {}).get('es') == nuevo and all(v.get(k) == p.get(k) for k in ('name', 'handle', 'seo_title', 'seo_description', 'published'))
+    ok = ((v.get('content') or {}).get('es') or '').replace('\r\n', '\n') == nuevo and all(v.get(k) == p.get(k) for k in ('name', 'handle', 'seo_title', 'seo_description', 'published'))
     print('publicado y verificado' if ok else 'OJO: la página quedó distinta a lo esperado; revisar (el contenido anterior está en build/)')
