@@ -15,21 +15,20 @@
 
 @media (min-width:1024px){
 
+/* ---------- Encabezado (todas las páginas) ---------- */
+/* Fila de navegación original de la plantilla de Tiendanube (botón "Categorías" con las categorías
+   crudas de Tiendanube + Feed, Productos, Contacto...): no va. El encabezado queda igual que en el
+   celular y nuestro menú (☰) tiene todo, con nuestras categorías. Pedido de Santi, 24/10/2026. */
+html body .js-head-main .js-menu-and-banners-row{display:none!important}
+/* buscador: se estira hasta los íconos (antes compartía el lugar con un espacio en blanco, .sp) */
+html body #dnh .r1>.sp{display:none!important}
+html body #dnh .r1>.dsk{flex:1 1 auto!important;max-width:none!important;min-width:0!important}
+
 /* ---------- Media y notas: encabezado ---------- */
 /* La barra rápida que aparece al bajar es un recurso del celular:
    en la compu queda fijo el encabezado completo (buscador, carrito, menú). */
 html.dnmd body #dn-sbar{display:none!important}
 html.dnmd body .js-head-main.dn-hid{transform:none!important;box-shadow:0 14px 30px -14px rgba(0,0,0,.7)!important}
-
-/* fila de navegación (Categorías, Feed, Productos...) en oscuro, como el resto de Media,
-   alineada con la grilla */
-html.dnmd body .js-head-main .menu-and-banners-row{background:#0d1a12!important;border-top:1px solid rgba(255,255,255,.07)!important;border-bottom:1px solid rgba(255,255,255,.07)!important;padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important}
-html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link,
-html.dnmd body .js-head-main .js-nav-desktop-list>li>.nav-item-container>a.nav-list-link{color:rgba(255,255,255,.82)!important}
-html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link:hover,
-html.dnmd body .js-head-main .js-nav-desktop-list>li>.nav-item-container>a.nav-list-link:hover{color:#fff!important;background-color:rgba(255,255,255,.08)!important}
-html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link.selected,
-html.dnmd body .js-head-main .js-nav-desktop-list>li>a.nav-list-link[href*="naturalmente-media"]{background:#f0c04f!important;color:#10281a!important}
 
 /* ---------- Portada de Media ---------- */
 html.dnmd body .dn-media #dmx-mast .in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important}
