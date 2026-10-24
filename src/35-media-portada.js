@@ -1,6 +1,6 @@
 /* Naturalmente Media: portada más prolija + páginas propias para "Videos" y "Escritos".
    - /naturalmente-media/            portada (24/10/2026): destacado, seguí leyendo y guardadas, para hoy, videos,
-                                      lo que usamos en las notas, explorá por tema y notas para leer (sin pestañas).
+                                      explorá por tema y notas para leer (sin pestañas).
    - /naturalmente-media/?videos     todos los videos, con filtro por programa (?videos&p=Programa)
    - /naturalmente-media/?escritos   todas las notas, con buscador y filtro por categoría
    Los datos los junta el módulo 31 (videos y notas de la página + los cargados por formulario). */
@@ -71,8 +71,8 @@ var view=/[?&]videos(&|=|$)/.test(qs)?'v':/[?&]escritos(&|=|$)/.test(qs)?'e':'';
 /* ---------- portada de Media (24/10/2026: primero las notas, que son casi todo el contenido) ----------
    Orden: cabecera · destacado (la nota más nueva) · seguí leyendo y guardadas (quedan en el celular de cada uno,
    las anota el módulo 64 en cada nota) · para hoy (una nota distinta cada día) · videos (una fila, los más nuevos)
-   y programas · lo que usamos en las notas (productos, se cargan al acercarse) · explorá por tema (filtra la lista
-   de abajo sin cambiar de página) · notas para leer (lista con adelanto) · aviso de WhatsApp. Sin pestañas. */
+   y programas · explorá por tema (filtra la lista de abajo sin cambiar de página) · notas para leer (lista con
+   adelanto) · aviso de WhatsApp. Sin pestañas. Sin bloque de productos: Santi no quiere vender de forma directa acá. */
 if(!view){
 var hero=M.querySelector('.dm-hero2');if(hero)hero.style.display='none';
 var PR=M.querySelector('#dm-programas'),LE=M.querySelector('#dm-leer');if(PR)PR.remove();if(LE)LE.style.display='none';
@@ -102,14 +102,12 @@ var s2=d.createElement('style');s2.id='dmx-p2-css';s2.textContent=
 '#dmx-vid .vc{flex:0 0 240px;scroll-snap-align:start;display:block;text-decoration:none!important;color:#fff!important}#dmx-vid .vc .im{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0d1a12}#dmx-vid .vc img{width:100%;height:100%;object-fit:cover;display:block}#dmx-vid .vc img.yt{position:absolute;left:0;top:50%;height:auto;transform:translateY(-50%)}'+
 '#dmx-vid .pl{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.9);color:#10281a;display:flex;align-items:center;justify-content:center;padding-left:3px;box-sizing:border-box}#dmx-vid small{display:block;margin:8px 0 3px;font-size:12px;font-weight:700;color:rgba(255,255,255,.6)}#dmx-vid b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:600 15px/1.25 '+FR+'}'+
 '#dmx-vid .pr{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-top:12px;padding-bottom:2px}#dmx-vid .pr::-webkit-scrollbar{display:none}#dmx-vid .pr a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#dcebd5!important;font:800 13px/1 '+AR+';text-decoration:none!important;white-space:nowrap}#dmx-vid .pr i{font-style:normal;font-size:11.5px;color:rgba(255,255,255,.55)}'+
-/* lo que usamos en las notas (lo que vende lleva el dorado) */
-'#dmx-shop .sb{margin:-6px 0 12px!important;font-size:13px;line-height:1.4;color:rgba(255,255,255,.6)}#dmx-shop .pc{flex:0 0 164px;scroll-snap-align:start;display:flex;flex-direction:column;padding:10px;border-radius:16px;background:#fff;color:#16261b}#dmx-shop .pc a{text-decoration:none!important;color:#16261b!important}#dmx-shop .pc .im{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f4f1e4}#dmx-shop .pc img{width:100%;height:100%;object-fit:cover;display:block}'+
-'#dmx-shop .pc b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px;margin:8px 0 4px;font:700 13px/1.25 '+AR+'}#dmx-shop .pc u{display:block;margin:0 0 8px;text-decoration:none;font:900 15px/1 '+AR+';color:#1d4a2a}#dmx-shop .ad{margin-top:auto;display:flex;align-items:center;justify-content:center;width:100%;height:36px;border:0;border-radius:10px;background:#f0c04f;color:#10281a!important;font:900 13px/1 '+AR+';cursor:pointer;text-decoration:none!important}#dmx-shop .ad.ok{background:#3f7d3a;color:#fff!important}#dmx-shop .ad[disabled]{opacity:.75}'+
+
 /* explorá por tema */
 '#dmx-temas .tg{display:grid;grid-template-columns:1fr 1fr;gap:10px}#dmx-temas .tt{position:relative;display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#13251a;text-decoration:none!important}#dmx-temas .tt img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}#dmx-temas .tt:after{content:"";position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(13,26,18,0) 28%,rgba(13,26,18,.9))}'+
 '#dmx-temas .tt span{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;display:block}#dmx-temas .tt b{display:block;font:600 18px/1.1 '+FR+';color:#fff}#dmx-temas .tt i{display:block;margin-top:3px;font-style:normal;font-size:12px;font-weight:700;color:rgba(255,255,255,.78)}#dmx-temas .tt:active img{transform:scale(1.04)}'+
 '@media(min-width:768px){.dmx-w{padding:0 48px}.dmx-row{padding:0 48px 6px;scroll-padding:0 48px}#dmx-hero{padding:26px 48px 4px}#dmx-hero .hx{display:grid;grid-template-columns:1.35fr 1fr}#dmx-hero .im{aspect-ratio:auto;min-height:340px}#dmx-hero .tx{align-self:center;padding:28px 30px 30px}#dmx-hero b{font-size:32px}#dmx-hero .d{font-size:15.5px}#dmx-temas .tg{grid-template-columns:repeat(4,1fr);gap:14px}#dmx-temas .tt:hover img{transform:scale(1.04)}}'+
-'@media(min-width:1024px){html body .dn-media .dmx-w,html body .dn-media #dmx-hero{padding-left:'+GT+';padding-right:'+GT+'}html body .dn-media .dmx-row{padding-left:'+GT+';padding-right:'+GT+';scroll-padding:0 '+GT+'}#dmx-vid .dmx-row,#dmx-shop .dmx-row,#dmx-cont .dmx-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;overflow:visible}#dmx-vid .vc,#dmx-shop .pc,#dmx-cont .gc{flex:none;min-width:0}#dmx-vid .vc:nth-child(n+9),#dmx-cont .gc:nth-child(n+9){display:none}}';
+'@media(min-width:1024px){html body .dn-media .dmx-w,html body .dn-media #dmx-hero{padding-left:'+GT+';padding-right:'+GT+'}html body .dn-media .dmx-row{padding-left:'+GT+';padding-right:'+GT+';scroll-padding:0 '+GT+'}#dmx-vid .dmx-row,#dmx-cont .dmx-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;overflow:visible}#dmx-vid .vc,#dmx-cont .gc{flex:none;min-width:0}#dmx-vid .vc:nth-child(n+9),#dmx-cont .gc:nth-child(n+9){display:none}}';
 d.head.appendChild(s2);
 var sec=function(id){var x=d.createElement('section');x.id=id;return x};
 /* cabecera */
@@ -135,17 +133,6 @@ var VI=sec('dmx-vid'),EPI={};(W.dnMediaEP||[]).forEach(function(e){if(e&&e.s)EPI
 var drawVid=function(){if(!V.length){VI.style.display='none';return}var L=V.map(function(v,j){return[v,j]}).sort(function(x,y){var a=EPI[x[0].h],b=EPI[y[0].h];return((b?when(b):0)-(a?when(a):0))||x[1]-y[1]}).map(function(x){return x[0]}),pr={};V.forEach(function(v){if(v.p)pr[v.p]=(pr[v.p]||0)+1});
 VI.innerHTML='<div class="dmx-hd sm"><div><h2>Videos</h2></div><a class="dmx-more" href="/naturalmente-media/?videos">Ver todos '+IC.play+'</a></div><div class="dmx-row">'+L.slice(0,10).map(function(v){var e=EPI[v.h],du=e?String(e.meta&&e.meta[1]||'').replace(/^⏱\s*/,''):'';return'<a class="vc" href="'+esc(v.h)+'"><span class="im">'+(v.i?'<img alt="" loading="lazy"'+(/ytimg\.com/.test(v.i)?' class="yt"':'')+' src="'+esc(v.i)+'">':'')+'<span class="pl">'+IC.play+'</span></span><small>'+esc(v.p||v.n)+(du?' · '+esc(du):'')+'</small><b>'+esc(v.t)+'</b></a>'}).join('')+'</div>'+
 (progs.length>1?'<div class="dmx-w pr">'+progs.map(function(p){return'<a href="/naturalmente-media/?videos&p='+encodeURIComponent(p)+'">'+esc(p)+' <i>'+pr[p]+'</i></a>'}).join('')+'</div>':'')};
-/* lo que usamos en las notas: productos que aparecen en las notas más nuevas (se traen al acercarse; misma copia
-   que usa la nota, módulo 27: dnNP:<producto>, 15 minutos) */
-var SH=sec('dmx-shop');SH.style.display='none';var SHL=[];
-var loadP=function(s){var K='dnNP:'+s,c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(x){}if(c&&NOW-c.ts<9e5)return Promise.resolve(c);
-return fetch('/productos/'+s+'/').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var q=new DOMParser().parseFromString(t,'text/html'),v=[];try{v=JSON.parse(q.querySelector('[data-variants]').getAttribute('data-variants'))}catch(x){}
-var o={ts:Date.now(),n:((q.querySelector('h1')||{}).textContent||'').replace(/\s+/g,' ').trim(),img:((q.querySelector('meta[property="og:image"]')||{}).content||'').replace(/^http:/,'https:'),pid:(q.querySelector('form [name="add_to_cart"]')||{}).value||'',vars:v.map(function(z){return z.id}),pr:(v[0]||{}).price_number||0,av:v.some(function(z){return z.available})};try{localStorage.setItem(K,JSON.stringify(o))}catch(x){}return o}).catch(function(){return null})};
-var drawShop=function(){var Q=((W.dnSheet&&W.dnSheet.data&&W.dnSheet.data.nota)||W.dnNotasEquipo||[]).slice().sort(function(a,b){return(+b.ts||0)-(+a.ts||0)}),S=[];Q.some(function(n){(n.p||[]).forEach(function(x){if(S.length<8&&S.indexOf(x)<0)S.push(x)});return S.length>=8});if(!S.length)return;
-var R=[],i=0,run=function(){if(i>=S.length||R.length>=4)return fin();var s=S[i++];loadP(s).then(function(p){if(p&&p.av&&p.pr&&p.n)R.push({s:s,p:p});run()})};
-var fin=function(){if(R.length<2)return;SHL=R;SH.style.display='';SH.innerHTML='<div class="dmx-hd sm"><div><h2>Lo que usamos en las notas</h2></div><a class="dmx-more" href="/productos/">Tienda</a></div><p class="dmx-w sb">Productos que aparecen en las notas más nuevas.</p><div class="dmx-row">'+R.map(function(x,k){var p=x.p,one=p.vars.length===1&&p.pid;return'<div class="pc"><a href="/productos/'+esc(x.s)+'/"><span class="im">'+(p.img?'<img alt="" loading="lazy" src="'+esc(p.img.replace(/-1024-1024(\.\w+)$/,'-480-0$1'))+'">':'')+'</span><b>'+esc(p.n)+'</b><u>$'+Math.round(p.pr).toLocaleString('es-AR')+'</u></a>'+(one?'<button type="button" class="ad" data-k="'+k+'">Agregar</button>':'<a class="ad" href="/productos/'+esc(x.s)+'/">Ver producto</a>')+'</div>'}).join('')+'</div>'};run()};
-SH.addEventListener('click',function(e){var b=e.target.closest('button.ad[data-k]');if(!b||b.disabled)return;var it=SHL[+b.getAttribute('data-k')];if(!it)return;b.disabled=true;b.textContent='Agregando…';
-var ok=function(){b.textContent='✓ Agregado';b.classList.add('ok')},ko=function(){b.disabled=false;b.textContent='Agregar'};if(W.__dnAddId)W.__dnAddId(it.p.pid,ok,ko);else location.href='/productos/'+it.s+'/'});
 /* explorá por tema: cada tema con su foto (la de su nota más nueva) y la cantidad; al tocarlo filtra la lista de abajo */
 var TM=sec('dmx-temas');var drawTemas=function(){var C={},O=[];srt(notes(),'r').forEach(function(n){if(!n.c)return;if(!C[n.c]){C[n.c]={c:n.c,n:0,i:''};O.push(C[n.c])}C[n.c].n++;if(!C[n.c].i&&n.i)C[n.c].i=n.i});O=O.filter(function(x){return x.n>=3}).sort(function(a,b){return b.n-a.n});if(O.length<3){TM.style.display='none';return}TM.style.display='';
 TM.innerHTML='<div class="dmx-hd sm"><div><h2>Explorá por tema</h2></div></div><div class="dmx-w tg">'+O.map(function(x){return'<a class="tt" href="/naturalmente-media/?escritos&c='+encodeURIComponent(x.c)+'" data-c="'+esc(x.c)+'">'+(x.i?'<img alt="" loading="lazy" src="'+esc(IMG(x.i,600,450))+'">':'')+'<span><b>'+esc(x.c)+'</b><i>'+x.n+' notas</i></span></a>'}).join('')+'</div>'};
@@ -164,11 +151,8 @@ var toNotes=function(){var y=NS.getBoundingClientRect().top+scrollY-90;scrollTo(
 TM.addEventListener('click',function(e){var a=e.target.closest('a[data-c]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();NC=a.getAttribute('data-c');NSH=12;drawN();toNotes()});
 /* armado */
 var all=function(){drawMast();drawHero();drawCont();drawHoy();drawVid();drawTemas();drawN()};all();
-var first=M.firstChild;[MA,HE,CO,HO,VI,SH,TM,TE].forEach(function(x){M.insertBefore(x,first)});
+var first=M.firstChild;[MA,HE,CO,HO,VI,TM,TE].forEach(function(x){M.insertBefore(x,first)});
 if(/#escritos/.test(location.hash))setTimeout(toNotes,300);else if(/#videos/.test(location.hash))setTimeout(function(){scrollTo({top:VI.getBoundingClientRect().top+scrollY-90})},300);
-/* productos: se traen cuando la sección está por aparecer en pantalla y la página ya cargó */
-var shopGo=function(){(W.__dnIdle||function(f){f()})(drawShop)},once=0,trig=function(){if(once++)return;shopGo()};
-if(W.IntersectionObserver){var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();trig()}},{rootMargin:'700px 0px'});io.observe(TM)}else trig();
 if(W.dnSheet&&!W.dnSheet.done)W.dnSheet.ready(function(){all()});
 return}
 /* ---------- páginas propias: Videos / Escritos ---------- */
