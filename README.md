@@ -18,7 +18,16 @@ Para armar `dist/`: `./build.sh` (imprime la huella SRI).
 El sello verifica la huella (`integrity`, SRI sha384) del archivo: si el contenido no coincide exacto, el navegador no lo ejecuta. **En cada versión nueva hay que actualizar en el sello el commit y la huella** (en el `<link rel=preload>` y en el cargador).
 Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de Tiendanube.
 
-`sello/` — copia de referencia de código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
+`sello/` — código que vive **dentro** de Tiendanube (crítico para la venta), no se carga desde acá.
+- `sello/completo.html`: **copia completa y exacta** del sello (desde la versión 213), con `{{SHA}}` y `{{SRI}}` en lugar del commit y la huella del núcleo. `python3 herramientas/sello.py <commit>` arma el sello exacto de cualquier versión publicada e imprime su huella SHA-256 (la 213 da `965d2a7e…37ca`, igual a la del admin). Si se cambia otra parte del sello, actualizar este archivo.
+- Los otros archivos de `sello/` son pedazos viejos de referencia (20/10/2026); la fuente es `completo.html`.
+- El sello sale en el HTML de todas las páginas (es público): no tiene mails, claves ni datos de clientes, y así tiene que seguir.
+
+## Seguridad (revisión del 24/10/2026)
+- En el repositorio no hay contraseñas, claves ni tokens (revisados los 331 cambios). Los programas de `herramientas/` que usan la API de Tiendanube leen la clave de un archivo aparte que **nunca** se sube (`--token-file`).
+- La web carga el código fijado a un commit y con huella SRI: aunque alguien entrara a GitHub, no puede cambiar lo que corre en la tienda (el navegador rechaza un archivo distinto). Lo único que cambia el código de la web es el sello, en el admin de Tiendanube.
+- Todo lo que está acá es público. Por eso: los mails autorizados de la planilla van como huella (`hh` en `src/34-planilla.js`), el contador de ventas se guarda redondeado como lo muestra la web (`herramientas/ventas.md`) y nunca se suben datos de clientes, pedidos, costos ni márgenes.
+- Pendiente (necesita a Santi): pasar el repositorio a una organización de GitHub de la empresa, con historial limpio (en el historial viejo quedaron el mail personal y los números exactos de ventas al 21/10).
 
 
 ## Diseño de computadora (desde el 24/10/2026)
@@ -45,7 +54,8 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 2. Admin → Tienda online → Diseño → **Editar diseño actual** (`/admin/themes/settings/installations/3905649`) → `textarea#text-custom_seal_code`.
 3. Reemplazar en todo el valor el SHA viejo por el nuevo (aparece 2 veces) y la huella del núcleo vieja por la nueva (2 veces). Copia de respaldo en el `localStorage` del admin: `dnSealExtN` (valor completo) y `dnSealBaseN` (la primera parte, con el cargador).
 4. **Publicar cambios**. Si se queda en "Cargando tu tienda" sin guardar, recargar la página del admin y repetir. Verificar en el HTML de la tienda que figure el SHA nuevo.
-5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos).
+5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos). Si el respaldo del navegador no está,
+   `python3 herramientas/sello.py <commit de la versión anterior>` arma el sello exacto (comparar su sha256 antes de pegar).
 
 Versión publicada: 213 = `7d49ea7` (núcleo `sha384-R71CbqjjEQFame2OJLE2osRVRoqEaV0SlP2QCp9Ei7GEFBDrMGtqiZnjYzy+a7j7`). 212 = `aef5953`, 211 = `fa48533`, 210 = `c5ec806`, 209 = `40ed931`.
 
