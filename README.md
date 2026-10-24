@@ -29,6 +29,14 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
 - Todo lo que está acá es público. Por eso: los mails autorizados de la planilla van como huella (`hh` en `src/34-planilla.js`), el contador de ventas se guarda redondeado como lo muestra la web (`herramientas/ventas.md`) y nunca se suben datos de clientes, pedidos, costos ni márgenes.
 - Pendiente (necesita a Santi): pasar el repositorio a una organización de GitHub de la empresa, con historial limpio (en el historial viejo quedaron el mail personal y los números exactos de ventas al 21/10).
 
+## Velocidad en el celular (24/10/2026)
+Varios bloques se arman trayendo otra página entera de la tienda (90-130 KB cada una). Medido en la ficha de un combo, en la primera página de la visita: Media, /combos/ y los más vendidos (+ 2 veces /account/ si el cliente tiene sesión) se pedían junto con las fotos de la página, antes del evento load. Regla desde ahora (`src/62-pedidos-de-fondo.js`, primer módulo del núcleo):
+- Si el bloque **no se ve al entrar** (carrito lateral, saludo, episodio al azar, "Los que compran este producto también llevan"), el pedido va dentro de `__dnIdle(f)`: corre cuando la página terminó de cargar y el navegador está libre (tope 8 s).
+- Para traer el HTML de una página usar `__dnGet(url)`: si dos bloques piden la misma página en la misma visita, se pide una sola vez (ej.: Media en el inicio; la categoría de la ficha y el carrito vacío).
+- Lo que se ve arriba de todo (ranking "#1 más vendido", tamaños, precio por 100 g) se sigue pidiendo enseguida.
+- Libros: los precios salen de la categoría Libros (`/educativo/`, una página) y no de la ficha de cada libro (antes, 6 páginas: ~800 KB).
+- Mejora posible a futuro: la parte del inicio pesa 331 KB (94 KB comprimida); 146 KB son el índice de las notas (`src/45-notas-equipo.js`), que se podría traer aparte solo cuando hace falta.
+
 
 ## Diseño de computadora (desde el 24/10/2026)
 
@@ -47,7 +55,7 @@ Lo que toca la compra (botón COMPRAR AHORA, carrito, landings) queda dentro de 
   - Sección nueva en el feed: si su id empieza con `hb-` y sus estilos usan `max-width:767px` / `min-width:768px`, en la compu se ve sola como en el celular. Con otro id, agregarlo a `MK`.
 
 ### Foto del celular (antes / después de publicar)
-`herramientas/foto-celular.js`: en el navegador en modo celular (375×812, recargar), `dnFoto('antes1')` y `dnFoto('antes2')` en cada página clave (inicio, tienda, /combos/, ficha de combo, ficha común, Media, nota, episodio, escritos) para medir el ruido; publicar; `dnFoto('despues')`. Un cambio real es una clave distinta de las DOS fotos de antes. Esperar ~6 s a que la página termine de cargar (con menos aparecen diferencias falsas). En el celular `dk` tiene que dar siempre `false`.
+`herramientas/foto-celular.js`: en el navegador en modo celular (375×812, recargar), `dnFoto('antes1')` y `dnFoto('antes2')` en cada página clave (inicio, tienda, /combos/, ficha de combo, ficha común, Media, nota, episodio, escritos) para medir el ruido; publicar; `dnFoto('despues')`. Un cambio real es una clave distinta de las DOS fotos de antes. Esperar ~8 s a que la página termine de cargar (con menos aparecen diferencias falsas; desde la versión 214 algunos bloques se arman recién después del evento load). En el celular `dk` tiene que dar siempre `false`.
 
 ## Publicar una versión (sello)
 1. `./build.sh`, commit y push a `main`. Calentar jsDelivr pidiendo los archivos del commit nuevo desde los 3 servidores y comprobar la huella del núcleo.

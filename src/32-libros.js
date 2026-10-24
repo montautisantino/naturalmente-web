@@ -2,8 +2,8 @@
    - Sección destacada "Libros digitales" en el inicio de la web y en el inicio de la Tienda (carrusel).
    - Una tarjeta chica con el libro del tema en: ficha de producto (solo Herboristería), categorías relacionadas, resultados y
      sugerencias del buscador, carrito y episodios de Naturalmente Media.
-   Una sola tarjeta por lugar y nunca un libro que ya está en el carrito. Precios: se leen de la ficha de cada
-   libro (no se escriben acá) y se guardan durante la visita. Sin promesas de salud en los textos. */
+   Una sola tarjeta por lugar y nunca un libro que ya está en el carrito. Precios: se leen de la categoría Libros
+   (/educativo/, una sola página para todos; si un libro no está ahí, de su ficha), no se escriben acá, y se guardan durante la visita. Sin promesas de salud en los textos. */
 !function(){var d=document,B=d.body,W=window;if(W.__dnLib)return;W.__dnLib=1;
 var IM='//acdn-us.mitiendanube.com/stores/003/435/959/products/';
 var G=[
