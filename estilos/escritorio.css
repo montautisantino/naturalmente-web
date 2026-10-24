@@ -35,8 +35,9 @@ html body .js-head-main.dn-hid{transform:none!important;box-shadow:0 12px 26px -
 html.dnmd body .js-head-main.dn-hid{box-shadow:0 14px 30px -14px rgba(0,0,0,.7)!important}
 
 /* ---------- Contenedor de la plantilla (migas, grilla de productos, ficha, pie) ---------- */
-/* 1146 = 1116 de contenido + 15 px de margen interno a cada lado (Bootstrap) */
-html body .container:not(.container-narrow){max-width:1146px!important}
+/* 1164 = 1116 de contenido + 24 px de margen interno a cada lado (igual que el encabezado,
+   así en pantallas angostas también quedan alineados) */
+html body .container:not(.container-narrow){max-width:1164px!important;padding-left:24px!important;padding-right:24px!important}
 
 /* ---------- Inicio ---------- */
 html body.template-home #dn-not{margin-left:auto!important;margin-right:auto!important}
