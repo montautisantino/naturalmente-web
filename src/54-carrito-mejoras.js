@@ -56,9 +56,11 @@ if(f>10000&&J.length)return{j:1,L:J};
 var L=Object.keys(C).map(function(k){return C[k]}).filter(function(x){return x.ok&&x.p&&x.p<=6000&&!ic[x.id]&&!/^\s*combo/i.test(x.n)}).slice(0,8);return{j:0,L:L.length>=2?L:J}}
 function add(it,btn){if(btn.disabled||btn.classList.contains('ok'))return;btn.disabled=true;btn.textContent='Agregando…';
 W.__dnAddId(it.id,function(){btn.disabled=false;btn.classList.add('ok');btn.textContent='✓ Agregado';setTimeout(draw,600)},function(){btn.disabled=false;btn.textContent='+ Agregar'})}
-var box=null;
+var box=null,dl=0;
 function need(){var n=[];Object.keys(inCart()).forEach(function(id){n=n.concat(W.__dnPares[id]||[])});return n}
 function draw(){var t=total(),f=FREE-t;var de=d.getElementById('dn-cdesp');if(de)de.style.display=t>0?'':'none';if(!(t>0)||f<=0){if(box)box.style.display='none';return}
+/* si la página todavía está cargando, la sugerencia espera a que termine (una sola vez) */
+if(dl<2&&d.readyState!=='complete'){if(!dl){dl=1;(W.__dnIdle||function(x){x()})(function(){dl=2;draw()})}return}
 W.__dnCat(need()).then(function(C){var R=pick(C,f),S=R.L;if(!S.length){if(box)box.style.display='none';return}
 if(!box){box=d.createElement('div');box.id='dn-cx';box.className='js-visible-on-cart-filled';var fr=M.querySelector('.js-ship-free-rest'),ref=fr&&fr.closest('.js-visible-on-cart-filled')||M.querySelector('.js-ajax-cart-list');if(!ref)return;ref.parentNode.insertBefore(box,ref.nextSibling);
 box.addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(!b)return;e.preventDefault();e.stopPropagation();var it=S2[b.getAttribute('data-i')];if(it)add(it,b)},true)}

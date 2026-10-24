@@ -43,6 +43,6 @@ bx.addEventListener('click',function(e){var b=e.target.closest('button[data-k]')
 if(inCart(id)||!me)addIt(it,b);else ask(it,b)})}).catch(function(){})}
 /* se arma cuando el cliente se acerca a esa parte, o a los 3 s si el navegador no avisa */
 function arm(){var f=d.querySelector('#single-product form.js-product-form');if(!f||!W.__dnCat){return setTimeout(arm,400)}
-var t=setTimeout(go,3000);if(!W.IntersectionObserver)return;var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();clearTimeout(t);go()}},{rootMargin:'600px 0px'});io.observe(f)}
+var gi=function(){(W.__dnIdle||function(x){x()})(go)};var t=setTimeout(gi,3000);if(!W.IntersectionObserver)return;var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();clearTimeout(t);gi()}},{rootMargin:'600px 0px'});io.observe(f)}
 var n=0;(function w(){if(W.__dnCat&&d.querySelector('#single-product form.js-product-form'))arm();else if(++n<40)setTimeout(w,250)})();
 }();
