@@ -13,7 +13,7 @@ CUENTA="15 24 37"
 PEDIDO="22"
 HOME_P="45 06 07 33 25 36 42"
 MEDIA="45 03 31 04 27 35 36 39 40"
-LISTADO="00 12 21 26"
+LISTADO="NC 00 12 21 26 63"
 PRODUCTO="00 LA 59 14 19 48 49 50 52 56 57"
 # parte de computadora: solo se descarga en pantallas de 1024 px o más (ver estilos/escritorio.css)
 ESCRITORIO="61"
@@ -25,8 +25,10 @@ node herramientas/control-escritorio.js
 node -e "var m=JSON.parse(require('fs').readFileSync('contenido/notas-blog.json','utf8')),o={};Object.keys(m).forEach(function(s){var x=m[s].slice(('/blog/posts/'+s+'-').length);if(/^[0-9a-f]{12}$/.test(x))o[s]=x});require('fs').writeFileSync('build/nblist.js','/* lista generada por build.sh */\\nwindow.dnNB='+JSON.stringify(o)+';')"
 # lista de productos con landing automática (sale de contenido/lp/*.json; "tipo": c = combo, s = suplemento)
 node -e "var fs=require('fs'),m={};fs.readdirSync('contenido/lp').filter(function(f){return/\\.json$/.test(f)}).forEach(function(f){var j=JSON.parse(fs.readFileSync('contenido/lp/'+f,'utf8'));m[f.slice(0,-5)]=j.tipo==='c'?'c':'s'});fs.writeFileSync('build/lalist.js','/* lista generada por build.sh */\\nwindow.dnLA='+JSON.stringify(m)+';')"
+# notas relacionadas en cada categoría de la tienda (sale de contenido/notas-categorias.json, que arma herramientas/notas-categorias.py)
+node -e "var fs=require('fs'),s=fs.readFileSync('src/45-notas-equipo.js','utf8'),i=s.indexOf('window.dnNotasEquipo=')+21,N={};JSON.parse(s.slice(i,s.indexOf('];',i)+1)).forEach(function(n){N[n.s]=n});var B=JSON.parse(fs.readFileSync('contenido/notas-blog.json','utf8')),C=JSON.parse(fs.readFileSync('contenido/notas-categorias.json','utf8')),o={};Object.keys(C).forEach(function(c){o[c]=C[c].filter(function(x){return N[x]&&B[x]}).map(function(x){var n=N[x];return{t:n.t,u:B[x],i:n.i,c:n.c,m:n.m}})});fs.writeFileSync('build/nclist.js','/* lista generada por build.sh */\\nwindow.dnNC='+JSON.stringify(o)+';')"
 node -e "var s=require('fs').readFileSync('src/31-episodios.js','utf8'),a=s.indexOf('var EP=['),b=s.indexOf('\\n];',a);var EP=eval(s.slice(a+7,b+2));require('fs').writeFileSync('build/eplist.js','/* lista generada por build.sh */\\nwindow.dnEPL='+JSON.stringify(EP.map(function(x){return{h:'/naturalmente-media/?ep='+x.s,t:x.t,n:x.src.split(' · ')[0]+' · '+x.meta[1].replace(/^\\u23f1\\s*/,''),y:x.yt}}))+';')"
-cat_mods() { for n in $1; do if [ "$n" = EPL ]; then f=build/eplist.js; elif [ "$n" = LA ]; then f=build/lalist.js; elif [ "$n" = NB ]; then f=build/nblist.js; else f=$(ls src/$n-*.js); fi; echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
+cat_mods() { for n in $1; do if [ "$n" = EPL ]; then f=build/eplist.js; elif [ "$n" = LA ]; then f=build/lalist.js; elif [ "$n" = NB ]; then f=build/nblist.js; elif [ "$n" = NC ]; then f=build/nclist.js; else f=$(ls src/$n-*.js); fi; echo "/* $f */"; echo "try{"; cat "$f"; echo; echo "}catch(e){}"; done; }
 sri() { echo "sha384-$(openssl dgst -sha384 -binary "$1" | openssl base64 -A)"; }
 MAP=""
 for p in home media listado producto cuenta pedido; do
