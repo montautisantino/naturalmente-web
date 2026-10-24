@@ -44,7 +44,7 @@ html body .container:not(.container-narrow){max-width:1164px!important;padding-l
 /* Pedido de Santi (24/10/2026): el feed en la compu con la misma esencia que en el teléfono, como el
    feed de una red social, no un "collage". Columna de 600 px centrada (el ancho de feed de X/Facebook).
    escritorio.js le pone html.dk-feed y hace que adentro del feed valgan las reglas del celular. */
-html.dk-feed body.template-home .js-home-sections-container{max-width:600px!important;margin-left:auto!important;margin-right:auto!important}
+html.dk-feed body.template-home .js-home-sections-container{max-width:600px!important;margin-left:auto!important;margin-right:auto!important;box-shadow:0 0 0 1px rgba(22,38,27,.07),0 24px 60px -24px rgba(16,40,26,.22)}
 /* Secciones de la plantilla de Tiendanube dentro del feed: sus estilos de compu (Bootstrap, en hojas que
    no se pueden leer desde acá) se vuelven a los valores que tienen en el celular. */
 /* carruseles de productos */
