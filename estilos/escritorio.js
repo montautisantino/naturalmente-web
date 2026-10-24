@@ -43,3 +43,49 @@ W.addEventListener('scroll',function(){if(!tk){tk=1;(W.requestAnimationFrame||se
 function chg(){if(q.matches)put();else back()}
 try{q.addEventListener('change',chg)}catch(e){try{q.addListener(chg)}catch(e2){}}
 });
+
+/* ===== Inicio (Feed): una sola columna centrada, igual que en el celular ===== */
+/* El feed del celular se arma con las reglas para pantallas chicas (max-width:767px); las de pantallas
+   medianas (min-width:768px) lo convertían en el "collage" de la compu. Acá, solo para lo que está
+   DENTRO del feed: las de pantalla mediana se apagan y las de pantalla chica se copian en el mismo lugar
+   de su hoja (así ganan y pierden contra las mismas reglas que en el celular). Encabezado, pie, menú y
+   ventanas (test, favoritos, compartir) no se tocan. Si la ventana se achica a menos de 1024 px, todo
+   vuelve a como estaba. */
+if(d.body&&d.body.classList.contains('template-home'))(function(){
+var C=d.querySelector('.js-home-sections-container'),R=d.documentElement;if(!C)return;
+/* marcas de las secciones del feed (para reglas de secciones que todavía no se armaron) */
+var MK=/#hb-|#dn-(not|sub|lep|qzc|prg|loc|ig|rv)\b|\.dn-lib\b|-home\b|\.hb-/;
+var OFF=[],SW=[],on=0;
+function strip(s){return s.replace(/::?(after|before|first-letter|first-line|placeholder|marker|selection|backdrop|-webkit-[a-z-]+|-moz-[a-z-]+)(\([^)]*\))?/g,'').replace(/:(hover|focus|active|focus-visible|focus-within|visited)\b/g,'')}
+function split(s){var o=[],k=0,c='';for(var i=0;i<s.length;i++){var h=s.charAt(i);if(h=='('||h=='[')k++;else if(h==')'||h==']')k--;if(h==','&&!k){o.push(c);c=''}else c+=h}o.push(c);return o.map(function(x){return x.trim()}).filter(Boolean)}
+/* ¿la regla toca solo cosas del feed? (o cosas del feed que todavía no aparecieron) */
+function feed(s){var i=0,o=0;try{[].forEach.call(d.querySelectorAll(strip(s)||'#dk-x'),function(e){if(C.contains(e))i++;else o++})}catch(e){return 0}return!o&&(i||MK.test(s))}
+function scan(){var ch=0;
+[].forEach.call(d.styleSheets,function(ss){var rs;if(ss.href)return;try{rs=ss.cssRules}catch(e){return}
+for(var j=rs.length-1;j>=0;j--){var r=rs[j];if(r.type!==4||r.__dk)continue;var mt=r.media.mediaText.replace(/\s+/g,'');
+if(mt=='(min-width:768px)')[].forEach.call(r.cssRules,function(c){if(c.type!==1||c.__dk||!feed(c.selectorText))return;c.__dk=1;
+var x=[c,c.selectorText,split(c.selectorText).map(function(p){return'html:not(.dk-feed) '+p}).join(',')];OFF.push(x);if(on)c.selectorText=x[2];ch=1});
+else if(mt=='(max-width:767px)'){var t='';[].forEach.call(r.cssRules,function(c){if(c.type!==1||c.__dk||!feed(c.selectorText))return;c.__dk=1;t+=c.cssText});
+if(t)try{ss.cssRules[ss.insertRule('@media (min-width:1024px){'+t+'}',j+1)].__dk=1;ch=1}catch(e){}}}});
+return ch}
+/* carruseles de productos de la plantilla (Swiper): en la compu ponían 5 tarjetas apretadas; vuelven a
+   la configuración del celular (2 y un cuarto) */
+function bp(s,b){try{s.params.breakpoints=b;s.originalParams.breakpoints=b;s.currentBreakpoint=null;s.setBreakpoint();s.update()}catch(e){}}
+function swp(){[].forEach.call(C.querySelectorAll('.swiper-container'),function(el){var s=el.swiper;if(!s||!s.params||!s.originalParams||s.__dk)return;
+var b=s.params.breakpoints,k=b?Object.keys(b):[];if(!k.length)return;s.__dk=1;var x=[s,b,{99999:b[k[k.length-1]]}];SW.push(x);if(on)bp(s,x[2])})}
+/* filas que se deslizan con el dedo y no tienen flechas propias (videos): en la compu, con el mouse,
+   se agregan flechas en la línea de "Deslizá para ver más" */
+function nav(){[].forEach.call(C.querySelectorAll('.hb .er'),function(r){var s=r.closest('.hb'),h=s&&s.querySelector('.hn');if(!h||h.querySelector('.dk-nv')||s.querySelector('.pv,.nx'))return;
+var w=d.createElement('span');w.className='dk-nv';w.innerHTML='<button type="button" class="dk-pv" aria-label="Anterior">‹</button><button type="button" class="dk-nx" aria-label="Siguiente">›</button>';h.appendChild(w);
+function go(n){var c=r.querySelector('a,div');r.scrollBy({left:n*((c?c.getBoundingClientRect().width:240)+12),behavior:'smooth'})}
+function st(){var e=r.scrollWidth-r.clientWidth;w.firstChild.disabled=r.scrollLeft<4;w.lastChild.disabled=r.scrollLeft>e-4}
+w.firstChild.addEventListener('click',function(){go(-1)});w.lastChild.addEventListener('click',function(){go(1)});
+r.addEventListener('scroll',function(){(W.requestAnimationFrame||setTimeout)(st)},{passive:true});W.addEventListener('resize',st,{passive:true});st()})}
+function ok(){if(!on)return;var ch=scan();swp();nav();if(ch)W.dispatchEvent(new Event('resize'))}
+function set(v){on=v;R.classList.toggle('dk-feed',!!v);OFF.forEach(function(x){try{x[0].selectorText=v?x[2]:x[1]}catch(e){}});SW.forEach(function(x){bp(x[0],v?x[2]:x[1])});if(v)ok();W.dispatchEvent(new Event('resize'))}
+set(1);
+/* las secciones del feed se arman de a poco (y "Un rato más" sigue cargando al bajar) */
+[400,1500,4000,8000,15000].forEach(function(t){setTimeout(ok,t)});
+if(W.MutationObserver){var tm=0,mo=new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(ok,200)});mo.observe(C,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},60000)}
+try{q.addEventListener('change',function(){set(q.matches?1:0)})}catch(e){try{q.addListener(function(){set(q.matches?1:0)})}catch(e2){}}
+})();

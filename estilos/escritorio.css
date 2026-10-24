@@ -13,6 +13,7 @@
    contenedor de la plantilla se ajustan a esa misma grilla.
    Etapa 1: Naturalmente Media (portada, videos, escritos, episodios) y notas.
    Etapa 2: encabezado fijo en todo el sitio, tienda, categorías y fichas.
+   Etapa 3: el Feed (inicio) en una sola columna, igual que en el celular.
    =========================================================================== */
 
 @media (min-width:1024px){
@@ -39,8 +40,20 @@ html.dnmd body .js-head-main.dn-hid{box-shadow:0 14px 30px -14px rgba(0,0,0,.7)!
    así en pantallas angostas también quedan alineados) */
 html body .container:not(.container-narrow){max-width:1164px!important;padding-left:24px!important;padding-right:24px!important}
 
-/* ---------- Inicio ---------- */
-html body.template-home #dn-not{margin-left:auto!important;margin-right:auto!important}
+/* ---------- Inicio (Feed): una sola columna, como en el celular ---------- */
+/* Pedido de Santi (24/10/2026): el feed en la compu con la misma esencia que en el teléfono, como el
+   feed de una red social, no un "collage". Columna de 600 px centrada (el ancho de feed de X/Facebook).
+   escritorio.js le pone html.dk-feed y hace que adentro del feed valgan las reglas del celular. */
+html.dk-feed body.template-home .js-home-sections-container{max-width:600px!important;margin-left:auto!important;margin-right:auto!important}
+/* contenedor de la plantilla dentro del feed (carruseles de productos, newsletter): como en el celular */
+html.dk-feed body.template-home .js-home-sections-container .container{max-width:none!important;padding-left:15px!important;padding-right:15px!important}
+/* flechas para la fila de videos (con el mouse no se puede deslizar): mismas que las de Fichas/Trucos */
+html.dk-feed body.template-home .dk-nv{display:flex;gap:8px;margin-left:4px}
+html.dk-feed body.template-home .dk-nv button{width:38px;height:38px;padding:0;border-radius:12px;border:1px solid rgba(22,38,27,.09);background:#fff;color:#13361f;font:900 19px/1 Archivo,Arial,sans-serif;cursor:pointer;transition:opacity .2s,border-color .2s}
+html.dk-feed body.template-home .dk-nv button:hover{border-color:rgba(22,38,27,.28)}
+html.dk-feed body.template-home .dk-nv button:disabled{opacity:.35;cursor:default}
+/* (sin el feed en columna, la novedad iba centrada) */
+html:not(.dk-feed) body.template-home #dn-not{margin-left:auto!important;margin-right:auto!important}
 
 /* ---------- Tienda (/productos/) ---------- */
 /* el carrusel de categorías y "Lo que viste hace poco" quedaban pegados a la izquierda */
