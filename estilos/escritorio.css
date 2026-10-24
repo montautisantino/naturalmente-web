@@ -64,7 +64,8 @@ html.dnmd body .dn-media .dmx-pg>.dmx-ct,
 html.dnmd body .dn-media #dmx-te .dmx-tt,
 html.dnmd body .dn-media #dmx-te .dmx-ch,
 html.dnmd body .dn-media #dmx-te .dmx-bar,
-html.dnmd body .dn-media #dmx-te .dmx-gr{padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important;box-sizing:border-box}
+html.dnmd body .dn-media #dmx-te .dmx-gr,
+html.dnmd body .dn-media #dmx-te .ls{padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important;box-sizing:border-box}
 html.dnmd body .dn-media .dmx-pg .dmx-sr,
 html.dnmd body .dn-media #dmx-te .dmx-sr{margin-left:max(24px,calc(50% - 596px))!important}
 html.dnmd body .dn-media .dmx-gr{column-gap:24px!important;row-gap:28px!important}
