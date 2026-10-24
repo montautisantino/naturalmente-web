@@ -36,6 +36,7 @@ Varios bloques se arman trayendo otra página entera de la tienda (90-130 KB cad
 - Lo que se ve arriba de todo (ranking "#1 más vendido", tamaños, precio por 100 g) se sigue pidiendo enseguida.
 - Libros: los precios salen de la categoría Libros (`/educativo/`, una página) y no de la ficha de cada libro (antes, 6 páginas: ~800 KB).
 - Mejora posible a futuro: la parte del inicio pesa 331 KB (94 KB comprimida); 146 KB son el índice de las notas (`src/45-notas-equipo.js`), que se podría traer aparte solo cuando hace falta.
+- Otras mejoras posibles: (1) "Productos mencionados" de cada nota trae la ficha entera de cada producto (5 x ~140 KB) al llegar a esa parte; (2) el sello (dentro de Tiendanube), cuando el carrito tiene algo, trae la ficha de 4 combos recomendados (~580 KB) en la primera página de la visita, antes de que cargue la página. Ese es código de la compra: tocarlo solo con OK de Santi.
 
 
 ## Diseño de computadora (desde el 24/10/2026)
@@ -65,6 +66,6 @@ Varios bloques se arman trayendo otra página entera de la tienda (90-130 KB cad
 5. Volver atrás: poner en el textarea `dnSealExt` de la versión anterior y publicar (2 minutos). Si el respaldo del navegador no está,
    `python3 herramientas/sello.py <commit de la versión anterior>` arma el sello exacto (comparar su sha256 antes de pegar).
 
-Versión publicada: 213 = `7d49ea7` (núcleo `sha384-R71CbqjjEQFame2OJLE2osRVRoqEaV0SlP2QCp9Ei7GEFBDrMGtqiZnjYzy+a7j7`). 212 = `aef5953`, 211 = `fa48533`, 210 = `c5ec806`, 209 = `40ed931`.
+Versión publicada: 214 = `cb05941` (24/10: seguridad, 51 notas al blog, landings verificadas, velocidad; núcleo `sha384-r/SLQ7vq2fqKgItplWKU1RDJ2N/dlMJgO9/jogapoPnHbsIYoFX0Zy1sVHe1Y0eT`, sello sha256 `58a8d980…c52a`). 213 = `7d49ea7` (núcleo `sha384-R71CbqjjEQFame2OJLE2osRVRoqEaV0SlP2QCp9Ei7GEFBDrMGtqiZnjYzy+a7j7`). 212 = `aef5953`, 211 = `fa48533`, 210 = `c5ec806`, 209 = `40ed931`.
 
 Importante: en `dist/` solo van los `.min.js`. Si existiera el `.js` sin comprimir con el mismo nombre, jsDelivr puede servir su propia versión comprimida y la huella SRI no coincide (el navegador la rechaza). Los intermedios quedan en `build/` (ignorado).
