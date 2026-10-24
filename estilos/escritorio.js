@@ -5,6 +5,11 @@
    Variables disponibles: d (document), W (window), q (matchMedia de 1024 px).
    =========================================================================== */
 
+/* el ancho del contenido cambió (grilla de 1116): los carruseles (Swiper de la plantilla y los propios)
+   se vuelven a medir con un evento de cambio de tamaño */
+setTimeout(function(){try{W.dispatchEvent(new Event('resize'))}catch(e){}},60);
+setTimeout(function(){try{W.dispatchEvent(new Event('resize'))}catch(e){}},1200);
+
 /* espera a que aparezca un elemento (las páginas de Media se arman después de cargar) */
 function wait(sel,fn,n){var e=d.querySelector(sel);if(e)return fn(e);if((n||0)>80)return;setTimeout(function(){wait(sel,fn,(n||0)+1)},250)}
 

@@ -8,9 +8,11 @@
      2. este archivo se publica en una parte aparte (dist/dn-escritorio.min.js)
         que el núcleo descarga SOLO si la pantalla mide 1024 px o más;
      3. y el propio módulo vuelve a chequear el ancho antes de hacer algo.
-   Grilla de computadora: contenido de 1192 px centrado, alineado con el
-   encabezado (#dnh mide 1240 con 24 px de margen a cada lado).
+   Grilla de computadora: contenido de 1116 px centrado (la medida de las
+   secciones propias de la tienda y del inicio). El encabezado (#dnh) y el
+   contenedor de la plantilla se ajustan a esa misma grilla.
    Etapa 1: Naturalmente Media (portada, videos, escritos, episodios) y notas.
+   Etapa 2: encabezado fijo en todo el sitio, tienda, categorías y fichas.
    =========================================================================== */
 
 @media (min-width:1024px){
@@ -24,17 +26,54 @@ html body .js-head-main .js-menu-and-banners-row{display:none!important}
 html body #dnh .r1>.sp{display:none!important}
 html body #dnh .r1>.dsk{flex:1 1 auto!important;max-width:none!important;min-width:0!important}
 
-/* ---------- Media y notas: encabezado ---------- */
-/* La barra rápida que aparece al bajar es un recurso del celular:
-   en la compu queda fijo el encabezado completo (buscador, carrito, menú). */
-html.dnmd body #dn-sbar{display:none!important}
-html.dnmd body .js-head-main.dn-hid{transform:none!important;box-shadow:0 14px 30px -14px rgba(0,0,0,.7)!important}
+/* encabezado alineado con la grilla de 1116 */
+html body #dnh{max-width:1164px!important}
+/* La barra rápida que aparece al bajar (MEDIA / TIENDA / VOLVER) es un recurso del celular:
+   en la compu queda fijo el encabezado completo (menú, buscador, cuenta, carrito). */
+html body #dn-sbar{display:none!important}
+html body .js-head-main.dn-hid{transform:none!important;box-shadow:0 12px 26px -16px rgba(16,40,26,.45)!important}
+html.dnmd body .js-head-main.dn-hid{box-shadow:0 14px 30px -14px rgba(0,0,0,.7)!important}
+
+/* ---------- Contenedor de la plantilla (migas, grilla de productos, ficha, pie) ---------- */
+/* 1146 = 1116 de contenido + 15 px de margen interno a cada lado (Bootstrap) */
+html body .container:not(.container-narrow){max-width:1146px!important}
+
+/* ---------- Inicio ---------- */
+html body.template-home #dn-not{margin-left:auto!important;margin-right:auto!important}
+
+/* ---------- Tienda (/productos/) ---------- */
+/* el carrusel de categorías y "Lo que viste hace poco" quedaban pegados a la izquierda */
+html body.dn-shop #dn-tcat{margin-left:auto!important;margin-right:auto!important}
+html body #dn-tvis{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important}
+html body #dn-tvis>.dn-hd,
+html body #dn-tvis>.rw{padding-left:0!important;padding-right:0!important}
+
+/* ---------- Categorías ---------- */
+/* el filtro de precio (solo existe en compu) pasa a ser una barra compacta arriba de la grilla */
+html body.template-category .filters-sidebar{flex:0 0 100%!important;max-width:100%!important;margin-bottom:6px}
+html body.template-category .filters-sidebar #filters{width:auto!important}
+html body.template-category .js-price-filter-container{display:inline-block!important;width:auto!important;max-width:100%!important;padding:10px 16px!important;border-radius:14px!important}
+html body.template-category .js-price-filter-container form{display:flex!important;align-items:center;gap:16px;margin:0!important}
+html body.template-category .js-price-filter-container form>.h5{margin:0!important}
+html body.template-category .js-price-filter-container .form-group{display:flex!important;align-items:center;gap:12px;margin:0!important}
+html body.template-category .js-price-filter-container .filter-input-price-container{display:flex!important;align-items:center;gap:6px;margin:0!important}
+html body.template-category .js-price-filter-container .form-label{margin:0!important}
+html body.template-category .js-price-filter-container .filter-input-price{width:110px!important;margin:0!important}
+html body.template-category .js-price-filter-container .js-price-filter-btn{margin:0!important}
+
+/* ---------- Ficha de producto ---------- */
+/* galería y compra lado a lado desde 1024 px (la plantilla las apilaba hasta los 1200) */
+html body.template-product #single-product .container>.row:has(>.col-md-7){flex-wrap:nowrap!important}
+html body.template-product #single-product .container>.row>.col-md-7{flex:0 0 57%!important;max-width:57%!important;min-width:0}
+html body.template-product #single-product .container>.row>.col-md-7+.col{flex:1 1 0%!important;max-width:43%!important;min-width:0!important}
+/* bloque de abajo de todo de la ficha, alineado */
+html body #dn-cont{padding-left:max(24px,calc(50% - 558px))!important;padding-right:max(24px,calc(50% - 558px))!important;box-sizing:border-box}
 
 /* ---------- Portada de Media ---------- */
-html.dnmd body .dn-media #dmx-mast .in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important}
+html.dnmd body .dn-media #dmx-mast .in{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important}
 html.dnmd body .dn-media .dmx-hd,
 html.dnmd body .dn-media #dmx-nov .nv,
-html.dnmd body .dn-media #dm-programas{padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important;box-sizing:border-box}
+html.dnmd body .dn-media #dm-programas{padding-left:max(24px,calc(50% - 558px))!important;padding-right:max(24px,calc(50% - 558px))!important;box-sizing:border-box}
 html.dnmd body .dn-media #dmx-nov .nv{gap:24px!important}
 html.dnmd body .dn-media #dmx-nov .nvk{transition:border-color .2s,background-color .2s}
 html.dnmd body .dn-media #dmx-nov .nvk:hover{border-color:rgba(244,201,93,.45)!important}
@@ -50,8 +89,8 @@ html.dnmd body .dn-media #dm-programas>.dm-prog:not(:has(.dm-ep:nth-child(3))) .
 html.dnmd body .dn-media #dm-programas .dm-ep{width:auto!important;min-width:0!important;max-width:none!important;flex:none!important;margin:0!important}
 
 /* aviso de WhatsApp y texto legal, alineados */
-html.dnmd body .dn-media .dm-wa2{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
-html.dnmd body .dn-media .dm-legal2{padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important}
+html.dnmd body .dn-media .dm-wa2{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+html.dnmd body .dn-media .dm-legal2{padding-left:max(24px,calc(50% - 558px))!important;padding-right:max(24px,calc(50% - 558px))!important}
 
 /* ---------- Escritos y Videos (listados) ---------- */
 html.dnmd body .dn-media .dmx-pg .dmx-top,
@@ -64,36 +103,36 @@ html.dnmd body .dn-media #dmx-te .dmx-tt,
 html.dnmd body .dn-media #dmx-te .dmx-ch,
 html.dnmd body .dn-media #dmx-te .dmx-bar,
 html.dnmd body .dn-media #dmx-te .dmx-gr,
-html.dnmd body .dn-media #dmx-te .ls{padding-left:max(24px,calc(50% - 596px))!important;padding-right:max(24px,calc(50% - 596px))!important;box-sizing:border-box}
+html.dnmd body .dn-media #dmx-te .ls{padding-left:max(24px,calc(50% - 558px))!important;padding-right:max(24px,calc(50% - 558px))!important;box-sizing:border-box}
 html.dnmd body .dn-media .dmx-pg .dmx-sr,
-html.dnmd body .dn-media #dmx-te .dmx-sr{margin-left:max(24px,calc(50% - 596px))!important}
+html.dnmd body .dn-media #dmx-te .dmx-sr{margin-left:max(24px,calc(50% - 558px))!important}
 html.dnmd body .dn-media .dmx-gr{column-gap:24px!important;row-gap:28px!important}
 html.dnmd body .dn-media .dmx-c{transition:transform .2s,border-color .2s}
 html.dnmd body .dn-media .dmx-c:hover{transform:translateY(-3px)}
 
 /* ---------- Episodio (video): reproductor y datos lado a lado ---------- */
-html.dnmd body .dx-hero .dx-wrap{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important;display:grid!important;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);column-gap:44px;align-items:center}
+html.dnmd body .dx-hero .dx-wrap{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important;display:grid!important;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);column-gap:44px;align-items:center}
 html.dnmd body .dx-hero .dx-top{grid-column:1/-1;padding-left:0!important;padding-right:0!important}
 html.dnmd body .dx-hero .dx-frame{grid-column:1;margin-left:0!important;margin-right:0!important;min-width:0}
 html.dnmd body .dx-hero .dx-info{grid-column:2;max-width:none!important;margin:0!important;padding:0!important}
 html.dnmd body .dx-hero .dx-title{font-size:34px!important;line-height:1.12!important}
 html.dnmd body .dx-hero .dx-acts{flex-wrap:wrap}
 html.dnmd body .dx-body,
-html.dnmd body .dx-sec .dx-in{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
+html.dnmd body .dx-sec .dx-in{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
 html.dnmd body .dx-sec .dx-sh,
 html.dnmd body .dx-sec .dx-rs{padding-left:0!important;padding-right:0!important}
 html.dnmd body .dx-sec .dx-arr.l{left:-23px!important}
 html.dnmd body .dx-sec .dx-arr.r{right:-23px!important}
 /* "Llevate los ingredientes" (recetas) y libros */
 html.dnmd body .dn-media>.dn-kit,
-html.dnmd body .dn-media>.dn-gc-w{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+html.dnmd body .dn-media>.dn-gc-w{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 
 /* ---------- Nota (blog): texto + columna lateral fija ---------- */
 /* el texto mantiene una medida cómoda de lectura (720 px) y a la derecha va una columna
    que acompaña al bajar: índice de la nota y productos mencionados */
 /* (la grilla de dos columnas se activa solo si la columna tiene algo: índice o productos) */
-html.dnmd body .dm-nota .nt.dk-2c{max-width:1240px!important;padding-left:24px!important;padding-right:24px!important;box-sizing:border-box;display:grid!important;grid-template-columns:minmax(0,1fr) 360px;column-gap:80px;align-items:start}
-@media (max-width:1199px){html.dnmd body .dm-nota .nt.dk-2c{grid-template-columns:minmax(0,1fr) 300px;column-gap:44px}}
+html.dnmd body .dm-nota .nt.dk-2c{max-width:1164px!important;padding-left:24px!important;padding-right:24px!important;box-sizing:border-box;display:grid!important;grid-template-columns:minmax(0,1fr) 340px;column-gap:64px;align-items:start}
+@media (max-width:1199px){html.dnmd body .dm-nota .nt.dk-2c{grid-template-columns:minmax(0,1fr) 300px;column-gap:40px}}
 html.dnmd body .dm-nota .nt.dk-2c>*{grid-column:1;min-width:0}
 html.dnmd body .dm-nota .nt.dk-2c>.dk-sd{display:block;grid-column:2;grid-row:1/span 40;position:-webkit-sticky;position:sticky;top:var(--dk-top,170px);align-self:start;max-height:calc(100vh - var(--dk-top,170px) - 16px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent;padding:30px 2px 24px 0}
 html.dnmd body .dm-nota .nt.dk-on>.nt-toc{display:none!important}
@@ -141,7 +180,7 @@ html.dnmd body .dm-nota .dk-sd .dn-mvc .go{display:inline-block!important;margin
 
 /* bloques que siguen a la nota, alineados con la grilla */
 html.dnmd body.template-blog-post #dn-lep,
-html.dnmd body.template-blog-post #dn-qzc{max-width:1192px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+html.dnmd body.template-blog-post #dn-qzc{max-width:1116px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 /* "Para ver ahora" (último video): tarjeta horizontal en vez de una imagen de 1100 px de ancho */
 html.dnmd body.template-blog-post #dn-lep{display:grid!important;grid-template-columns:420px minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;column-gap:36px;align-items:center}
 html.dnmd body.template-blog-post #dn-lep>span{grid-column:1;grid-row:1/7;align-self:stretch;margin:0!important;aspect-ratio:16/9;height:auto!important;overflow:hidden;border-radius:14px}
