@@ -4,8 +4,11 @@
    Si la planilla falla, la web sigue con el contenido que trae el código. Solo trabaja en el inicio y en Media. */
 !function(){var W=window,d=document;if(W.dnSheet)return;
 var ID='1qrT32OXed3bPESBFqYxXbhhtxI_wInRjb3N2D_5IHAg',K='dnSh3',TTL=5*60e3;
-/* lo cargado por formulario solo se publica si viene de estas cuentas (el formulario pide iniciar sesión) */
-var OK=['dieteticasnaturalmente@gmail.com','santinomontauti02@gmail.com'];
+/* lo cargado por formulario solo se publica si viene de las dos cuentas autorizadas (el formulario pide iniciar
+   sesión). Las cuentas no se escriben acá (este código es público): se compara una huella del mail (cyrb53).
+   Para autorizar otra cuenta: node -e "<función hh de abajo>; console.log(hh('mail@dominio'))" y sumar el resultado. */
+function hh(s){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+var OK=['1yowmpbmwy','anrfuaxa5p'];
 var need=d.body.classList.contains('template-home')||!!d.querySelector('.dn-media');
 var c=null;try{c=JSON.parse(localStorage.getItem(K))}catch(e){}
 /* notas del equipo que viajan con el código de la web (lista liviana; el texto se baja al abrir la nota) */
@@ -34,7 +37,7 @@ function pretty(s){s=s.replace(/-[a-z0-9]{4,6}$/,'').replace(/-/g,' ');return s.
 function parse(tabs){var D={dato:[],mito:[],yuyo:[],ficha:[],tip:[],video:[],nota:[]};
 tabs.forEach(function(j,ti){if(!j||!j.table)return;var L=j.table.cols.map(function(c){return(c.label||'').trim()}),EM=L.filter(function(l){return/mail|correo/i.test(l)})[0];
 j.table.rows.forEach(function(r){var o={};L.forEach(function(l,i){var c=r.c[i];o[l]=c?(c.f&&l==='Timestamp'?c.v:(c.v==null?'':c.v)):''});
-var g=function(k){return String(o[k]==null?'':o[k]).replace(/[\u2060\uFFFC\u200B]/g,'').replace(/[ \t]+\)/g,')').trim()};if(!/^s/i.test(g('Publicar')))return;if(ti===1&&(!EM||OK.indexOf(g(EM).toLowerCase())<0))return;var t=g('Tipo').toLowerCase(),ts=date(o.Timestamp||o['Marca temporal']);
+var g=function(k){return String(o[k]==null?'':o[k]).replace(/[\u2060\uFFFC\u200B]/g,'').replace(/[ \t]+\)/g,')').trim()};if(!/^s/i.test(g('Publicar')))return;if(ti===1&&(!EM||OK.indexOf(hh(g(EM).toLowerCase()))<0))return;var t=g('Tipo').toLowerCase(),ts=date(o.Timestamp||o['Marca temporal']);
 if(/^dato/.test(t)){if(g('Dato: texto'))D.dato.push(g('Dato: texto'))}
 else if(/^mito/.test(t)){if(g('Mito: frase'))D.mito.push([g('Mito: frase'),/^real/i.test(g('Mito: respuesta'))?1:0,g('Mito: explicación')])}
 else if(/^adivin/.test(t)){if(g('Yuyo: pista')&&g('Yuyo: respuesta correcta'))D.yuyo.push([g('Yuyo: pista'),g('Yuyo: respuesta correcta'),[g('Yuyo: opción incorrecta 1'),g('Yuyo: opción incorrecta 2')].filter(Boolean)])}
