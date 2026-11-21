@@ -90,12 +90,12 @@ var FQ=[['¿Cómo lo recibo?','Es un libro digital en PDF. Después de la compra
 ['¿Necesito saber de plantas?','No. La primera parte explica desde cero qué es la fitoterapia y cómo preparar cada hierba.'],
 ['¿Trae recetas?','Sí. Para cada molestia, las plantas que se usan con su preparación (infusión, decocción, compresas o tinturas), cantidad y frecuencia, y cuándo no conviene usarlas.'],
 ['¿Reemplaza la consulta médica?','No, y el libro lo dice desde el principio: es un complemento para cuidarte con herramientas naturales. Si estás embarazada o en lactancia, tomás medicación o un síntoma sigue, consultá con tu médico.'],
-['¿Dónde consigo las hierbas?','Muchas las tenés en nuestra herboristería, en las sucursales y en la tienda online. <a href="/herboristeria/">Ver herboristería →</a>'],
+['¿Dónde consigo las hierbas?','Muchas las tenés en nuestras sucursales y en la sección Herboristería de la tienda online. <a href="/herboristeria/">Ver herboristería →</a>'],
 ['¿Cómo pago?','Con los medios de pago de la tienda: los ves al finalizar la compra.']];
 var h=
 /* 1. portada */
 '<div class="hero"><div class="gr"><div><span class="kk">Libro digital · Diego Montauti</span><h2>Qué planta usar, cómo prepararla <b>y cuándo no</b></h2>'+
-'<p>La guía de consulta de fitoterapia de Diego, con todo lo que aprendió en años detrás del mostrador de nuestra herboristería. Para tenerla siempre a mano en el celular.</p></div>'+
+'<p>La guía de consulta de fitoterapia de Diego Montauti, fundador de Dietéticas Naturalmente: todo lo que aprendió en años respondiendo consultas en nuestras sucursales y en las redes. Para tenerla siempre a mano en el celular.</p></div>'+
 '<div class="ph"><img src="'+I+'tapa.webp" alt="Tapa del libro Botiquín Herbal, de Diego S. Montauti" width="720" height="1011" loading="lazy"></div></div>'+
 '<div class="sts"><b>146<small>páginas</small></b><b>44<small>molestias</small></b><b>+90<small>plantas</small></b><b>PDF<small>en tu celular</small></b></div>'+CT(1)+
 '<p class="so"><i>'+IC.hoja+'</i>Más de 6.000 personas ya lo tienen</p></div>'+
@@ -117,9 +117,9 @@ PG.map(function(x){return'<button type="button" data-bq="pg" data-f="'+x[0]+'"><
 IX.map(function(g){return'<details><summary>'+E(g[0])+'<small>'+g[1].length+'</small></summary><div class="tg">'+g[1].map(function(t){return'<b>'+E(t)+'</b>'}).join('')+'</div></details>'}).join('')+
 '<p class="x6">Y 6 capítulos de plantas estrella: ashwagandha, maca peruana, hibisco, psyllium, hongos adaptógenos y pétalos de rosa.</p></div>'+
 /* 6. Diego */
-'<div class="sec"><span class="kk">Quién lo escribió</span><div class="au"><img src="'+I+'diego.webp" alt="Diego Montauti" width="400" height="486" loading="lazy"><div><b>Diego Montauti</b><small>Fundador de Naturalmente · Los Yuyos de Diego</small></div></div>'+
-'<p>Diego fundó Naturalmente, nuestra herboristería y dietética de Carlos Spegazzini. Aprendió de su abuela, de los libros y del saber popular, y todos los días recibe a gente que busca cuidarse de forma natural.</p>'+
-'<p>El libro junta las preguntas que más le hacen en el mostrador, por redes y por teléfono. Lo ves en «Los Yuyos de Diego», en Naturalmente Media, y lo invitaron a ¡Qué Mañana! en Canal 9.</p>'+
+'<div class="sec"><span class="kk">Quién lo escribió</span><div class="au"><img src="'+I+'diego.webp" alt="Diego Montauti" width="400" height="486" loading="lazy"><div><b>Diego Montauti</b><small>Fundador de Dietéticas Naturalmente · Los Yuyos de Diego</small></div></div>'+
+'<p>Diego fundó Dietéticas Naturalmente, que hoy tiene 3 sucursales (Ezeiza, Tristán Suárez y Carlos Spegazzini), tienda online con envíos a todo el país y una comunidad de más de un millón de seguidores. Su pasión por las plantas empezó de chico, con su abuela, y siguió con libros, talleres y el saber popular.</p>'+
+'<p>El libro junta las preguntas que más le hacen en las sucursales, por redes y por teléfono. Lo ves en «Los Yuyos de Diego», en Naturalmente Media, y lo invitaron a ¡Qué Mañana! en Canal 9.</p>'+
 '<div class="qt">«No pretendemos dar recetas mágicas, sino abrir caminos.»<small>Del epílogo del libro</small></div></div>'+
 /* 7. cuántos lo tienen */
 '<div class="sp"><b>+6.000</b><strong>personas ya lo tienen</strong><p>Entre la web, nuestras sucursales y WhatsApp.</p></div>'+
