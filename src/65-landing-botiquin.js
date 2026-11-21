@@ -76,7 +76,7 @@ var st=d.createElement('style');st.id='dn-bq-css';st.textContent=
 d.head.appendChild(st);
 /* franja de confianza: el envío pasa a ser "libro digital en PDF" */
 var pt=d.getElementById('dn-pt');if(pt)[].some.call(pt.children,function(r){var b=r.querySelector('b');if(!b||!/env[ií]os/i.test(b.textContent))return false;var i=r.querySelector('i');if(i)i.innerHTML=IC.pdf;b.textContent='Libro digital en PDF';var s=r.querySelector('small');if(s)s.textContent='Te lo enviamos nosotros después de la compra.';return true});
-var P=pr(),PS=P?$(P):'';var CT=function(w){return'<button type="button" class="cta'+(w?' w':'')+'" data-bq="buy"><span>Comprar ahora'+(PS?' · '+PS:'')+'</span><i>'+IC.flecha+'</i></button>'};
+var P=pr(),PS=P?$(P):'';var CT=function(w,np){return'<button type="button" class="cta'+(w?' w':'')+'" data-bq="buy"><span>Comprar ahora'+(PS&&!np?' · '+PS:'')+'</span><i>'+IC.flecha+'</i></button>'};
 var IX=[['Digestión',['Acidez estomacal','Gastritis','Úlceras digestivas','Indigestión','Flatulencias','Colon irritable','SIBO','Divertículos','Estreñimiento','Hígado graso','Cálculos en la vesícula','Parásitos intestinales','Hemorroides']],
 ['Ánimo, descanso y mente',['Angustia','Ansiedad','Memoria y concentración','Dolores de cabeza','Apoyo para dejar de fumar']],
 ['Mujer',['Menopausia','Cólicos menstruales','Vaginitis','Candidiasis','Cistitis']],['Hombre',['Salud prostática','Disfunción eréctil']],
@@ -125,7 +125,7 @@ IX.map(function(g){return'<details><summary>'+E(g[0])+'<small>'+g[1].length+'</s
 '<div class="sp"><b>+6.000</b><strong>personas ya lo tienen</strong><p>Entre la web, nuestras sucursales y WhatsApp.</p></div>'+
 /* 8. oferta */
 '<div class="sec" id="dn-bq-of"><span class="kk">Elegí</span><h2>Llevátelo hoy</h2><div class="of">'+
-'<div class="oc on"><span class="bd">El más vendido</span><h3>Botiquín Herbal</h3><p>Libro digital en PDF · 146 páginas</p>'+(PS?'<div class="pr">'+PS+'</div>':'')+CT()+'</div>'+
+'<div class="oc on"><span class="bd">El más vendido</span><h3>Botiquín Herbal</h3><p>Libro digital en PDF · 146 páginas</p>'+(PS?'<div class="pr">'+PS+'</div>':'')+CT(0,1)+'</div>'+
 '<div class="oc pk"><span class="bd g">Pack</span><h3>Los 5 libros digitales</h3><p>Botiquín Herbal, Fitoterapia Estacional, Adaptógenos, Fermentos Caseros y Mini guía keto + hierbas.</p><div class="pr"></div><div class="ah"></div>'+
 '<a class="go2" href="/productos/pack-5-libros-digitales-15ow9/">Ver el pack<i>'+IC.flecha+'</i></a></div></div>'+
 '<p class="nt">Es un libro digital: después de la compra te lo enviamos nosotros en PDF.</p></div>'+
