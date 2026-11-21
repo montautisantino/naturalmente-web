@@ -14,7 +14,7 @@ PEDIDO="22"
 HOME_P="45 06 07 33 25 36 42"
 MEDIA="45 03 31 04 27 35 36 39 40 64"
 LISTADO="NC 00 12 21 26 63"
-PRODUCTO="00 LA 59 14 19 48 49 50 52 56 57"
+PRODUCTO="00 LA 59 14 65 19 48 49 50 52 56 57"
 # parte de computadora: solo se descarga en pantallas de 1024 px o más (ver estilos/escritorio.css)
 ESCRITORIO="61"
 # lista corta de episodios de Media (sale de src/31-episodios.js) para la tarjeta aleatoria del inicio

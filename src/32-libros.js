@@ -7,7 +7,7 @@
 !function(){var d=document,B=d.body,W=window;if(W.__dnLib)return;W.__dnLib=1;
 var IM='//acdn-us.mitiendanube.com/stores/003/435/959/products/';
 var G=[
-{k:'boti',s:'botiquin-herbal-libro-digital',id:238527993,t:'Botiquín Herbal',tg:'Hierbas',i:'1eee6220-843d-4c75-ac14-06c425925d1a-eeee8844bbc38f0af617833244533954',h:'Más de 50 recetas con hierbas para el día a día, explicadas paso a paso.'},
+{k:'boti',s:'botiquin-herbal-libro-digital',id:238527993,t:'Botiquín Herbal',tg:'Hierbas',i:'1eee6220-843d-4c75-ac14-06c425925d1a-eeee8844bbc38f0af617833244533954',h:'44 molestias y más de 90 plantas: cómo se usa cada una y cuándo no.'},
 {k:'esta',s:'fitoterapia-estacional-kapyc',id:364336891,t:'Fitoterapia Estacional',tg:'Plantas por estación',i:'29fbbcd9-99ad-480e-901f-3931f0afa35d-59390b4ce1a91972f217881791655342',h:'32 plantas organizadas por estación, con cantidades y tiempos exactos.'},
 {k:'adap',s:'adaptogenos-guia-visual-y-practica-84g6i',id:368305220,t:'Adaptógenos',tg:'Hongos y plantas',i:'4c7f1d58-c85b-45fa-85da-8df0bd092c60-761a72d12c1e1fe9a517897366981763',h:'Melena de león, reishi, ashwagandha, maca y más: qué son y cómo se usan.'},
 {k:'ferm',s:'fermentos-caseros-1136l',id:364341204,t:'Fermentos Caseros',tg:'Fermentación',i:'74f610f2-3d78-4508-a14b-60bd58896805-e98e1a4ba1aa88165a17881815828610',h:'8 fermentos paso a paso: kombucha, kéfir, chucrut, masa madre y más.'},
