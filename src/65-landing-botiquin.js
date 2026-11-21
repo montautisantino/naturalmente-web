@@ -118,7 +118,7 @@ IX.map(function(g){return'<details><summary>'+E(g[0])+'<small>'+g[1].length+'</s
 '<p class="x6">Y 6 capítulos de plantas estrella: ashwagandha, maca peruana, hibisco, psyllium, hongos adaptógenos y pétalos de rosa.</p></div>'+
 /* 6. Diego */
 '<div class="sec"><span class="kk">Quién lo escribió</span><div class="au"><img src="'+I+'diego.webp" alt="Diego Montauti" width="400" height="486" loading="lazy"><div><b>Diego Montauti</b><small>Fundador de Dietéticas Naturalmente · Los Yuyos de Diego</small></div></div>'+
-'<p>Diego fundó Dietéticas Naturalmente, que hoy tiene 3 sucursales (Ezeiza, Tristán Suárez y Carlos Spegazzini), tienda online con envíos a todo el país y una comunidad de más de un millón de seguidores. Su pasión por las plantas empezó de chico, con su abuela, y siguió con libros, talleres y el saber popular.</p>'+
+'<p>Diego fundó Dietéticas Naturalmente, que hoy tiene varias sucursales, hace miles de envíos a todo el país por mes y reúne una comunidad de más de un millón de seguidores. Su pasión por las plantas empezó de chico, con su abuela, y siguió con libros, talleres y el saber popular.</p>'+
 '<p>El libro junta las preguntas que más le hacen en las sucursales, por redes y por teléfono. Lo ves en «Los Yuyos de Diego», en Naturalmente Media, y lo invitaron a ¡Qué Mañana! en Canal 9.</p>'+
 '<div class="qt">«No pretendemos dar recetas mágicas, sino abrir caminos.»<small>Del epílogo del libro</small></div></div>'+
 /* 7. cuántos lo tienen */
