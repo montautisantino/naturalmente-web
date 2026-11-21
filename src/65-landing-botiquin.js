@@ -65,12 +65,15 @@ var st=d.createElement('style');st.id='dn-bq-css';st.textContent=
 '.dn-lp.dn-bq .oc .bd{display:inline-block;margin:0 0 10px;padding:5px 10px;border-radius:999px;background:#1d4a2a;color:#fff;font:800 11.5px/1 Archivo,Arial,sans-serif!important;letter-spacing:.06em;text-transform:uppercase}.dn-bq .oc .bd.g{background:#f0c04f;color:#10281a}'+
 '.dn-bq .oc p{margin:0;font-size:14.5px;color:#53624f}.dn-lp.dn-bq .oc .pr{margin:10px 0 2px;font:900 30px/1 Archivo,Arial,sans-serif!important;color:#1d4a2a}.dn-bq .oc .pr s{margin-left:8px;font-size:16px;font-weight:700;color:#8a978a}.dn-bq .oc .ah{margin:6px 0 12px;font-size:14.5px;font-weight:800;color:#a8641a}'+
 '.dn-bq .go2{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;margin-top:14px;border-radius:12px;border:2px solid #1d4a2a;background:#fff;color:#1d4a2a!important;font:900 15px/1 Figtree,Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;text-decoration:none!important}'+
-'.dn-bq .nt{margin:12px 0 0;font-size:14px;color:#53624f}'+
+'.dn-bq .pso{display:grid;gap:9px;margin:16px 0 0;padding:14px 16px;border-radius:14px;background:#fbf8f1;border:1px solid #e4e1d7}.dn-bq .pso>b{font:800 15px/1.2 Archivo,Arial,sans-serif;color:#1d4a2a}.dn-bq .pso>p{display:flex;gap:10px;align-items:center;margin:0;font-size:14.5px;line-height:1.35;color:#2b3a2e}'+
+'.dn-bq .pso>p>i{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:#1d4a2a;color:#fff;font:900 13px/26px Archivo,Arial,sans-serif;text-align:center;font-style:normal}'+
+'.dn-bq .fin a.wa{display:inline-block;margin:14px 0 0;color:#fff!important;font-weight:800;font-size:14.5px;text-decoration:underline!important;text-underline-offset:3px}'+
 /* cierre */
 '.dn-bq .fin{background:#1d4a2a;color:#fff;border-radius:22px;padding:24px 18px;margin:0 0 6px;text-align:center}.dn-bq .fin h2{color:#fff;text-align:center!important}.dn-bq .fin p{color:#d5e4cc}.dn-bq .fin .lg{margin:12px 0 0;font-size:13px;color:#b8cbb0}'+
 /* ampliar página */
 '.bq-lb{position:fixed;left:0;top:0;right:0;bottom:0;z-index:100000;background:rgba(10,20,14,.92);display:flex;align-items:center;justify-content:center;padding:58px 12px 20px}.bq-lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.5)}'+
-'.bq-lb button{position:absolute;right:14px;top:12px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:#10281a;font:900 18px/42px Arial,sans-serif;text-align:center;cursor:pointer;padding:0}'+
+'.bq-lb button{position:absolute;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#10281a;font:900 20px/44px Arial,sans-serif;text-align:center;cursor:pointer;padding:0}.bq-lb .x{right:14px;top:10px;background:#fff}.bq-lb .pv{left:8px;top:50%;margin-top:-22px}.bq-lb .nx{right:8px;top:50%;margin-top:-22px}'+
+'.bq-lb .ct{position:absolute;left:60px;right:60px;top:22px;color:#fff;font:700 13.5px/1.3 Figtree,Arial,sans-serif;text-align:center}'+
 '@media(min-width:768px){.dn-bq .sec{padding:28px 30px}.dn-bq .hero,.dn-bq .fin{padding:32px 30px}.dn-bq .hero .gr{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:28px;align-items:center}.dn-bq .ph{width:200px;margin:0}.dn-bq .hero h2{font-size:36px!important}'+
 '.dn-bq .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.dn-bq .pg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;margin:4px 0 0;padding:4px 0 8px}.dn-bq .pg button{max-width:none}.dn-bq .of{grid-template-columns:1fr 1fr}.dn-bq .cta.w{max-width:380px;margin-left:auto;margin-right:auto}.dn-bq .pg button:hover em{border-color:#3f7d3a}}';
 d.head.appendChild(st);
@@ -101,9 +104,9 @@ var h=
 '<p class="so"><i>'+IC.hoja+'</i>Más de 6.000 personas ya lo tienen</p></div>'+
 /* 2. para quién */
 '<div class="sec"><span class="kk">Para quién es</span><h2>Para los que eligen lo natural</h2><p>Si te interesan las hierbas y la fitoterapia, este libro te ordena todo en un solo lugar.</p><ul class="ck">'+
-['Querés saber qué planta se usa para cada molestia, sin adivinar.','Te gusta preparar tus infusiones y querés hacerlo bien: temperatura, tiempo y cantidad.','Buscás una fuente ordenada y confiable, no información suelta y contradictoria de internet.','Querés conocer las precauciones de cada planta antes de usarla.'].map(function(t){return'<li><i>'+IC.ok+'</i>'+E(t)+'</li>'}).join('')+'</ul></div>'+
+['Querés armar tu propio botiquín de hierbas en casa.','Querés saber qué planta se usa para cada molestia, sin adivinar.','Te gusta preparar tus infusiones y querés hacerlo bien: temperatura, tiempo y cantidad.','Buscás una fuente ordenada y confiable, no información suelta y contradictoria de internet.','Querés conocer las precauciones de cada planta antes de usarla.'].map(function(t){return'<li><i>'+IC.ok+'</i>'+E(t)+'</li>'}).join('')+'</ul></div>'+
 /* 3. qué trae */
-'<div class="sec"><span class="kk">Qué trae</span><h2>Todo lo que vas a encontrar</h2><div class="two">'+
+'<div class="sec"><span class="kk">Qué trae</span><h2>Todo lo que vas a encontrar</h2><p>146 páginas a color, con fotos y explicado en simple.</p><div class="two">'+
 [[IC.taza,'Herboristería simple','Qué es la fitoterapia, cómo actúan las plantas y 5 formas de prepararlas (infusión, decocción, maceración, compresas y tinturas), con temperaturas y tiempos.'],
 [IC.lista,'44 molestias frecuentes','De cada una: qué es, causas y síntomas, las plantas que se usan y los hábitos que la acompañan.'],
 [IC.ficha,'Más de 230 fichas de plantas','Cada planta con su nombre científico, cómo se usa, cuántas veces al día y cuándo no conviene usarla.'],
@@ -128,22 +131,26 @@ IX.map(function(g){return'<details><summary>'+E(g[0])+'<small>'+g[1].length+'</s
 '<div class="oc on"><span class="bd">El más vendido</span><h3>Botiquín Herbal</h3><p>Libro digital en PDF · 146 páginas</p>'+(PS?'<div class="pr">'+PS+'</div>':'')+CT(0,1)+'</div>'+
 '<div class="oc pk"><span class="bd g">Pack</span><h3>Los 5 libros digitales</h3><p>Botiquín Herbal, Fitoterapia Estacional, Adaptógenos, Fermentos Caseros y Mini guía keto + hierbas.</p><div class="pr"></div><div class="ah"></div>'+
 '<a class="go2" href="/productos/pack-5-libros-digitales-15ow9/">Ver el pack<i>'+IC.flecha+'</i></a></div></div>'+
-'<p class="nt">Es un libro digital: después de la compra te lo enviamos nosotros en PDF.</p></div>'+
+'<div class="pso"><b>Así de simple</b><p><i>1</i>Comprás acá, con los medios de pago de la tienda.</p><p><i>2</i>Te enviamos el libro en PDF.</p><p><i>3</i>Lo leés en el celular, la compu o la tablet.</p></div></div>'+
 /* 9. preguntas */
 '<div class="sec"><span class="kk">Antes de comprar</span><h2>Preguntas frecuentes</h2>'+FQ.map(function(q){return'<details><summary>'+E(q[0])+'</summary><p>'+q[1]+'</p></details>'}).join('')+'</div>'+
 /* 10. cierre */
-'<div class="fin"><h2>Tu guía de hierbas, siempre a mano</h2><p>146 páginas · 44 molestias · más de 90 plantas</p>'+CT(1)+'<p class="lg">Libro informativo: no reemplaza la consulta médica.</p></div>';
+'<div class="fin"><h2>Tu guía de hierbas, siempre a mano</h2><p>146 páginas · 44 molestias · más de 90 plantas</p>'+CT(1)+'<a class="wa" href="'+E(WA)+'" target="_blank" rel="noopener">¿Tenés dudas? Escribinos por WhatsApp</a><p class="lg">Libro informativo: no reemplaza la consulta médica.</p></div>';
 var lp=d.createElement('div');lp.className='dn-lp dn-bq';lp.id='dn-bq';lp.innerHTML=h;at.parentNode.insertBefore(lp,at);
 /* comprar: el mismo COMPRAR AHORA de la ficha (si no está, agregar al carrito) */
 var busy=null,BB=d.getElementById('dn-buy');
 if(BB&&W.MutationObserver)new MutationObserver(function(){if(busy&&!BB.disabled){busy.classList.remove('wk');busy.firstChild.textContent=busy.getAttribute('data-t');busy=null}}).observe(BB,{attributes:true,attributeFilter:['disabled']});
-/* ampliar una página del libro */
-var LB=null,shut=function(){if(!LB)return;LB.style.display='none';d.documentElement.style.overflow=''};
-var open=function(f,alt){if(!LB){LB=d.createElement('div');LB.className='bq-lb';LB.setAttribute('role','dialog');LB.setAttribute('aria-modal','true');LB.innerHTML='<button type="button" aria-label="Cerrar">✕</button><img alt="">';
-LB.addEventListener('click',function(e){if(e.target===LB||e.target.closest('button'))shut()});d.addEventListener('keydown',function(e){if(e.key==='Escape')shut()});d.body.appendChild(LB)}
-var im=LB.querySelector('img');im.src=I+f+'.webp';im.alt=alt;LB.style.display='flex';d.documentElement.style.overflow='hidden';LB.querySelector('button').focus()};
+/* ampliar una página del libro: con flechas (y deslizando) para pasar a la siguiente */
+var LB=null,CUR=0,shut=function(){if(!LB)return;LB.style.display='none';d.documentElement.style.overflow=''};
+var show=function(i){CUR=(i+PG.length)%PG.length;var im=LB.querySelector('img');im.src=I+PG[CUR][0]+'.webp';im.alt='Página del libro: '+PG[CUR][1];LB.querySelector('.ct').textContent=(CUR+1)+' de '+PG.length+' · '+PG[CUR][1]};
+var open=function(i){if(!LB){LB=d.createElement('div');LB.className='bq-lb';LB.setAttribute('role','dialog');LB.setAttribute('aria-modal','true');
+LB.innerHTML='<span class="ct"></span><button type="button" class="x" aria-label="Cerrar">✕</button><button type="button" class="pv" aria-label="Página anterior">‹</button><img alt=""><button type="button" class="nx" aria-label="Página siguiente">›</button>';
+LB.addEventListener('click',function(e){var b=e.target.closest('button');if(b&&b.classList.contains('pv'))return show(CUR-1);if(b&&b.classList.contains('nx'))return show(CUR+1);if(e.target===LB||b)shut()});
+d.addEventListener('keydown',function(e){if(!LB||LB.style.display==='none')return;if(e.key==='Escape')shut();else if(e.key==='ArrowLeft')show(CUR-1);else if(e.key==='ArrowRight')show(CUR+1)});
+var x0=null;LB.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});LB.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>45)show(CUR+(dx<0?1:-1))},{passive:true});d.body.appendChild(LB)}
+show(i);LB.style.display='flex';d.documentElement.style.overflow='hidden';LB.querySelector('.x').focus()};
 lp.addEventListener('click',function(e){var b=e.target.closest('[data-bq]');if(!b)return;var k=b.getAttribute('data-bq');
-if(k==='pg'){open(b.getAttribute('data-f'),(b.querySelector('img')||{}).alt||'');return}
+if(k==='pg'){var f=b.getAttribute('data-f'),n=0;PG.forEach(function(x,j){if(x[0]===f)n=j});open(n);return}
 if(k==='buy'){e.preventDefault();if(busy)return;var s=b.firstChild;if(!b.getAttribute('data-t'))b.setAttribute('data-t',s.textContent);
 if(BB&&!BB.disabled){busy=b;b.classList.add('wk');s.textContent='Procesando…';BB.click();setTimeout(function(){if(busy===b&&!BB.disabled){b.classList.remove('wk');s.textContent=b.getAttribute('data-t');busy=null}},8000);return}
 var a=SP.querySelector('.js-addtocart:not(.js-addtocart-placeholder)');if(a)a.click()}});
